@@ -8,7 +8,6 @@ import createNode from './createNode';
 
 const makeGreyImage = (triangleIndexes,positions,colors,points) =>{
 
-    let index = 0;
     for(let i=0;i<triangleIndexes.length;i++){
         positions.push(
             points[triangleIndexes[i].a].x,points[triangleIndexes[i].a].y,points[triangleIndexes[i].a].z,
@@ -33,9 +32,43 @@ const makeGreyImage = (triangleIndexes,positions,colors,points) =>{
         // const drawCount = 200000; // draw the first 2 points, only
     }
 }
+const makeColorImage =(triangleIndexes,points,mesh)=>{
 
-const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene,camera,renderer) =>{
-    const MAX_POINTS = (width*height)*3;
+    const numTimes = triangleIndexes.length;
+    let i = 0;
+    const interval = setInterval(()=>{
+
+        if(i>=numTimes){
+            clearInterval(interval);
+        }
+
+        for(let j = 0;j<10;j++){
+            let color1={r:0,g:1,b:0};
+            let color2={r:0,g:1,b:0};
+            let color3={r:0,g:1,b:0};
+    
+            const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
+            const y2= mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
+            const y3= mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
+    
+            applyColor(y1,y2,y3,color1,color2,color3);
+            mesh.geometry.attributes.color.array[i*9]=color1.r;
+            mesh.geometry.attributes.color.array[i*9+1]=color1.g;
+            mesh.geometry.attributes.color.array[i*9+2]=color1.b;
+            mesh.geometry.attributes.color.array[i*9+3]=color2.r;
+            mesh.geometry.attributes.color.array[i*9+4]=color2.g;
+            mesh.geometry.attributes.color.array[i*9+5]=color2.b;
+            mesh.geometry.attributes.color.array[i*9+6]=color3.r;
+            mesh.geometry.attributes.color.array[i*9+7]=color3.g;
+            mesh.geometry.attributes.color.array[i*9+8]=color3.b;
+    
+            mesh.geometry.attributes.color.needsUpdate=true;
+            i++;
+        }
+    },0)
+}
+const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene) =>{
+
     const noise2D = createNoise2D();
     const points = [];    //points which will form triangle
     const colors = [];    //colors for each vertex
@@ -99,28 +132,24 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene,
     });
 
     const mesh = new THREE.Mesh( geometry, material );
+    scene.add(mesh);
 
     let t =0;
-    const interval = setInterval(()=>{
+    const firstAnimationInterval = setInterval(()=>{
         t+=200;
         scene.children[3].geometry.setDrawRange(0,t);
         if(t>(width*height)*9){
-            clearInterval(interval)
+            clearInterval(firstAnimationInterval);
+            makeColorImage(triangleIndexes,points,mesh);
+
         }
     },0.01)
-    scene.add(mesh);
-
+    
     const graph = [];
 
-    //makeColorImage();
     // applyHeight();
 
     // for(let i=0;i<triangleIndexes.length;i++){
-
-    //     //3 colors for each vertex of the triangle
-    //     let color1={r:0,g:1,b:0};
-    //     let color2={r:0,g:1,b:0};
-    //     let color3={r:0,g:1,b:0};
 
     //     //apply diffrent colors depending on vertex.y value
     //     applyColor(points[triangleIndexes[i].a].y,points[triangleIndexes[i].b].y,points[triangleIndexes[i].c].y,color1,color2,color3);
