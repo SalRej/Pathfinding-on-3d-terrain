@@ -30,29 +30,22 @@ const createNode = (graph,i,avrageY,width) =>{
         movingCost=20;
     }
     
-    //first element push directly with given neighbors
-    if(i==0){
-        graph.push({
-            id:i,
+    graph.push({
+        id:i,
             isVisited:false,
             isObstical:avrageY<=3?true:false,
             shortestDistance:Infinity,
             cost:movingCost,
             prevNodeId:undefined,
-            neighborId:[i+1,i+(width*2)-1]//i+1 neighbor on right, i+1(width*2)-1 is neighbor on bottom
-        });
+            neighborId:[]
+    })
+    //first element push directly with given neighbors
+    if(i==0){
+        graph[i].neighborId.push(i+1,i+(width*2)-1);//i+1 neighbor on right, i+1(width*2)-1 is neighbor on bottom
     }
     else if(i%2!=0){
 
-        graph.push({
-            id:i,
-            isVisited:false,
-            isObstical:avrageY<=3?true:false,
-            shortestDistance:Infinity,
-            cost:movingCost,
-            prevNodeId:undefined,
-            neighborId:[i-1]
-        });
+        graph[i].neighborId.push(i-1);
 
         //index of triangle next to current one
         const neghborRight = i+1;
@@ -79,15 +72,7 @@ const createNode = (graph,i,avrageY,width) =>{
         const leftIndex = Math.floor(neighborLeft/2);
         const leftX = Math.floor(leftIndex%(width-1));
         
-        graph.push({
-            id:i,
-            isVisited:false,
-            isObstical:avrageY<=3?true:false,//if avrageY== 3 this means its water so dont try to go there
-            shortestDistance:Infinity,
-            cost:movingCost,
-            prevNodeId:undefined,
-            neighborId:[i+1]
-        });
+        graph[i].neighborId.push(i+1);
 
         const neighborDown =i+(width*2)-1;
         const numTrianglesOnLine = (width-1)*2;
