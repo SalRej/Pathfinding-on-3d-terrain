@@ -68,38 +68,28 @@ const makeColorImage =(triangleIndexes,points,mesh)=>{
         }
     },0)
 }
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 const applyHeight = (mesh)=>{
-
-    console.log("len",mesh.geometry.attributes.position.array.length);
 
     for(let i=0;i<mesh.geometry.attributes.position.array.length;i+=3){
 
         let y = mesh.geometry.attributes.position.array[i+1];
-        // console.log(i);
         y=mapping(y,-1,1,0,20);
-        const interval = setInterval(()=>{
+        setTimeout(()=>{
 
-            if(mesh.geometry.attributes.position.array[i+1]>=y){
-                clearInterval(interval);
+            if(y<=3){
+                mesh.geometry.attributes.position.array[i+1]=3;
+                mesh.geometry.attributes.position.needsUpdate=true;
             }else{
-                if(y<=3){
-                    mesh.geometry.attributes.position.array[i+1]=3;
-                    mesh.geometry.attributes.position.needsUpdate=true;
-                }else{
-                    mesh.geometry.attributes.position.array[i+1]=y;
-                    mesh.geometry.attributes.position.needsUpdate=true;
-                }
+                mesh.geometry.attributes.position.array[i+1]=y;
+                mesh.geometry.attributes.position.needsUpdate=true;
             }
+        },100)
 
-        },1)
     }
 
     setTimeout(()=>{
         mesh.geometry.computeVertexNormals()
-    },3000);
+    },1500);
 }
 const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene) =>{
 
@@ -177,13 +167,18 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
         }
     },0.01)
 
+
     const graph = [];
-    // for(let i=0;i<triangleIndexes.length;i++){
+    //creates graph
+    for(let i=0;i<triangleIndexes.length;i++){
         
-        
-    //     const avrageY = (points[triangleIndexes[i].a].y+points[triangleIndexes[i].b].y+points[triangleIndexes[i].c].y)/3
-    //     createNode(graph,i,avrageY,width)
-    // }
+        const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
+        const y2 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
+        const y3 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
+
+        const avrageY = (y1+y2+y3)/3;
+        createNode(graph,i,avrageY,width);
+    }
 
     return{positions,colors,triangleIndexes,graph};
 }

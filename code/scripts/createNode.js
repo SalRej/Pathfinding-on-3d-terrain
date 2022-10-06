@@ -1,6 +1,18 @@
 
 const createNode = (graph,i,avrageY,width) =>{
     
+    //movingCost=0;
+    //this function creates a node and push it to the graph with nodes
+    //every node contains id and array of neighbors
+    //the array of neighbors contain the ids of the neoighbor triangles
+    
+    //the function takes graph,i as 1d index of array with triangles
+    //widht is needed to convert 1d index to 2d index of array
+    
+    //every first triangle is goning to have left,right,top triangles as neighbors
+    //every second triangle is going to have left,right,bottom triangles as neighbros 
+    
+    //every neighbor that is not certein i calculate otherwise directly add it
     let movingCost = 0;
     if(avrageY>3 && avrageY<8){
        movingCost=1;
@@ -17,25 +29,13 @@ const createNode = (graph,i,avrageY,width) =>{
     if(avrageY>=18){
         movingCost=20;
     }
-    //movingCost=0;
-    //this function creates a node and push it to the graph with nodes
-    //every node contains id and array of neighbors
-    //the array of neighbors contain the ids of the neoighbor triangles
-
-    //the function takes graph,i as 1d index of array with triangles
-    //widht is needed to convert 1d index to 2d index of array
-
-    //every first triangle is goning to have left,right,top triangles as neighbors
-    //every second triangle is going to have left,right,bottom triangles as neighbros 
-
-    //every neighbor that is not certein i calculate otherwise directly add it
     
     //first element push directly with given neighbors
     if(i==0){
         graph.push({
             id:i,
             isVisited:false,
-            isObstical:avrageY==3?true:false,
+            isObstical:avrageY<=3?true:false,
             shortestDistance:Infinity,
             cost:movingCost,
             prevNodeId:undefined,
@@ -47,7 +47,7 @@ const createNode = (graph,i,avrageY,width) =>{
         graph.push({
             id:i,
             isVisited:false,
-            isObstical:avrageY==3?true:false,
+            isObstical:avrageY<=3?true:false,
             shortestDistance:Infinity,
             cost:movingCost,
             prevNodeId:undefined,
@@ -82,7 +82,7 @@ const createNode = (graph,i,avrageY,width) =>{
         graph.push({
             id:i,
             isVisited:false,
-            isObstical:avrageY==3?true:false,//if avrageY== 3 this means its water so dont try to go there
+            isObstical:avrageY<=3?true:false,//if avrageY== 3 this means its water so dont try to go there
             shortestDistance:Infinity,
             cost:movingCost,
             prevNodeId:undefined,
