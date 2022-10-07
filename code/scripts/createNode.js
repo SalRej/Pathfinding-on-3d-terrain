@@ -1,7 +1,6 @@
 
-const createNode = (graph,i,avrageY,width) =>{
+const createNode = (graph,i,avrageY,triangleCenter,width) =>{
     
-    //movingCost=0;
     //this function creates a node and push it to the graph with nodes
     //every node contains id and array of neighbors
     //the array of neighbors contain the ids of the neoighbor triangles
@@ -13,6 +12,9 @@ const createNode = (graph,i,avrageY,width) =>{
     //every second triangle is going to have left,right,bottom triangles as neighbros 
     
     //every neighbor that is not certein i calculate otherwise directly add it
+
+    //this calculates the moving cost to a certain node
+    //the higher the y cordinate is the harder it is to travel ot this node
     let movingCost = 0;
     if(avrageY>3 && avrageY<8){
        movingCost=1;
@@ -32,12 +34,13 @@ const createNode = (graph,i,avrageY,width) =>{
     
     graph.push({
         id:i,
-            isVisited:false,
-            isObstical:avrageY<=3?true:false,
-            shortestDistance:Infinity,
-            cost:movingCost,
-            prevNodeId:undefined,
-            neighborId:[]
+        isVisited:false,
+        isObstical:avrageY<=3?true:false,
+        shortestDistance:Infinity,
+        cost:movingCost,
+        prevNodeId:undefined,
+        neighborId:[],
+        triangleCenter:triangleCenter
     })
     //first element push directly with given neighbors
     if(i==0){
