@@ -1,12 +1,15 @@
+import * as THREE from 'three';
 
 const djikstra = (graph,startId,endId) =>{
     
+    const vizualizingGeometry = [];
     //clear graph from before
     graph.forEach(node=>{
         node.isVisited=false;
         node.prevNodeId =undefined;
         node.shortestDistance=Infinity;
     })
+
     //set the distance from start node to be 0
     graph[startId].cost=0;
     graph[startId].shortestDistance=0;
@@ -41,13 +44,26 @@ const djikstra = (graph,startId,endId) =>{
                 if(newShortesDistance<graph[neighbor].shortestDistance){
                     graph[neighbor].shortestDistance=newShortesDistance;
                     graph[neighbor].prevNodeId = currentId;
+
+                    //draws a line from current triangle center to the neighbor triangle center
+                        // const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+                        // const points = [];
+                        // const currentTriangleCenter = graph[currentId].triangleCenter;
+                        // const neighborTriangleCenter = graph[neighbor].triangleCenter;
+                        // points.push( new THREE.Vector3(currentTriangleCenter.x, currentTriangleCenter.y, currentTriangleCenter.z ) );
+                        // points.push( new THREE.Vector3( neighborTriangleCenter.x,neighborTriangleCenter.y,neighborTriangleCenter.z ) );
+                        
+                        // const geometry = new THREE.BufferGeometry().setFromPoints( points );
+                        // const line = new THREE.Line( geometry, material );
+                        // vizualizingGeometry.push(line);
+                        graph[neighbor].position.forEach(cordinate=>{
+                            vizualizingGeometry.push(cordinate);
+                        })
                 }
 
                 //add this neighbor in array to be chaked later
                 nodesIdToCheck.push({id:neighbor,value:graph[neighbor].shortestDistance});
 
-                //draws a line from current triangle center to the neighbor triangle center
-                const currentTriangleCenter = 
             }
         })
 
@@ -73,12 +89,18 @@ const djikstra = (graph,startId,endId) =>{
 
     //backtrack
     const path=[];
-    path.push(graph[endId].prevNodeId);
-    while(path[path.length-1]!=startId){
-        path.push(graph[path[path.length-1]].prevNodeId);
+    const backtrack = [];
+    backtrack.push(graph[endId].prevNodeId);
+    while(backtrack[backtrack.length-1]!=startId){
+
+        graph[backtrack[backtrack.length-1]].position.forEach(cordinates=>{
+            path.push(cordinates);
+        })
+        
+        backtrack.push(graph[backtrack[backtrack.length-1]].prevNodeId);
     }
     
-    return path;
+    return {path,vizualizingGeometry};
 }
 
 export default djikstra;

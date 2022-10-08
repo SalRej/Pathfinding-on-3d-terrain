@@ -33,49 +33,92 @@ const octaves = {o:4};
 const persistance ={p:0.5};
 const lacunarity = {l:2};
 
-const worldData = createNoiseMap(100,100,scale.s,octaves.o,persistance.p,lacunarity.l,scene,camera,renderer);
-//const path = djikstra(worldData.graph,1,1000);
-//console.log(path);
+const worldData = createNoiseMap(300,300,scale.s,octaves.o,persistance.p,lacunarity.l,scene,camera,renderer);
+
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
 
-//colors the path
-//colorPath(path,scene);
+let pathData = [];
+let vizualizingMesh;
+let pathMesh;
 
-let path =[];
 function onPointerMove( event ) {
-
-	// calculate pointer position in normalized device coordinates
+  
+  // calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
   raycaster.setFromCamera(pointer,camera);
-
+  
   const intersect = raycaster.intersectObjects(scene.children);
+  // resetMapColor(path,scene);
+  pathData= djikstra(worldData.graph,0,worldData.graph[intersect[0].faceIndex].id);
+  
+  const vizualizingMeshGeometry = new THREE.BufferGeometry();
+  vizualizingMeshGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathData.vizualizingGeometry, 3 ));
+  vizualizingMeshGeometry.computeVertexNormals();//needed for light to work
+  
+  const vizualizingMeshMaterial = new THREE.MeshStandardMaterial( {
+    side: THREE.DoubleSide,color:0xff0000
+  });
 
-  resetMapColor(path,scene);
-  path = djikstra(worldData.graph,0,worldData.graph[intersect[0].faceIndex].id);
-  colorPath(path,scene);
+  vizualizingMesh = new THREE.Mesh( vizualizingMeshGeometry, vizualizingMeshMaterial );
+  vizualizingMesh.name = "vizualizingMesh";
 
-  //colors neighbors on clicked triangle
-  // worldData.graph[intersect[0].faceIndex].neighborId.forEach(index=>{
+  const pathGeometry = new THREE.BufferGeometry();
+  pathGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathData.path, 3 ));
+  pathGeometry.computeVertexNormals();//needed for light to work
+  
+  const pathMaterial = new THREE.MeshStandardMaterial( {
+    side: THREE.DoubleSide,color:0xff0000
+  });
 
-  //     const j =index*9;
-  //     for(let i = 0;i<9;i++){
-  //       scene.children[3].geometry.attributes.color.array[j+i]=1;
-  //     }
+  pathMesh = new THREE.Mesh( pathGeometry, pathMaterial );
+  pathMesh.name = "pathMesh";
 
-  // })
+  pathMesh.geometry.setDrawRange(0,pathDrawRange);
+  scene.add(vizualizingMesh);
+  scene.add(pathMesh);
 
   scene.children[3].geometry.getAttribute('color').needsUpdate=true;
-
+  // console.log(scene)
+  // console.log(mesh.geometry.attributes.position.array.length)
 }
 window.addEventListener( 'mousedown', onPointerMove );
+
+
+let vizualizeMeshDrawRange = 0;
+let pathDrawRange = 0;
+// draw range
+
 
 function animate() {
   requestAnimationFrame( animate );
   controls.update();
   renderer.render( scene, camera );
+
+  //vizualize the pathfinding
+  if(pathData.vizualizingGeometry!=undefined){
+
+    //vizualize the nodes visited by the djikstra algorithm in order
+    if(vizualizeMeshDrawRange <= vizualizingMesh.geometry.attributes.position.array.length/3){
+
+      vizualizingMesh.geometry.setDrawRange( 0, vizualizeMeshDrawRange );
+      vizualizingMesh.geometry.attributes.position.needsUpdate = true;
+      vizualizeMeshDrawRange+=300;
+
+    }else{
+      // vizualize the path
+      scene.remove(scene.getObjectByName("vizualizingMesh"));
+      if(pathDrawRange<=pathMesh.geometry.attributes.position.array.length/3){
+        console.log(pathDrawRange)
+        pathMesh.geometry.setDrawRange(0,pathDrawRange);
+        pathMesh.geometry.attributes.position.needsUpdate=true;
+        pathDrawRange+=5;
+      }
+    }
+  }
+
 };
 
 animate();
