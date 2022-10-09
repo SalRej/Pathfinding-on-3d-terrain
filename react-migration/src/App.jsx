@@ -15,6 +15,7 @@ function App() {
   const vizualizingMesh = useRef();
   const pathMesh = useRef();
 
+  const initialRender = useRef(false);
   const drawRanges = useRef({
     vizualizeMeshDrawRange:0,
     pathDrawRange:0
@@ -22,20 +23,30 @@ function App() {
 
   const worldData = useRef();
 
-  const [ counter , setCounter ] = useState(0);
+  //world generation varaibles 
+  const [generationVariables,setGenerationVariables] = useState({
+    scale:70,
+    octaves:4,
+    persistance:0.5,
+    lacunarity:2
+  })
 
   useEffect(()=>{
+
+    initialRender.current=true;
+    var myrng = new Math.seedrandom('hello.');
+    console.log(myrng()); 
+
     const initObjects = initScene();
     scene.current = initObjects.scene;
     camera.current = initObjects.camera;
     renderer.current = initObjects.renderer;
     controls.current = initObjects.controls;
 
-    // gui for map generation control
-    const scale = 70;
-    const octaves = 4;
-    const persistance = 0.5;
-    const lacunarity = 2;
+    const {scale} = generationVariables;
+    const {octaves} = generationVariables;
+    const {lacunarity} = generationVariables;
+    const {persistance} = generationVariables;
 
     worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,scene.current);
 
@@ -89,11 +100,36 @@ function App() {
     }
   };
 
+  useEffect(()=>{
+
+    if(initialRender.current==false){
+      const {scale} = generationVariables;
+      const {octaves} = generationVariables;
+      const {lacunarity} = generationVariables;
+      const {persistance} = generationVariables;
+  
+      worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,scene.current);
+
+    }
+
+  },[generationVariables]);
+
+  const handleGenerationVariableChange = (event)=>{
+    setGenerationVariables({
+      ...generationVariables,
+      [event.target.name]:event.target.value
+    })
+  }
   return (
     <div className="App" id="App">
         <button onClick={findPath}>click</button>
         <button onClick={ ()=>{setCounter((prev)=>prev+1)} }>Increment</button>
-        <p>{counter}</p>
+
+        <form onChange={handleGenerationVariableChange}>
+          <input type='range' min={0} max={100} name="scale" value={generationVariables.scale}></input>
+          <input type='range' min={0} max={100} name="octaves" value={generationVariables.octaves}></input>
+        </form>
+
     </div>
   )
 }
