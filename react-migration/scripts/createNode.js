@@ -1,5 +1,5 @@
 
-const createNode = (graph,i,avrageY,triangleCenter,width,position) =>{
+const createNode = (graph,i,avrageY,width,position) =>{
     
     //this function creates a node and push it to the graph with nodes
     //every node contains id and array of neighbors
@@ -40,7 +40,6 @@ const createNode = (graph,i,avrageY,triangleCenter,width,position) =>{
         cost:movingCost,
         prevNodeId:undefined,
         neighborId:[],
-        triangleCenter:triangleCenter,
         position:position
     })
     
