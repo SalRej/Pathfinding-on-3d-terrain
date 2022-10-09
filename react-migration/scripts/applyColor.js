@@ -9,15 +9,26 @@ const applyColor = (y1,y2,y3,color1,color2,color3) => {
     setColor(color2,0,0.3,0.6);
     setColor(color3,0,0.3,0.6);
 
-    //lightGreen
+    //yellow
     if(y1>3){
-        setColor(color1,0.3,0.9,0.3);
+        setColor(color1,1,0.8,0);
     }
     if(y2>3){
-        setColor(color2,0.3,0.9,0.3);
+        setColor(color2,1,0.8,0);
 
     }
     if(y3>3){
+        setColor(color3,1,0.8,0);
+    }
+    //lightGreen
+    if(y1>4.5){
+        setColor(color1,0.3,0.9,0.3);
+    }
+    if(y2>4.5){
+        setColor(color2,0.3,0.9,0.3);
+
+    }
+    if(y3>4.5){
         setColor(color3,0.3,0.9,0.3);
     }
 

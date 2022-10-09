@@ -23,13 +23,13 @@ const createNode = (graph,i,avrageY,triangleCenter,width,position) =>{
         movingCost=3;
     }
     if(avrageY>=12 && avrageY<15){
-        movingCost=20;
+        movingCost=7;
     }
     if(avrageY>=15 && avrageY<18){
-        movingCost=50;
+        movingCost=13;
     }
     if(avrageY>=18){
-        movingCost=100;
+        movingCost=20;
     }
     
     graph.push({
