@@ -15,7 +15,7 @@ function App() {
   const vizualizingMesh = useRef();
   const pathMesh = useRef();
 
-  const initialRender = useRef(false);
+  const initialRender = useRef(true);
   const drawRanges = useRef({
     vizualizeMeshDrawRange:0,
     pathDrawRange:0
@@ -28,15 +28,11 @@ function App() {
     scale:70,
     octaves:4,
     persistance:0.5,
-    lacunarity:2
+    lacunarity:2,
+    seed:"hello"
   })
 
   useEffect(()=>{
-
-    initialRender.current=true;
-    var myrng = new Math.seedrandom('hello.');
-    console.log(myrng()); 
-
     const initObjects = initScene();
     scene.current = initObjects.scene;
     camera.current = initObjects.camera;
@@ -47,8 +43,8 @@ function App() {
     const {octaves} = generationVariables;
     const {lacunarity} = generationVariables;
     const {persistance} = generationVariables;
-
-    worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,scene.current);
+    const {seed} = generationVariables;
+    worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,seed,scene.current,true);
 
     animate();
 
@@ -102,14 +98,16 @@ function App() {
 
   useEffect(()=>{
 
-    if(initialRender.current==false){
+    if(initialRender.current==true){
+      initialRender.current=false;
+    }
+    else if(initialRender.current==false){
       const {scale} = generationVariables;
       const {octaves} = generationVariables;
       const {lacunarity} = generationVariables;
       const {persistance} = generationVariables;
-  
-      worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,scene.current);
-
+      const {seed} = generationVariables;
+      worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,seed,scene.current,false);
     }
 
   },[generationVariables]);
