@@ -1,22 +1,25 @@
 import * as THREE from 'three';
 import { createNoise2D } from 'simplex-noise';
+import alea from 'alea';
 import mapping from './mapping';
 import { DoubleSide } from 'three';
 import animateWorldGeneration from './worldGeneration/animateWorldGeneration';
 import generateWorld from './worldGeneration/generateWorld';
 const createNoiseMap = (generationVariables,scene,doAnimate) =>{
 
-    const noise2D = createNoise2D();
     const points = [];    //points which will form triangle
     const colors = [];    //colors for each vertex
     const triangleIndexes = [];     //indexes of points to draw a triangle
     const positionOffset = 1;      //resolutuion of map
-
+    
     const {height} = generationVariables;
     const {width} = generationVariables;
     const {persistance} = generationVariables;
     const {lacunarity} = generationVariables;
     const {seed} = generationVariables;
+    const prng = alea(seed);
+
+    const noise2D = createNoise2D(prng);
 
     let vertexIndex = 0;
     let startY = 0 - height/2;
@@ -24,9 +27,11 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
 
     const octvaeOffsets = [];
     const {octaves} = generationVariables;
+
     for(let i=0;i<octaves;i++){
         const oX = myrng()*20000 - 10000;
         const oY = myrng()*20000 - 10000;
+        console.log(oX,oY);
         octvaeOffsets.push({x:oX,y:oY});
     }
 
@@ -40,14 +45,13 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
             let frequancy = 1;
             let noiseHeight = 0;
             for(let k=0;k<octaves;k++){
-
                 const  {scale} = generationVariables;
-                const sampleX = j/scale * frequancy + octvaeOffsets[k].x;
-                const sampleY=i/scale * frequancy + octvaeOffsets[k].y;
+                const sampleX = j / scale * frequancy + octvaeOffsets[k].x;
+                const sampleY = i / scale * frequancy + octvaeOffsets[k].y;
                 
-                noiseHeight +=noise2D(sampleX,sampleY)*amplitude;
-                amplitude*=persistance;
-                frequancy*=lacunarity;
+                noiseHeight += noise2D(sampleX,sampleY) * amplitude;
+                amplitude *= persistance;
+                frequancy *= lacunarity;
             }
 
             points.push({x:startX,y:noiseHeight,z:startY});
