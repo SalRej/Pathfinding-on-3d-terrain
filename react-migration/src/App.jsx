@@ -25,6 +25,8 @@ function App() {
 
   //world generation varaibles 
   const [generationVariables,setGenerationVariables] = useState({
+    width:100,
+    height:100,
     scale:70,
     octaves:4,
     persistance:0.5,
@@ -39,15 +41,8 @@ function App() {
     renderer.current = initObjects.renderer;
     controls.current = initObjects.controls;
 
-    const {scale} = generationVariables;
-    const {octaves} = generationVariables;
-    const {lacunarity} = generationVariables;
-    const {persistance} = generationVariables;
-    const {seed} = generationVariables;
-    worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,seed,scene.current,true);
-
+    worldData.current = createNoiseMap(generationVariables,scene.current,false);
     animate();
-
   },[]);
 
   const findPath = () => {
@@ -102,12 +97,7 @@ function App() {
       initialRender.current=false;
     }
     else if(initialRender.current==false){
-      const {scale} = generationVariables;
-      const {octaves} = generationVariables;
-      const {lacunarity} = generationVariables;
-      const {persistance} = generationVariables;
-      const {seed} = generationVariables;
-      worldData.current = createNoiseMap(130,130,scale,octaves,persistance,lacunarity,seed,scene.current,false);
+      worldData.current = createNoiseMap(generationVariables,scene.current,false);
     }
 
   },[generationVariables]);
