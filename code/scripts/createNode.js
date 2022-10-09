@@ -43,6 +43,7 @@ const createNode = (graph,i,avrageY,triangleCenter,width,position) =>{
         triangleCenter:triangleCenter,
         position:position
     })
+    
     //first element push directly with given neighbors
     if(i==0){
         graph[i].neighborId.push(i+1,i+(width*2)-1);//i+1 neighbor on right, i+1(width*2)-1 is neighbor on bottom
