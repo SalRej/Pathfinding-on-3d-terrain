@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import setLight from "./setLight";
 import setSkyBox from "./setSkyBox";
+
 const initScene = () =>{
     const width = window.innerWidth/2;
     const height = window.innerHeight;

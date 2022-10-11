@@ -12,11 +12,16 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
     const triangleIndexes = [];     //indexes of points to draw a triangle
     const positionOffset = 1;      //resolutuion of map
     
-    const {height} = generationVariables;
-    const {width} = generationVariables;
-    const {persistance} = generationVariables;
-    const {lacunarity} = generationVariables;
-    const {seed} = generationVariables;
+    const {
+        height,
+        width,
+        persistance,
+        lacunarity,
+        seed,
+        offsetX,
+        offsetY
+    } = generationVariables;
+
     const prng = alea(seed);
 
     const noise2D = createNoise2D(prng);
@@ -29,9 +34,8 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
     const {octaves} = generationVariables;
 
     for(let i=0;i<octaves;i++){
-        const oX = myrng()*20000 - 10000;
-        const oY = myrng()*20000 - 10000;
-        console.log(oX,oY);
+        const oX = (myrng()*20000 - 10000) + Number(offsetX);
+        const oY = (myrng()*20000 - 10000) + Number(offsetY);
         octvaeOffsets.push({x:oX,y:oY});
     }
 
