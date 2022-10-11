@@ -7,9 +7,10 @@ const createPoints = (width,height) =>{
     const points = [];
     let pointIndex = 0 ;
     const pointsOfTriangleIndexes = [];
+
     for(let z = 0;z < height; z++){
         for(let x = 0;x < width; x++){
-
+            
             const y = 0;
             points.push({x:x,y:y,z:z});
 
@@ -97,7 +98,6 @@ const createHeightMap = (width,height,scene) =>{
             color:0xff0000,
             flatShading:true,
             side:DoubleSide,
-            // wireframe:true
         });
             
         const mesh = new THREE.Mesh(bufferGeometry,material);
@@ -106,7 +106,7 @@ const createHeightMap = (width,height,scene) =>{
 
     },false)
 
-    imgOfHeightMap.src = '/heightMaps/s.png';
+    imgOfHeightMap.src = '/heightMaps/elon.jpg';
     
 }
 
