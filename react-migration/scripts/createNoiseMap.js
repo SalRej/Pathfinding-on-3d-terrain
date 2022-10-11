@@ -19,7 +19,8 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
         lacunarity,
         seed,
         offsetX,
-        offsetY
+        offsetY,
+        scaleY
     } = generationVariables;
 
     const prng = alea(seed);
@@ -92,7 +93,8 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
             height,
             points,
             triangleIndexes,
-            colors
+            colors,
+            scaleY
         }
         animateWorldGeneration(data);
     }else{
@@ -105,7 +107,8 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
             width,
             scene,
             geometry,
-            material
+            material,
+            scaleY
         }
         generateWorld(data);
     }
