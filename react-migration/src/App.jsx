@@ -51,7 +51,7 @@ function App() {
     const gridHelper = new THREE.GridHelper( size, divisions );
     scene.current.add( gridHelper );
     // worldData.current = createNoiseMap(generationVariables,scene.current,true);
-    createHeightMap(100,100,scene.current);
+    createHeightMap(200,200,scene.current);
     animate();
   },[]);
 
@@ -125,6 +125,7 @@ function App() {
         <button onClick={ ()=>{setCounter((prev)=>prev+1)} }>Increment</button>
 
         <form onChange={handleGenerationVariableChange}>
+          
           <p>Scale:{generationVariables.scale}</p>
           <input type='range' min={0} max={200} name="scale" value={generationVariables.scale}></input>
           <p>Octaves:{generationVariables.octaves}</p>
@@ -141,6 +142,7 @@ function App() {
           
           <p>Seed</p>
           <input type='text' name="seed" value={generationVariables.seed}></input>
+
         </form>
     </div>
   )

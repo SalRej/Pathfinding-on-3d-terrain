@@ -4,43 +4,48 @@ import applyColor from './applyColor';
 import mapping from './mapping';
 
 
-const createPoints = (width,height) =>{
+const createPoints = (numPointsX,numPointsY) =>{
 
     const points = [];
-    let pointIndex = 0 ;
+    let pointIndex = 0;
     const pointsOfTriangleIndexes = [];
 
-    let xCordinate = 0 - (100/2);
-    let zCordinate = 0 - (100/2);
+    const mapWidth = 100;
+    const mapHeight = 100;
 
-    const step =  100 / width;
 
-    for(let z = 0;z < height; z++){
+    let xCordinate = 0 - (mapWidth/2);
+    let zCordinate = 0 - (mapHeight/2);
+
+    const stepX =  mapWidth / numPointsX;
+    const stepY = mapHeight / numPointsY;
+
+    for(let i = 0;i < numPointsY; i++){
         xCordinate = 0 - (100/2);
-        for(let x = 0;x < width; x++){
+        for(let j = 0;j < numPointsX; j++){
             
             const y = 0;
             points.push({x:xCordinate,y:y,z:zCordinate});
 
-            if(x < width-1 && z < height-1){
+            if(j < numPointsX-1 && i < numPointsY-1){
 
                 //index of points in points array
                 let indexOfPoint1 = pointIndex;
-                let indexOfPoint2 = pointIndex + width + 1;
-                let indexOfPoint3 = pointIndex + width;
+                let indexOfPoint2 = pointIndex + numPointsX + 1;
+                let indexOfPoint3 = pointIndex + numPointsX;
                 pointsOfTriangleIndexes.push({a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3});
 
                 //set the points for 2 triangles
-                indexOfPoint1 = pointIndex + width + 1;
+                indexOfPoint1 = pointIndex + numPointsX + 1;
                 indexOfPoint2 = pointIndex;
                 indexOfPoint3 = pointIndex + 1;
                 
                 pointsOfTriangleIndexes.push({a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3});
             }
             pointIndex++;
-            xCordinate+=step;
+            xCordinate+=stepX;
         }
-        zCordinate+=step;
+        zCordinate+=stepY;
     }
 
     return {points , pointsOfTriangleIndexes };
@@ -103,22 +108,22 @@ const createMesh = (points , pointsOfTriangleIndexes) =>{
     return bufferGeometry;
 }
 
-const createHeightMap = (width,height,scene) =>{
+const createHeightMap = (numPointsX,numPointsY,scene) =>{
 
     const imgOfHeightMap = new Image(); 
     imgOfHeightMap.addEventListener('load',()=>{
         //load img on canvas so can read pixes from it later
         const canvas = document.createElement('canvas');
-        canvas.width=width;
-        canvas.height=height;
+        canvas.width=numPointsX;
+        canvas.height=numPointsY;
 
         document.body.appendChild(canvas);
         const ctx = canvas.getContext("2d");
-        ctx.drawImage(imgOfHeightMap,0,0,width,height);
+        ctx.drawImage(imgOfHeightMap,0,0,numPointsX,numPointsY);
 
         //get pixes from canvas
-        const pixelsOfHeightMapImg = ctx.getImageData(0,0,width,height);
-        const { points , pointsOfTriangleIndexes } = createPoints(width,height);
+        const pixelsOfHeightMapImg = ctx.getImageData(0,0,numPointsX,numPointsY);
+        const { points , pointsOfTriangleIndexes } = createPoints(numPointsX,numPointsY);
         
         let j = 0;
         for(let i = 0; i < pixelsOfHeightMapImg.data.length ; i+=4){
