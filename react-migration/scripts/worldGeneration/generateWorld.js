@@ -27,9 +27,9 @@ const generateWorld = (data) =>{
 
         //apply diffrent colors depending on vertex.y value
         
-        let y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,scaleY);
-        let y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,scaleY);
-        let y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,scaleY);
+        let y1 = points[triangleIndexes[i].a].y;
+        let y2 = points[triangleIndexes[i].b].y;
+        let y3 = points[triangleIndexes[i].c].y;
         
         const x1 = points[triangleIndexes[i].a].x;
         const x2 = points[triangleIndexes[i].b].x;
@@ -39,18 +39,29 @@ const generateWorld = (data) =>{
         const z2 = points[triangleIndexes[i].b].z;
         const z3 = points[triangleIndexes[i].c].z;
         
-        if(y1<=3){
-            y1=3;
-        }
-        if(y2<=3){
-            y2=3;
-        }
-        if(y3<=3){
-            y3=3;
-        }
-        
+        let isWater = false;
         applyColor(y1,y2,y3,color1,color2,color3);
-        //push vertecies making a triangle in order
+
+        //chesck if the pints is too low this means its water so make it one level of height
+        y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,scaleY);
+        y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,scaleY);
+        y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,scaleY);
+
+        const checkY1 = mapping(y1,0,scaleY,0,1);
+        const checkY2 = mapping(y2,0,scaleY,0,1);
+        const checkY3 = mapping(y3,0,scaleY,0,1);
+
+        if(checkY1 <= 0.15){
+            y1=mapping(0.15,0,1,0,scaleY);
+        }
+        if(checkY2 <= 0.15){
+            y2=mapping(0.15,0,1,0,scaleY);
+        } 
+        if(checkY3 <= 0.15){
+            y3=mapping(0.15,0,1,0,scaleY);
+        } 
+        
+        
         positions.push(
             x1,y1,z1,
             x2,y2,z2,
