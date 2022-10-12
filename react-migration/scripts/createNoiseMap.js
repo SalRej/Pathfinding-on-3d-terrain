@@ -32,14 +32,11 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
         const data ={
             geometry,
             material,
-            positions,
-            graph,
             scene,
             width,
             height,
             points,
             pointsOfTriangleIndexes,
-            colors,
             scaleY
         }
         animateWorldGeneration(data);

@@ -54,7 +54,7 @@ function App() {
     scene.current.add( gridHelper );
 
     const start = Date.now();
-    worldData.current = createNoiseMap(generationVariables,scene.current,false);
+    worldData.current = createNoiseMap(generationVariables,scene.current,true);
     const end = Date.now();
     console.log(`Execution time: ${end - start} ms`);
     //300-600
