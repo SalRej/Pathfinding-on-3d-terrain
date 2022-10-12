@@ -21,11 +21,11 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
     const sclaeMuliplayerY = height/mapHeight;
 
     const {points , pointsOfTriangleIndexes } = createPoints(width,height);
-    const noiseValues = createNoiseValues(generationVariables,width,height,sclaeMuliplayerX,sclaeMuliplayerY);
+    createNoiseValues(generationVariables,points,width,height,sclaeMuliplayerX,sclaeMuliplayerY);
 
-    for(let i = 0;i<points.length;i++){
-        points[i].y = noiseValues[i];
-    }
+    // for(let i = 0;i<points.length;i++){
+    //     points[i].y = noiseValues[i];
+    // }
 
     const geometry = new THREE.BufferGeometry();
     const material = new THREE.MeshStandardMaterial( {
