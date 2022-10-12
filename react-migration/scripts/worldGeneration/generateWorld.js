@@ -5,18 +5,20 @@ import * as THREE from 'three';
 
 const generateWorld = (data) =>{
     const {
-        positions,
         points,
         pointsOfTriangleIndexes,
-        graph,
-        colors,
         width,
         scene,
         geometry,
         material,
         scaleY
-
     } = data;
+
+    const numVertecies = pointsOfTriangleIndexes.length*9;
+    let vertexIndex = 0;
+    const positions = new Float32Array(numVertecies);
+    const colors = new Float32Array(numVertecies);
+    const graph = [];
 
     for(let i=0;i<pointsOfTriangleIndexes.length;i++){
 
@@ -60,15 +62,27 @@ const generateWorld = (data) =>{
             y3=mapping(0.15,0,1,0,scaleY);
         } 
         
+        positions[vertexIndex+0]=x1;
+        positions[vertexIndex+1]=y1;
+        positions[vertexIndex+2]=z1;
+        positions[vertexIndex+3]=x2;
+        positions[vertexIndex+4]=y2;
+        positions[vertexIndex+5]=z2;
+        positions[vertexIndex+6]=x3;
+        positions[vertexIndex+7]=y3;
+        positions[vertexIndex+8]=z3;
+
+        colors[vertexIndex+0]=color1.r;
+        colors[vertexIndex+1]=color1.g;
+        colors[vertexIndex+2]=color1.b;
+        colors[vertexIndex+3]=color2.r;
+        colors[vertexIndex+4]=color2.g;
+        colors[vertexIndex+5]=color2.b;
+        colors[vertexIndex+6]=color3.r;
+        colors[vertexIndex+7]=color3.g;
+        colors[vertexIndex+8]=color3.b;
         
-        positions.push(
-            x1,y1,z1,
-            x2,y2,z2,
-            x3,y3,z3
-        );
-
-        colors.push(color1.r,color1.g,color1.b,color2.r,color2.g,color2.b,color3.r,color3.g,color3.b);
-
+        vertexIndex+=9;
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
         //needed later for animation of pathfinding
         const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
@@ -81,6 +95,8 @@ const generateWorld = (data) =>{
 
     const mesh = new THREE.Mesh( geometry, material );
     mesh.name='worldMesh';
+    
     scene.add(mesh);
+    return graph;
 }
 export default generateWorld;

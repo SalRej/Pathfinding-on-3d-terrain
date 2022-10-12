@@ -11,7 +11,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
     return (
         <div>
                 <p>resolutionX:{generationVariables.width}</p>
-                <input type='range' min={0} max={400} name="resolution" onChange={test}></input>
+                <input type='range' min={0} max={1000} name="resolution" onChange={test}></input>
             <form onChange={handleChange}>
 
 
