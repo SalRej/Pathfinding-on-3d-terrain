@@ -1,9 +1,9 @@
 import mapping from "../mapping";
 import applyColor from "../applyColor";
 import applyHeight from "./applyHeight";
-const makeColorImage =(triangleIndexes,points,mesh,scaleY)=>{
+const makeColorImage =(pointsOfTriangleIndexes,points,mesh,scaleY)=>{
 
-    const numTimes = triangleIndexes.length;
+    const numTimes = pointsOfTriangleIndexes.length;
     let i = 0;
     const interval = setInterval(()=>{
 
@@ -17,9 +17,9 @@ const makeColorImage =(triangleIndexes,points,mesh,scaleY)=>{
             let color2={r:0,g:1,b:0};
             let color3={r:0,g:1,b:0};
     
-            const y1 = points[triangleIndexes[i].a].y;
-            const y2 = points[triangleIndexes[i].b].y;
-            const y3 = points[triangleIndexes[i].c].y;
+            const y1 = points[pointsOfTriangleIndexes[i].a].y;
+            const y2 = points[pointsOfTriangleIndexes[i].b].y;
+            const y3 = points[pointsOfTriangleIndexes[i].c].y;
             
             applyColor(y1,y2,y3,color1,color2,color3);
 
