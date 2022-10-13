@@ -61,7 +61,7 @@ const createHeightMap = (heightMapVariables,scene) =>{
         canvas.width=numPointsX;
         canvas.height=numPointsY;
 
-        document.body.appendChild(canvas);
+        // document.body.appendChild(canvas);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(imgOfHeightMap,0,0,numPointsX,numPointsY);
 

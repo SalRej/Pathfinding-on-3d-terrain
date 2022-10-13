@@ -11,7 +11,8 @@ import HeightMapSettings from './HeightMapSettings';
 function App() {
 
   let isNoiseMap = false;
-  const scene = useRef();
+  const [isGetStartedClicked,setIsGetStartedClicked] = useState(false);
+  const scene = useRef(); 
   const camera = useRef ();
   const renderer = useRef();
   const controls = useRef();
@@ -157,9 +158,15 @@ function App() {
   }
   return (
     <div className="App" id="App">
-      <video autoplay="autoplay" muted loop id="myVideo">
+
+      <video autoplay="autoplay" muted loop id="background-video">
         <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
       </video>
+
+      <div className='holder'>
+        <h1>Create you own world</h1>
+        <p>Get started now</p>
+      </div>
 
         {/* <button onClick={findPath}>click</button> */}
         {/* <NoiseGeneratorControls 
