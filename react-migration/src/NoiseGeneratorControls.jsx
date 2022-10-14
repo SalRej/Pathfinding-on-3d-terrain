@@ -10,8 +10,8 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
     }
     return (
         <div>
-                <p>resolutionX:{generationVariables.width}</p>
-                <input type='range' min={0} max={1000} name="resolution" onChange={test}></input>
+            <p>resolutionX:{generationVariables.width}</p>
+            <input type='range' min={0} max={500} name="resolution" value={generationVariables.width} onChange={test}></input>
             <form onChange={handleChange}>
 
 
@@ -22,16 +22,16 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
                 <input type='range' min={0} max={10} name="octaves" value={generationVariables.octaves}></input>
 
                 <p>Lacunarity:{generationVariables.lacunarity}</p>
-                <input type='range' min={0} max={5} name="lacunarity" value={generationVariables.lacunarity}></input>
+                <input type='range' min={0} max={5} name="lacunarity" step={0.01} value={generationVariables.lacunarity}></input>
 
                 <p>Persistance:{generationVariables.persistance}</p>
-                <input type='range' min={0} max={2} name="persistance" value={generationVariables.persistance}></input>
+                <input type='range' min={0} max={2} name="persistance" step={0.01} value={generationVariables.persistance}></input>
 
                 <p>offsetX:{generationVariables.offsetX}</p>
-                <input type='range' min={0} max={5} name="offsetX" step={0.1} value={generationVariables.offsetX}></input>
+                <input type='range' min={0} max={5} name="offsetX" step={0.05} value={generationVariables.offsetX}></input>
 
                 <p>offsetY:{generationVariables.offsetY}</p>
-                <input type='range' min={0} max={5} name="offsetY" step={0.1} value={generationVariables.offsetY}></input>
+                <input type='range' min={0} max={5} name="offsetY" step={0.05} value={generationVariables.offsetY}></input>
 
                 <p>ScaleY : {generationVariables.scaleY}</p>
                 <input type='range' min={0} max={50} name="scaleY" step={1} value={generationVariables.scaleY}></input>

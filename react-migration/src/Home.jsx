@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState , useRef , useEffect} from 'react'
 import {CSSTransition} from 'react-transition-group';
 import {Link} from 'react-router-dom';
 
@@ -8,17 +8,17 @@ function Home() {
     return (
     <div>
         <video autoPlay="autoplay" muted loop id="background-video">
-        <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
+            <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
         </video>
 
         <CSSTransition in={showGetStarted}
-        timeout={1000}
-        classNames='get-started'
+            timeout={1000}
+            classNames='get-started'
         >
-        <div className='holder'>
-            <h1>Create you own world</h1>
-            <button onClick={()=>setShowGetStarted(false)}>Get started now</button>
-        </div>
+            <div className='holder'>
+                <h1>Create you own world</h1>
+                <button onClick={()=>setShowGetStarted(false)}>Get started now</button>
+            </div>
         </CSSTransition>
 
         {showGetStarted===false &&
