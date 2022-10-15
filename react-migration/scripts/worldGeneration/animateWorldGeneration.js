@@ -51,9 +51,9 @@ const animateWorldGeneration = (data) =>{
         const x2 = points[pointsOfTriangleIndexes[i].b].x;
         const x3 = points[pointsOfTriangleIndexes[i].c].x;
 
-        const y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,-1,1,0,scaleY);
-        const y2 = mapping(points[pointsOfTriangleIndexes[i].b].y,-1,1,0,scaleY);
-        const y3 = mapping(points[pointsOfTriangleIndexes[i].c].y,-1,1,0,scaleY);
+        const y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,0,1,0,scaleY);
+        const y2 = mapping(points[pointsOfTriangleIndexes[i].b].y,0,1,0,scaleY);
+        const y3 = mapping(points[pointsOfTriangleIndexes[i].c].y,0,1,0,scaleY);
 
         const z1 = points[pointsOfTriangleIndexes[i].a].z;
         const z2 = points[pointsOfTriangleIndexes[i].b].z;

@@ -46,9 +46,9 @@ const generateWorld = (data) =>{
 
 
         //chesck if the pints is too low this means its water so make it one level of height
-        y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,-1,1,0,scaleY);
-        y2 = mapping(points[pointsOfTriangleIndexes[i].b].y,-1,1,0,scaleY);
-        y3 = mapping(points[pointsOfTriangleIndexes[i].c].y,-1,1,0,scaleY);
+        y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,0,1,0,scaleY);
+        y2 = mapping(points[pointsOfTriangleIndexes[i].b].y,0,1,0,scaleY);
+        y3 = mapping(points[pointsOfTriangleIndexes[i].c].y,0,1,0,scaleY);
 
         const checkY1 = mapping(y1,0,scaleY,0,1);
         const checkY2 = mapping(y2,0,scaleY,0,1);

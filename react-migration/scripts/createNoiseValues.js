@@ -71,6 +71,7 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
                 pointsOfTriangleIndexes.push({a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3});
             }
             
+            noise=mapping(noise,-1,1,0,1);
             points[pointIndex] = {x:xCordinate,y:noise,z:zCordinate};
             pointIndex++;
             xCordinate+=stepX;
