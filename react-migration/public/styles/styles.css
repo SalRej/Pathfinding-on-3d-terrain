@@ -1,2 +1,9 @@
-@import url("./app");
+@import url("./home");
+@import url("./controls");
+@import url("./slider");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 /*# sourceMappingURL=styles.css.map */

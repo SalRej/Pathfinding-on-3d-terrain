@@ -14,8 +14,8 @@ function HeightMapGeneration() {
   const initialRender = useRef(true);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
-    numPointsX:250,
-    numPointsY:250,
+    numPointsX:200,
+    numPointsY:200,
     scaleY:20,
     image:new Image()
   })
