@@ -39,7 +39,7 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
             pointsOfTriangleIndexes,
             scaleY
         }
-        animateWorldGeneration(data);
+        graph = animateWorldGeneration(data);
     }else{
         const data ={
             pointsOfTriangleIndexes,

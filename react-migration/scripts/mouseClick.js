@@ -16,7 +16,9 @@ const mouseClick = (event,renderer,camera,scene) =>{
     const intersect = raycaster.intersectObjects(scene.children);
     // pathData= djikstra(worldData.graph,0,worldData.graph[intersect[0].faceIndex].id);
 
-    console.log(intersect[0].faceIndex);
+    if(intersect[0]!=undefined){
+        return intersect[0].faceIndex;
+    }else return null;
 }
 
 export default mouseClick;

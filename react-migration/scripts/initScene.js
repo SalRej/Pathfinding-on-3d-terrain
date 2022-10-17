@@ -9,16 +9,11 @@ const initScene = () =>{
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
-    camera.position.set( 0, 70, 10);
+    camera.position.set( 0, 100, 70);
     camera.lookAt( 0, 0, 0 );
     
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize( width, height ); 
-    
-    // const app = document.getElementById("root");
-    // app.ap
-    // app.appendChild(renderer.domElement);
-    // document.body.appendChild( app );
     
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.update();

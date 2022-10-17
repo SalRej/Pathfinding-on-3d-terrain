@@ -1,7 +1,7 @@
 import React , { useState } from 'react'
 import Slider from './Slider';
 import PathSettings from './PathSettings';
-function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution , pathFindingVariables ,handlePathSettings}){
+function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution , pathFindingVariables , setIsPathfindingEnabled}){
 
     const [chosenTab , setChosenTab] = useState("settings");
     const handleChange = (e) =>{
@@ -41,7 +41,10 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
             }
             {
                 chosenTab==="path" &&
-                <PathSettings pathFindingVariables={pathFindingVariables} handlePathSettings={handlePathSettings}/>
+                <PathSettings 
+                    pathFindingVariables={pathFindingVariables}
+                    setIsPathfindingEnabled={setIsPathfindingEnabled}
+                />
             }
         </div>
     )
