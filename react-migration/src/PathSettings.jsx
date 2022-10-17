@@ -7,10 +7,10 @@ function PathSettings({pathFindingVariables, setIsPathfindingEnabled}){
     }
     return (
         <main>
-            <span>Start: {pathFindingVariables.startId===-1?"Chose Start":pathFindingVariables.startId}</span>
-            <span>End: {pathFindingVariables.endId===-1?"Chose End":pathFindingVariables.endId}</span>
+            <span>Start: {pathFindingVariables.startId===-1?"none":pathFindingVariables.startId}</span>
+            <span>End: {pathFindingVariables.endId===-1?"none":pathFindingVariables.endId}</span>
 
-            <button onClick={handleClick}>Enable Pathfinding</button>
+            <button onClick={handleClick}>{pathFindingVariables.isEnagled===false?"Enable Pathfinding":"Disable Pathfinding"}</button>
         </main>
     )
 }
