@@ -12,6 +12,7 @@
 }
 
 .settings_holder .controls main {
+  position: relative;
   background-color: white;
   border-radius: 11px;
   width: 70%;
@@ -20,6 +21,71 @@
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   padding: 1em 0 1em 0;
+}
+
+.settings_holder .controls main .start-end {
+  width: 100%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2em;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  text-decoration: underline;
+}
+
+.settings_holder .controls main .info {
+  background-color: rgba(255, 166, 0, 0.519);
+  border-radius: 12px;
+  padding: 1em;
+  width: 70%;
+}
+
+.settings_holder .controls main .info img {
+  float: right;
+  opacity: 0.5;
+}
+
+.settings_holder .controls main .info li {
+  text-align: left;
+  margin-bottom: 1em;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.523);
+  margin-left: 1em;
+}
+
+.settings_holder .controls main button {
+  position: absolute;
+  bottom: 10;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 77%;
+  padding: 1em;
+  background-color: orange;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.settings_holder .controls main button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 166, 0, 0.601);
+}
+
+.settings_holder .controls main .enabled {
+  background-color: white;
+  color: black;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .settings_holder .controls .heading {
