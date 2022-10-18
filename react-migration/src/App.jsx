@@ -10,12 +10,14 @@ import worldDataContext from './contex';
 
 function App(){
   
+  const initObjects = initScene();
   const THREEScene = useRef({
-    camera:null,
-    scene:null,
-    renderer:null,
-    controls:null,
+    camera:initObjects.camera,
+    scene:initObjects.scene,
+    renderer:initObjects.renderer,
+    controls:initObjects.controls,
   })
+
   const [pathFindingVariables,setPathFindingVariables] = useState({
     startId:-1,
     endId:-1,
@@ -23,13 +25,13 @@ function App(){
     graph:[]
   })
 
-  useEffect(()=>{
-    const initObjects = initScene();
-    THREEScene.current.camera=initObjects.camera;
-    THREEScene.current.renderer=initObjects.renderer;
-    THREEScene.current.controls=initObjects.controls;
-    THREEScene.current.scene=initObjects.scene;
-  },[])
+  const setIsPathfindingEnabled = (boolean) =>{
+    setPathFindingVariables({
+        ...pathFindingVariables,
+        isEnagled:boolean
+    })
+  }
+  
 
   return (
     <div className="App" id="App">
