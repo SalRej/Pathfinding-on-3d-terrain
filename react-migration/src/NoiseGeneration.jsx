@@ -3,7 +3,7 @@ import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
 
 import createNoiseMap from '../scripts/createNoiseMap';
-import mouseClick from '../scripts/mouseClick';
+import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/findPath';
 
 function NoiseGeneration() {
@@ -85,7 +85,7 @@ function NoiseGeneration() {
 
     const canvasClicked = (event)=>{
         const {camera,renderer,scene} = THREEScene.current;
-        const clickedFace = mouseClick(event,renderer,camera,scene);
+        const clickedFace = getTriangleClicked(event,renderer,camera,scene);
 
         if(clickedFace===null)
             return;
