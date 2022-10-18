@@ -7,7 +7,7 @@ function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
   const initialRender = useRef(true);
-  const {THREEScene} = useContext(worldDataContext);
+  const {THREEScene , pathFindingVariables, setPathFindingVariables , setIsPathfindingEnabled} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -22,7 +22,12 @@ function HeightMapGeneration() {
        canvasHolder.current.appendChild(THREEScene.current.renderer.domElement);
     }
 
-    createHeightMap(heightMapVariables,THREEScene.current.scene);
+    const graph = createHeightMap(heightMapVariables,THREEScene.current.scene);
+
+    setPathFindingVariables({
+      ...pathFindingVariables,
+      graph:graph
+    })
     animate();
   },[]);
 
@@ -38,7 +43,11 @@ function HeightMapGeneration() {
     }
     else if(initialRender.current==false){
         THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('worldMesh'));
-        createHeightMap(heightMapVariables,THREEScene.current.scene);
+        const graph = createHeightMap(heightMapVariables,THREEScene.current.scene);
+        setPathFindingVariables({
+          ...pathFindingVariables,
+          graph:graph
+      })
     }
   },[heightMapVariables]);
 
