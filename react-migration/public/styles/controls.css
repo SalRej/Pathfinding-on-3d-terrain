@@ -74,7 +74,7 @@
   border-radius: 12px;
   color: white;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1.7vw;
 }
 
 .settings_holder .controls main button:hover {
@@ -92,7 +92,7 @@
 .settings_holder .controls .heading {
   color: rgba(0, 0, 0, 0.614);
   text-align: center;
-  font-size: 45px;
+  font-size: 3vw;
   font-weight: bold;
   padding-top: 1.2em;
   margin-bottom: 1em;
@@ -301,5 +301,14 @@
 
 .settings_holder input[type=range]:focus::-ms-fill-upper {
   background: #74A9D8;
+}
+
+@media only screen and (max-width: 1100px) {
+  .settings_holder .controls {
+    width: 100vw;
+  }
+  .settings_holder .controls main button {
+    font-size: 24px;
+  }
 }
 /*# sourceMappingURL=controls.css.map */

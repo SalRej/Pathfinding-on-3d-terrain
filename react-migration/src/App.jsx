@@ -10,13 +10,19 @@ import worldDataContext from './contex';
 
 function App(){
   
-  const initObjects = initScene();
-  const THREEScene = useRef({
-    camera:initObjects.camera,
-    scene:initObjects.scene,
-    renderer:initObjects.renderer,
-    controls:initObjects.controls,
-  })
+  const [THREEScene,setTHREEScene] = useState(null);
+
+  useEffect(()=>{
+    const initObjects = initScene();
+
+    setTHREEScene({
+      camera:initObjects.camera,
+      scene:initObjects.scene,
+      renderer:initObjects.renderer,
+      controls:initObjects.controls
+    })
+
+  },[])
 
   const [pathFindingVariables,setPathFindingVariables] = useState({
     startId:-1,
@@ -35,13 +41,15 @@ function App(){
 
   return (
     <div className="App" id="App">
-      <worldDataContext.Provider value={{THREEScene, pathFindingVariables,setPathFindingVariables ,setIsPathfindingEnabled}}>
-        <Routes>
-          <Route path="/" element={<Home />}/>
+      {THREEScene!=null && 
+        <worldDataContext.Provider value={{THREEScene, pathFindingVariables,setPathFindingVariables ,setIsPathfindingEnabled}}>
+          <Routes>
+            <Route path="/" element={<Home />}/>
             <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
             <Route path='/heightMapGeneration' element={<HeightMapGeneration/>}/>
-        </Routes>
-      </worldDataContext.Provider>
+          </Routes>
+        </worldDataContext.Provider>
+      }
     </div>
   )
 }

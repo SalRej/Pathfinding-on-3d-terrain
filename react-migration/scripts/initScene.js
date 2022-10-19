@@ -20,7 +20,31 @@ const initScene = () =>{
 
     setLight(scene);
     setSkyBox(scene);
+    window.addEventListener( 'resize', onWindowResize, false );
 
+    function onWindowResize(){
+
+        if(window.innerWidth<=600){
+            camera.aspect = window.innerWidth / (window.innerHeight/2);
+            camera.updateProjectionMatrix();
+    
+            renderer.setSize( window.innerWidth, window.innerHeight/2 );
+            
+        }else if(window.innerWidth<=1100){
+            
+            camera.aspect = window.innerWidth / (window.innerHeight/1.5);
+            camera.updateProjectionMatrix();
+    
+            renderer.setSize( window.innerWidth, window.innerHeight/1.5 );
+        }
+        else{
+            camera.aspect = (window.innerWidth/2) / window.innerHeight;
+            camera.updateProjectionMatrix();
+    
+            renderer.setSize( window.innerWidth/2, window.innerHeight );
+        }
+
+    }
     return {scene,renderer,camera,controls};
 }
 export default initScene;
