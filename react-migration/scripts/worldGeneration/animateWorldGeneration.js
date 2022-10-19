@@ -70,6 +70,7 @@ const animateWorldGeneration = (data) =>{
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
         createNode(graph,i,avrageY,width,position);
     }
+    console.log(mapping(0.075,0,0.225,0,1));
     return graph;
 }
 export default animateWorldGeneration;
