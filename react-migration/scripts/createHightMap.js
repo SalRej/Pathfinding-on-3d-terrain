@@ -3,13 +3,13 @@ import { DoubleSide } from 'three';
 import applyColor from './applyColor';
 import mapping from './mapping';
 import createPoints from './createPoints';
+import createNode from './createNode';
 
-
-const createMesh = (points , pointsOfTriangleIndexes , scaleY) =>{
+const createMesh = (points , pointsOfTriangleIndexes , scaleY ,width) =>{
 
     const trianglePositions = [];
     const bufferGeometryColors = [];
-
+    const graph = [];
     for(let i = 0;i < pointsOfTriangleIndexes.length ; i++){
 
         const x1 = points[pointsOfTriangleIndexes[i].a].x;
@@ -42,6 +42,9 @@ const createMesh = (points , pointsOfTriangleIndexes , scaleY) =>{
             color2.r,color2.g,color2.b,
             color3.r,color3.g,color3.b
         )
+        const position = [x1,mapping(y1,0,1,0,scaleY)+1,z1,x2,mapping(y2,0,1,0,scaleY)+1,z2,x3,mapping(y3,0,1,0,scaleY)+1,z3];
+        const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
+        createNode(graph,i,avrageY,width,position);
     }
 
     const bufferGeometry = new THREE.BufferGeometry();
@@ -49,7 +52,7 @@ const createMesh = (points , pointsOfTriangleIndexes , scaleY) =>{
     bufferGeometry.computeVertexNormals();
     bufferGeometry.setAttribute('color', new THREE.Float32BufferAttribute( bufferGeometryColors, 3 ));
 
-    return bufferGeometry;
+    return {bufferGeometry,graph};
 }
 
 const createHeightMap = (heightMapVariables,scene) =>{
@@ -84,7 +87,7 @@ const createHeightMap = (heightMapVariables,scene) =>{
         j++;
     }
     
-    const bufferGeometry = createMesh(points,pointsOfTriangleIndexes,scaleY);
+    const {bufferGeometry,graph} = createMesh(points,pointsOfTriangleIndexes,scaleY,numPointsX);
     const material = new THREE.MeshStandardMaterial({
         side:DoubleSide,
         vertexColors:true
@@ -92,7 +95,8 @@ const createHeightMap = (heightMapVariables,scene) =>{
         
     const mesh = new THREE.Mesh(bufferGeometry,material);
     mesh.name="worldMesh";
-    scene.add(mesh);    
+    scene.add(mesh); 
+    return graph; 
 }
 
 export default createHeightMap;

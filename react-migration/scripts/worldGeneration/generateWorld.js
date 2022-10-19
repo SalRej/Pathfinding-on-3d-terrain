@@ -27,6 +27,8 @@ const generateWorld = (data) =>{
         let y2 = points[pointsOfTriangleIndexes[i].b].y;
         let y3 = points[pointsOfTriangleIndexes[i].c].y;
         
+        const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
+        
         const x1 = points[pointsOfTriangleIndexes[i].a].x;
         const x2 = points[pointsOfTriangleIndexes[i].b].x;
         const x3 = points[pointsOfTriangleIndexes[i].c].x;
@@ -86,8 +88,6 @@ const generateWorld = (data) =>{
         vertexIndex+=9;
 
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
-        //needed later for animation of pathfinding
-        const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
         createNode(graph,i,avrageY,width,position);
     }
 

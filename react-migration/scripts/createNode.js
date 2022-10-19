@@ -1,43 +1,59 @@
 /*
     this function creates a node and push it to the graph with nodes
     every node contains id and array of neighbors
-    the array of neighbors contain the ids of the neoighbor triangles
+    the array of neighbors contains the ids of the neoighbor triangles
     
     the function takes graph,i as 1d index of array with triangles
-    widht is needed to convert 1d index to 2d index of array
+    width is needed to convert 1d index to 2d index of array
     
     every first triangle is goning to have left,right,top triangles as neighbors
     every second triangle is going to have left,right,bottom triangles as neighbros 
     
     every neighbor that is not certein i calculate otherwise directly add it
 
-    this calculates the moving cost to a certain node
-    the higher the y cordinate is the harder it is to travel ot this node
 */
 const createNode = (graph,i,avrageY,width,position) =>{
     
-    
     let movingCost = 0;
-    if(avrageY>3 && avrageY<8){
-       movingCost=1;
-    }
-    if(avrageY>=8 && avrageY<12){
-        movingCost=3;
-    }
-    if(avrageY>=12 && avrageY<15){
-        movingCost=7;
-    }
-    if(avrageY>=15 && avrageY<18){
-        movingCost=13;
-    }
-    if(avrageY>=18){
-        movingCost=20;
-    }
+    const costs = [
+        {
+            lowRange:0.15,
+            heighRange:0.4,
+            value:1
+        },
+        {
+            lowRange:0.4,
+            heighRange:0.6,
+            value:3
+        },
+        {
+            lowRange:0.6,
+            heighRange:0.75,
+            value:7
+        },
+        {
+            lowRange:0.75,
+            heighRange:0.9,
+            value:13
+        },
+        {
+            lowRange:0.9,
+            heighRange:Infinity,
+            value:20
+        }
+    ]
     
+    costs.forEach(cost=>{
+        if(avrageY>cost.lowRange && avrageY<=cost.heighRange){
+            movingCost=cost.value;
+        }
+    })
+
+    const waterLevel = 0.15;
     graph.push({
         id:i,
         isVisited:false,
-        isObstical:avrageY<=3?true:false,
+        isObstical:avrageY<=waterLevel?true:false,
         shortestDistance:Infinity,
         cost:movingCost,
         prevNodeId:undefined,

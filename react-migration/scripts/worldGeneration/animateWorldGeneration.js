@@ -51,16 +51,23 @@ const animateWorldGeneration = (data) =>{
         const x2 = points[pointsOfTriangleIndexes[i].b].x;
         const x3 = points[pointsOfTriangleIndexes[i].c].x;
 
-        const y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,0,1,0,scaleY);
-        const y2 = mapping(points[pointsOfTriangleIndexes[i].b].y,0,1,0,scaleY);
-        const y3 = mapping(points[pointsOfTriangleIndexes[i].c].y,0,1,0,scaleY);
+        let y1 = points[pointsOfTriangleIndexes[i].a].y;
+        let y2 = points[pointsOfTriangleIndexes[i].b].y;
+        let y3 = points[pointsOfTriangleIndexes[i].c].y;
+
+        //y values has to be 0-1 for determening cost values
+        const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
+
+        //y value has to be 0-scaleY for positions
+        y1 = mapping(y1,0,1,0,scaleY);
+        y2 = mapping(y2,0,1,0,scaleY);
+        y3 = mapping(y3,0,1,0,scaleY);
 
         const z1 = points[pointsOfTriangleIndexes[i].a].z;
         const z2 = points[pointsOfTriangleIndexes[i].b].z;
         const z3 = points[pointsOfTriangleIndexes[i].c].z;
-
+        
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
-        const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
         createNode(graph,i,avrageY,width,position);
     }
     return graph;

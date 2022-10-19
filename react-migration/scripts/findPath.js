@@ -7,7 +7,8 @@ const findPath = (pathFindingVariables,scene) =>{
     if(startId!=-1 && endId!=- 1){
         scene.remove(scene.getObjectByName("pathMesh"));
         const pathCordinates = djikstra(graph,startId,endId);
-
+        console.log(pathCordinates);
+        
         const pathGeometry = new THREE.BufferGeometry();
         pathGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathCordinates.path, 3 ));
         pathGeometry.computeVertexNormals();//needed for light to work
