@@ -4,9 +4,18 @@ import setLight from "./setLight";
 import setSkyBox from "./setSkyBox";
 
 const initScene = () =>{
-    const width = window.innerWidth/2;
-    const height = window.innerHeight;
+    let width = window.innerWidth/2;
+    let height = window.innerHeight;
 
+    if(window.innerWidth<=600){
+        width=window.innerWidth;
+        height=window.innerHeight/2;
+    }
+    if(window.innerWidth<=1100){
+        width=window.innerWidth;
+        height=window.innerHeight/1.5;
+    }
+    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
     camera.position.set( 0, 100, 70);
