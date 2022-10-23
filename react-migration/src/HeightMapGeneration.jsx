@@ -20,12 +20,13 @@ function HeightMapGeneration() {
   })
 
   useEffect(()=>{
-    THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
-    THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
     
     if(canvasHolder.current!=null){
        canvasHolder.current.appendChild(THREEScene.renderer.domElement);
     }
+
+    THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
+    THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh')); 
     const graph = createHeightMap(heightMapVariables,THREEScene.scene);
 
     setPathFindingVariables({
@@ -48,9 +49,14 @@ function HeightMapGeneration() {
         THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
     }
     else if(initialRender.current===false){
+      THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
+      THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
+        
         const graph = createHeightMap(heightMapVariables,THREEScene.scene);
         setPathFindingVariables({
-          ...pathFindingVariables,
+          startId:-1,
+          endId:-1,
+          isEnagled:false,
           graph:graph
       })
     }
