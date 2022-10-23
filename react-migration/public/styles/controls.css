@@ -74,6 +74,16 @@
   border-radius: 12px;
   color: white;
   font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.5em;
   font-size: 1.7vw;
 }
 
@@ -87,6 +97,10 @@
   color: black;
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
           box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.settings_holder .controls main img {
+  width: 1.2em;
 }
 
 .settings_holder .controls .heading {
@@ -229,8 +243,10 @@
   height: 20px;
   width: 20px;
   border-radius: 15px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.344);
   background: #FFFFFF;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -7px;
@@ -303,9 +319,23 @@
   background: #74A9D8;
 }
 
+@media only screen and (max-width: 1450px) {
+  .settings_holder .controls main {
+    width: 90%;
+  }
+}
+
 @media only screen and (max-width: 1100px) {
   .settings_holder .controls {
     width: 100vw;
+  }
+  .settings_holder .controls nav {
+    margin: auto;
+    width: 90%;
+    max-width: 90%;
+  }
+  .settings_holder .controls main {
+    overflow-y: scroll;
   }
   .settings_holder .controls main button {
     font-size: 24px;
