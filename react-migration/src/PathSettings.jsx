@@ -2,9 +2,12 @@ import React , {useContext} from 'react'
 import worldDataContext from './contex';
 function PathSettings(){
 
-    const {setIsPathfindingEnabled , pathFindingVariables} = useContext(worldDataContext);
+    const {setPathFindingVariables , pathFindingVariables} = useContext(worldDataContext);
     const handleClick =()=>{
-        setIsPathfindingEnabled(!pathFindingVariables.isEnagled);
+        setPathFindingVariables({
+            ...pathFindingVariables,
+            isEnagled:!pathFindingVariables.isEnagled
+        });
     }
     return (
         <main>

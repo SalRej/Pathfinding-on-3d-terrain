@@ -1,5 +1,5 @@
-import React , { useState , useEffect, useRef}from 'react';
-import { Routes , Route } from "react-router-dom";
+import React , { useState , useEffect}from 'react';
+import { Routes , Route , useLocation } from "react-router-dom";
 
 import Home from './Home';
 import NoiseGeneration from './NoiseGeneration';
@@ -11,9 +11,27 @@ import worldDataContext from './contex';
 function App(){
   
   const [THREEScene,setTHREEScene] = useState(null);
+  const [pathFindingVariables,setPathFindingVariables] = useState(null);
+  let location = useLocation();
+
+  useEffect(()=>{
+    setPathFindingVariables({
+      startId:-1,
+      endId:-1,
+      isEnagled:false,
+      graph:[]
+    })
+  },[location.pathname])
 
   useEffect(()=>{
     const initObjects = initScene();
+    
+    setPathFindingVariables({
+      startId:-1,
+      endId:-1,
+      isEnagled:false,
+      graph:[]
+    })
 
     setTHREEScene({
       camera:initObjects.camera,
@@ -23,26 +41,11 @@ function App(){
     })
 
   },[])
-
-  const [pathFindingVariables,setPathFindingVariables] = useState({
-    startId:-1,
-    endId:-1,
-    isEnagled:false,
-    graph:[]
-  })
-
-  const setIsPathfindingEnabled = (boolean) =>{
-    setPathFindingVariables({
-        ...pathFindingVariables,
-        isEnagled:boolean
-    })
-  }
   
-
   return (
     <div className="App" id="App">
-      {THREEScene!=null && 
-        <worldDataContext.Provider value={{THREEScene, pathFindingVariables,setPathFindingVariables ,setIsPathfindingEnabled}}>
+      {(THREEScene!=null && pathFindingVariables!=null)&&
+        <worldDataContext.Provider value={{THREEScene, pathFindingVariables,setPathFindingVariables}}>
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
