@@ -1,11 +1,11 @@
 import React , {useState , useEffect , useRef ,useContext } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
+import BackButton from './BackButton';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
-import {Link} from 'react-router-dom';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -122,12 +122,7 @@ function NoiseGeneration() {
         <div className='flex'>
             <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
             <div className='settings_holder'>
-                <Link to='/'>
-                    <button className='go_back_button'>
-                        <img></img>
-                        <p>GO BACK</p>
-                    </button>
-                </Link>
+                <BackButton url={'/'}/>
                 <NoiseGeneratorSettings 
                     generationVariables={generationVariables}
                     handleNoiseSettings={handleNoiseSettings}

@@ -1,9 +1,10 @@
 import React , {useState , useEffect , useRef , useContext} from 'react';
-import {Link} from 'react-router-dom';
 
 import HeightMapSettings from './HeightMapSettings';
 import createHeightMap from '../scripts/heightMapGeneration/createHightMap';
 import worldDataContext from './contex';
+import BackButton from './BackButton';
+
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
 function HeightMapGeneration() {
@@ -140,12 +141,7 @@ function HeightMapGeneration() {
     <div className='flex'>
         <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
         <div className='settings_holder'>
-            <Link to='/'>
-                <button className='go_back_button'>
-                    <img></img>
-                    <p>GO BACK</p>
-                </button>
-            </Link>
+            <BackButton url={'/'}/>
             <HeightMapSettings
                 heightMapVariables={heightMapVariables}
                 handleHeightMapSettings={handleHeightMapSettings}

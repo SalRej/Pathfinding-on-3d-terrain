@@ -3,6 +3,9 @@
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
+a{
+  text-decoration: none;
+}
 .flex{
     display: flex;
 }
@@ -14,3 +17,4 @@
 @import url('./home');
 @import url('./controls');
 @import url('./slider');
+@import url('./go_back_button')
