@@ -1,4 +1,4 @@
-import createNode from "../createNode";
+import createNode from "../graph/createNode";
 import mapping from "../mapping";
 import applyColor from "../applyColor";
 import * as THREE from 'three';

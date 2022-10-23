@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import { DoubleSide } from 'three';
-import applyColor from './applyColor';
-import mapping from './mapping';
-import createPoints from './createPoints';
-import createNode from './createNode';
+import applyColor from '../applyColor';
+import mapping from '../mapping';
+import createPoints from '../createPoints';
+import createNode from '../graph/createNode';
 
 const createMesh = (points , pointsOfTriangleIndexes , scaleY ,width) =>{
 

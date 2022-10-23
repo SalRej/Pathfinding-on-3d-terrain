@@ -1,9 +1,7 @@
 import * as THREE from 'three';
-import mapping from './mapping';
 import { DoubleSide } from 'three';
-import animateWorldGeneration from './worldGeneration/animateWorldGeneration';
-import generateWorld from './worldGeneration/generateWorld';
-import createPoints from './createPoints';
+import animateWorldGeneration from './animateWorldGeneration';
+import generateWorld from './generateWorld';
 import createNoiseValues from './createNoiseValues';
 
 const createNoiseMap = (generationVariables,scene,doAnimate) =>{

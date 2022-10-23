@@ -1,6 +1,6 @@
 import alea from 'alea';
 import { createNoise2D } from 'simplex-noise';
-import mapping from './mapping';
+import mapping from '../mapping';
 
 const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY) =>{
 

@@ -1,8 +1,6 @@
 const colorPath = (path,scene)=>{
     const mesh = scene.getObjectByName("worldMesh");
-    console.log(mesh);
     path.forEach(index=>{
-        // console.log(index);
         const j = index*9;//index of the colors array
 
         for(let i = 0 ; i < 9 ; i+=3){
