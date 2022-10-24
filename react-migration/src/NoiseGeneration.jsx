@@ -87,7 +87,11 @@ function NoiseGeneration() {
         if(pathFindingVariables.isEnagled===true
             &&pathFindingVariables.startId!=-1
             &&pathFindingVariables.endId!=-1){
-            findPath(pathFindingVariables,THREEScene.scene);
+                
+            const isThereAPath = findPath(pathFindingVariables,THREEScene.scene);
+            if(isThereAPath===null){
+                alert("No path was found");
+            }
         }
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 

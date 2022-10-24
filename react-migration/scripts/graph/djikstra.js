@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 const djikstra = (graph,startId,endId) =>{
     
-    const vizualizingGeometry = [];
     //clear graph from before
     graph.forEach(node=>{
         node.isVisited = false;
@@ -42,10 +41,6 @@ const djikstra = (graph,startId,endId) =>{
                 if(newShortesDistance<graph[neighbor].shortestDistance){
                     graph[neighbor].shortestDistance=newShortesDistance;
                     graph[neighbor].prevNodeId = currentId;
-
-                    graph[neighbor].position.forEach(cordinate=>{
-                        vizualizingGeometry.push(cordinate);//pushes cordinates if triangles to be drawn as vizualization later
-                    })
                 }
 
                 //add this neighbor in array to be chaked later
@@ -55,6 +50,7 @@ const djikstra = (graph,startId,endId) =>{
         })
 
         graph[currentId].isVisited=true;
+        //removes current node from list to check
         nodesIdToCheck=nodesIdToCheck.filter(data=>{
             return data.id!=currentId;
         })
@@ -63,6 +59,13 @@ const djikstra = (graph,startId,endId) =>{
     //backtrack
     const path = [];
     const backtrack = [];
+
+    //if there is no path return null
+    if(graph[endId].prevNodeId === undefined){
+        return null
+    }
+
+    
     backtrack.push(graph[endId].prevNodeId);
     while(backtrack[backtrack.length-1]!=startId){
 
@@ -73,7 +76,7 @@ const djikstra = (graph,startId,endId) =>{
         backtrack.push(graph[backtrack[backtrack.length-1]].prevNodeId);
     }
     
-    return {path,vizualizingGeometry};
+    return path;
 }
 
 export default djikstra;
