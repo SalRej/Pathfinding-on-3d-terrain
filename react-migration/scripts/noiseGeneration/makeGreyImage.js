@@ -21,13 +21,13 @@ const makeGreyImage = (pointsOfTriangleIndexes,positions,colors,points) =>{
         positions[vertexIndex+8]=points[pointsOfTriangleIndexes[i].c].z;
 
         //create colors according to y cordinate into grey scale
-        const grey1 = mapping(points[pointsOfTriangleIndexes[i].a].y,-1,1,0,1);
+        const grey1 = points[pointsOfTriangleIndexes[i].a].y;
         const color1 = new THREE.Color(grey1,grey1,grey1);
 
-        const grey2 = mapping(points[pointsOfTriangleIndexes[i].b].y,-1,1,0,1);
+        const grey2 = points[pointsOfTriangleIndexes[i].b].y;
         const color2 = new THREE.Color(grey2,grey2,grey2);
 
-        const grey3 = mapping(points[pointsOfTriangleIndexes[i].c].y,-1,1,0,1);
+        const grey3 = points[pointsOfTriangleIndexes[i].c].y;
         const color3 = new THREE.Color(grey3,grey3,grey3);
 
         //push colors
