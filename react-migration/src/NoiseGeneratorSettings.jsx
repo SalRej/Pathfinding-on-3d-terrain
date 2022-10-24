@@ -22,6 +22,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
                 <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
                 <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
             </nav>
+            
             {   chosenTab==="settings" &&
                 <main>
 

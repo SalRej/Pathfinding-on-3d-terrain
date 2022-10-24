@@ -2,6 +2,7 @@
 @import url("./controls");
 @import url("./slider");
 @import url("./go_back_button");
+@import url("./scroll_bar");
 * {
   margin: 0;
   padding: 0;
