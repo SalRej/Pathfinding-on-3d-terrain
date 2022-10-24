@@ -124,8 +124,10 @@ function HeightMapGeneration() {
       if(pathFindingVariables.isEnagled===false)
           return;
 
-      if(pathFindingVariables.graph[clickedFace].isObstical===true)
-          return;
+      if(pathFindingVariables.graph[clickedFace].isObstical===true){
+        alert("cant travel on water");
+        return;
+      }
 
       //click means left button is clicked
       if(event.type === "click"){

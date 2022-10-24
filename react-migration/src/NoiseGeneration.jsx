@@ -87,7 +87,7 @@ function NoiseGeneration() {
         if(pathFindingVariables.isEnagled===true
             &&pathFindingVariables.startId!=-1
             &&pathFindingVariables.endId!=-1){
-                
+
             const isThereAPath = findPath(pathFindingVariables,THREEScene.scene);
             if(isThereAPath===null){
                 alert("No path was found");
@@ -105,8 +105,10 @@ function NoiseGeneration() {
         if(pathFindingVariables.isEnagled===false)
             return;
 
-        if(pathFindingVariables.graph[clickedFace].isObstical===true)
+        if(pathFindingVariables.graph[clickedFace].isObstical===true){
+            alert("cant travel on water");
             return;
+        }
 
         //click means left button is clicked
         if(event.type === "click"){
