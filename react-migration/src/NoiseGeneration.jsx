@@ -58,7 +58,11 @@ function NoiseGeneration() {
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
     
+            const start = performance.now();
             const graph = createNoiseMap(generationVariables,THREEScene.scene,false);
+            const end = performance.now() - start;
+            console.log(end);
+
             setPathFindingVariables({
                 startId:-1,
                 endId:-1,

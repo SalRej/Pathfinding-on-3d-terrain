@@ -87,7 +87,7 @@ const generateWorld = (data) =>{
         
         vertexIndex+=9;
 
-        const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
+        const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y cordinate a bit higher so the mesh is above the other one
         createNode(graph,i,avrageY,width,position);
     }
 
