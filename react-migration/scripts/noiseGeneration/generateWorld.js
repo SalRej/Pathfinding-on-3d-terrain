@@ -86,7 +86,7 @@ const generateWorld = (data) =>{
         colors[vertexIndex+8]=color3.b;
         
         vertexIndex+=9;
-
+        
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y cordinate a bit higher so the mesh is above the other one
         createNode(graph,i,avrageY,width,position);
     }
