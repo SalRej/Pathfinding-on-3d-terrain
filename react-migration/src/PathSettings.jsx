@@ -2,12 +2,15 @@ import React , {useContext} from 'react'
 import worldDataContext from './contex';
 function PathSettings(){
 
-    const {setPathFindingVariables , pathFindingVariables} = useContext(worldDataContext);
+    const {setPathFindingVariables , pathFindingVariables, isTerraforming} = useContext(worldDataContext);
     const handleClick =()=>{
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            isEnagled:!pathFindingVariables.isEnagled
-        });
+
+        if(isTerraforming===false){
+            setPathFindingVariables({
+                ...pathFindingVariables,
+                isEnagled:!pathFindingVariables.isEnagled
+            });
+        }
     }
     return (
         <main>
@@ -23,6 +26,7 @@ function PathSettings(){
                     <li>Press right mouse button to place an end point</li>
                     <li>Start and end points must be selected</li>    
                     <li>When working with high resolution map , pahtfinding my take a few seconds</li>
+                    <li>If terrafoming is enabled you cant use pathfinding</li>
                 </ul>
             </div>
 
