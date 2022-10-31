@@ -15,7 +15,7 @@ function NoiseGeneration() {
     const mouseX = useRef(null);
     const mouseY = useRef(null);
 
-    const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, isTerraforming} = useContext(worldDataContext);
+    const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, terraformingVariables} = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
         width:100,
@@ -53,7 +53,7 @@ function NoiseGeneration() {
     },[]);
 
     useEffect(()=>{
-        if(isTerraforming===true){
+        if(terraformingVariables.isEnabled===true){
             const {controls} = THREEScene;
             controls.enabled = false;
             setTHREEScene({
@@ -69,7 +69,7 @@ function NoiseGeneration() {
                 controls:controls
             })
         }
-    },[isTerraforming])
+    },[terraformingVariables.isEnabled])
     
     function animate() {
         requestAnimationFrame( animate );
@@ -125,8 +125,9 @@ function NoiseGeneration() {
 
     const intervalRef = React.useRef(null);
     const startCounter = (event) => {
+        
         if (intervalRef.current) return;
-        if(isTerraforming===false) return;
+        if(terraformingVariables.isEnabled===false) return;
 
         intervalRef.current = setInterval(() => {
           const {scaleY} = generationVariables;
@@ -134,10 +135,10 @@ function NoiseGeneration() {
           const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
 
           if(event.button===0){//left button
-              terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true);
+            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
           }
           else if(event.button===2){//right button
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false);
+            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false,terraformingVariables);
           }
           
         }, 10);
@@ -151,9 +152,12 @@ function NoiseGeneration() {
     };
 
     const canvasClicked = (event)=>{
-        if(isTerraforming === true){
+        event.preventDefault();
+        event.stopPropagation();
+        if(terraformingVariables.isEnabled === true){
             return;
         }
+
         const {camera,renderer,scene} = THREEScene;
         const clickedFace = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
 
@@ -175,6 +179,8 @@ function NoiseGeneration() {
                 startId:clickedFace
             })
         }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
+            event.preventDefault();
+            event.stopPropagation();
             setPathFindingVariables({
                 ...pathFindingVariables,
                 endId:clickedFace

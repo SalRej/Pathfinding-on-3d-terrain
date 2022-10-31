@@ -1,6 +1,6 @@
 import mapping from "../mapping";
 import applyColor from "../applyColor";
-const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,range,scaleY,doRaise) =>{
+const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,range,strength,scaleY,doRaise) =>{
 
     //find distance of each point to middle of triangle clicked
     const x = positions.getX(pointIndex);
@@ -9,7 +9,7 @@ const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,ran
     const dist = Math.sqrt(Math.pow(startCenterX-x,2)+Math.pow(startCenterZ-z,2));
 
     //apply new hight
-    const addedValueforY = mapping(-dist,-range,0,0,0.5);
+    const addedValueforY = mapping(-dist,-range,0,0,strength);
 
     let newY;
     if(doRaise===true){
@@ -18,7 +18,7 @@ const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,ran
         newY = positions.getY(pointIndex) - addedValueforY;
     }
 
-    if(newY<=scaleY && newY>=0){
+    if(newY<=scaleY+5 && newY>=0){
         positions.setY(pointIndex,newY);
     }
     //apply color acording to the new hight

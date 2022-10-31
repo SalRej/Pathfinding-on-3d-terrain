@@ -16,7 +16,7 @@ function HeightMapGeneration() {
   const mouseX = useRef(null);
   const mouseY = useRef(null);
 
-  const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, isTerraforming} = useContext(worldDataContext);
+  const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, terraformingVariables} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -48,7 +48,7 @@ function HeightMapGeneration() {
   },[]);
 
   useEffect(()=>{
-    if(isTerraforming===true){
+    if(terraformingVariables.isEnabled===true){
         const {controls} = THREEScene;
         controls.enabled = false;
         setTHREEScene({
@@ -64,7 +64,7 @@ function HeightMapGeneration() {
             controls:controls
         })
     }
-  },[isTerraforming])
+  },[terraformingVariables.isEnabled])
 
   function animate() {
     requestAnimationFrame( animate );
@@ -92,7 +92,7 @@ function HeightMapGeneration() {
   },[heightMapVariables]);
 
   useEffect(()=>{
-    if(isTerraforming===true){
+    if(terraformingVariables.isEnabled===true){
         const {controls} = THREEScene;
         controls.enabled = false;
         setTHREEScene({
@@ -108,7 +108,7 @@ function HeightMapGeneration() {
             controls:controls
         })
     }
-  },[isTerraforming])
+  },[terraformingVariables.isEnabled])
 
   const handleHeightMapSettings = (event)=>{
     setHeightMapVariables({
@@ -161,24 +161,10 @@ function HeightMapGeneration() {
 
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
-  //   const handleTerraform = (event) =>{
-  //     const {scaleY} = heightMapVariables;
-  //     if(isTerraforming===true){
-  //         if(event.type === "click"){
-  //             console.log('here')
-  //             terraform(event,THREEScene,pathFindingVariables,scaleY,true);
-  //         }
-  //         if(event.type === "contextmenu"){
-  //             event.preventDefault();
-  //             event.stopPropagation();
-  //             terraform(event,THREEScene,pathFindingVariables,scaleY,false);
-  //         }
-  //     }
-  // }
       const intervalRef = React.useRef(null);
       const startCounter = (event) => {
         if (intervalRef.current) return;
-        if(isTerraforming===false) return;
+        if(terraformingVariables.isEnabled===false) return;
 
         intervalRef.current = setInterval(() => {
           const {scaleY} = heightMapVariables;
@@ -186,10 +172,11 @@ function HeightMapGeneration() {
           const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
 
           if(event.button===0){//left button
-              terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true);
+              terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
           }
           else if(event.button===2){//right button
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false);
+            
+            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false,terraformingVariables);
           }
           
         }, 10);
@@ -202,7 +189,9 @@ function HeightMapGeneration() {
           }
       };
     const canvasClicked = (event)=>{
-      if(isTerraforming === true){
+      event.preventDefault();
+      event.stopPropagation();
+      if(terraformingVariables.isEnabled === true){
         return;
       }
 

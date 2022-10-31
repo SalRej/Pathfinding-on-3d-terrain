@@ -12,7 +12,11 @@ function App(){
   
   const [THREEScene,setTHREEScene] = useState(null);
   const [pathFindingVariables,setPathFindingVariables] = useState(null);
-  const [isTerraforming,setIsTerraforming] = useState(false);
+  const [terraformingVariables,setTerraformingVariables] = useState({
+    isEnabled:false,
+    brushRadius:10,
+    brushStrength:0.5
+  })
 
   let location = useLocation();
 
@@ -54,7 +58,7 @@ function App(){
   return (
     <div className="App" id="App">
       {(THREEScene!=null && pathFindingVariables!=null)&&
-        <worldDataContext.Provider value={{THREEScene,setTHREEScene, pathFindingVariables,setPathFindingVariables , isTerraforming , setIsTerraforming}}>
+        <worldDataContext.Provider value={{THREEScene,setTHREEScene, pathFindingVariables,setPathFindingVariables , terraformingVariables , setTerraformingVariables}}>
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
