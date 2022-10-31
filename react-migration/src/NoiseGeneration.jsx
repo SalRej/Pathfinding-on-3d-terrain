@@ -2,11 +2,12 @@ import React , {useState , useEffect , useRef ,useContext } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
 import BackButton from './BackButton';
-
-import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
+import * as THREE from 'three'
+// import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
-
+import terraform from '../scripts/terraforming/terraform';
+import createNoiseMap from '../scripts/test/createNoiseMap';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -41,6 +42,13 @@ function NoiseGeneration() {
             ...pathFindingVariables,
             graph:graph
         })
+
+        const size = 100;
+const divisions = 10;
+
+const gridHelper = new THREE.GridHelper( size, divisions );
+THREEScene.scene.add( gridHelper );
+
         animate();
     },[]);
 
@@ -76,10 +84,7 @@ function NoiseGeneration() {
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
     
-            const start = performance.now();
             const graph = createNoiseMap(generationVariables,THREEScene.scene,false);
-            const end = performance.now() - start;
-            console.log(end);
 
             setPathFindingVariables({
                 startId:-1,
@@ -116,7 +121,25 @@ function NoiseGeneration() {
         }
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
+    const handleTerraform = (event) =>{
+        const {scaleY} = generationVariables;
+        if(isTerraforming===true){
+            if(event.type === "click"){
+                console.log('here')
+                terraform(event,THREEScene,pathFindingVariables,scaleY,true);
+            }
+            if(event.type === "contextmenu"){
+                event.preventDefault();
+                event.stopPropagation();
+                terraform(event,THREEScene,pathFindingVariables,scaleY,false);
+            }
+        }
+    }
     const canvasClicked = (event)=>{
+        if(isTerraforming === true){
+            handleTerraform(event);
+            return;
+        }
         const {camera,renderer,scene} = THREEScene;
         const clickedFace = getTriangleClicked(event,renderer,camera,scene);
 
@@ -147,7 +170,8 @@ function NoiseGeneration() {
 
     return (
         <div className='flex'>
-            <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
+            <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}
+            ></div>
             <div className='settings_holder'>
                 <BackButton url={'/'}/>
                 <NoiseGeneratorSettings 

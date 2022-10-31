@@ -12,12 +12,12 @@
     every neighbor that is not certein i calculate otherwise directly add it
 
 */
-const createNode = (graph,i,avrageY,width,position) =>{
-    
+
+export const calculateMovingCost = (avrageY) =>{
     let movingCost = 0;
     const costs = [
         {
-            lowRange:0.15,
+            lowRange:0,
             heighRange:0.4,
             value:1
         },
@@ -49,6 +49,12 @@ const createNode = (graph,i,avrageY,width,position) =>{
         }
     })
 
+    return movingCost;
+}
+const createNode = (graph,i,avrageY,width,position) =>{
+    
+    
+    const movingCost = calculateMovingCost(avrageY);
     const waterLevel = 0.15;
     graph.push({
         id:i,

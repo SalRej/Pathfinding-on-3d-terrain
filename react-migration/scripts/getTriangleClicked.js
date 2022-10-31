@@ -14,7 +14,6 @@ const getTriangleClicked = (event,renderer,camera,scene) =>{
     raycaster.setFromCamera(pointer,camera);
     
     const intersect = raycaster.intersectObjects(scene.children);
-    // pathData= djikstra(worldData.graph,0,worldData.graph[intersect[0].faceIndex].id);
 
     if(intersect[0]!=undefined){
         return intersect[0].faceIndex;
