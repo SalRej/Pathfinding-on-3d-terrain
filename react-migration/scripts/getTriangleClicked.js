@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const getTriangleClicked = (event,renderer,camera,scene) =>{
+const getTriangleClicked = (mouseX,mouseY,renderer,camera,scene) =>{
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -9,8 +9,8 @@ const getTriangleClicked = (event,renderer,camera,scene) =>{
 
     // calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
-    pointer.x = ( event.clientX / rendererSize.x ) * 2 - 1;
-    pointer.y = - ( event.clientY / rendererSize.y ) * 2 + 1;
+    pointer.x = ( mouseX / rendererSize.x ) * 2 - 1;
+    pointer.y = - ( mouseY / rendererSize.y ) * 2 + 1;
     raycaster.setFromCamera(pointer,camera);
     
     const intersect = raycaster.intersectObjects(scene.children);
