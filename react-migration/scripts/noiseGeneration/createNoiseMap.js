@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { DoubleSide } from 'three';
-import animateWorldGeneration from './animateWorldGeneration';
 import generateWorld from './generateWorld';
 import createNoiseValues from './createNoiseValues';
+import createGraph from '../graph/createGraph';
 
 const createNoiseMap = (generationVariables,scene,doAnimate) =>{
     
@@ -19,14 +19,16 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
     const sclaeMuliplayerX = width/mapWidth;
     const sclaeMuliplayerY = height/mapHeight;
 
-    const {points , pointsOfTriangleIndexes } = createNoiseValues(generationVariables,sclaeMuliplayerX,sclaeMuliplayerY);
+    const geometry = createNoiseValues(generationVariables,sclaeMuliplayerX,sclaeMuliplayerY);
 
-    const geometry = new THREE.BufferGeometry();
-    const material = new THREE.MeshStandardMaterial( {
+    const material = new THREE.MeshStandardMaterial({
         side: THREE.DoubleSide,vertexColors: true
     });
 
-    let graph;
+    const mesh = new THREE.Mesh(geometry,material);
+    mesh.name='worldMesh';
+    scene.add(mesh);
+    let graph = createGraph(geometry,width);
     if(doAnimate===true){
         const data ={
             geometry,
@@ -40,16 +42,13 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
         }
         graph = animateWorldGeneration(data);
     }else{
-        const data ={
-            pointsOfTriangleIndexes,
-            points,
-            width,
-            scene,
-            geometry,
-            material,
-            scaleY
-        }
-        graph = generateWorld(data);
+        // const data ={
+        //     width,
+        //     scene,
+        //     material,
+        //     scaleY
+        // }
+        // graph = generateWorld(data);
     }
 
     return graph;

@@ -1,6 +1,8 @@
 import alea from 'alea';
 import { createNoise2D } from 'simplex-noise';
 import mapping from '../mapping';
+import * as THREE from 'three';
+import applyColor from '../applyColor';
 
 const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY) =>{
 
@@ -19,11 +21,7 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
         octvaeOffsets.push({x:oX,y:oY});
     }
 
-    const points = new Array(width*height);
     let pointIndex = 0;
-    const numPointsOfTriangleIndexes = (height-1) * (width-1) * 2;
-    const pointsOfTriangleIndexes = new Array(numPointsOfTriangleIndexes);
-    let indexOfPointsOfTriangleIndexes = 0;
 
     const mapWidth = 100;
     const mapHeight = 100;
@@ -33,6 +31,11 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
 
     const stepX = mapWidth / width;
     const stepY = mapHeight / height;
+
+    const geometry = new THREE.BufferGeometry();
+    const positions = [];
+    const colors = [];
+    const indecies = [];
 
     for(let i = 0; i < height; i++){
         xCordinate = 0 - (mapHeight/2);
@@ -65,25 +68,39 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
                 let indexOfPoint1 = pointIndex;
                 let indexOfPoint2 = pointIndex + width + 1;
                 let indexOfPoint3 = pointIndex + width;
-                pointsOfTriangleIndexes[indexOfPointsOfTriangleIndexes]={a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3};
-                indexOfPointsOfTriangleIndexes++;
+                indecies.push(indexOfPoint1,indexOfPoint2,indexOfPoint3);
                 //set the points for 2 triangles
                 indexOfPoint1 = pointIndex + width + 1;
                 indexOfPoint2 = pointIndex;
                 indexOfPoint3 = pointIndex + 1;
                 
-                pointsOfTriangleIndexes[indexOfPointsOfTriangleIndexes]={a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3};
-                indexOfPointsOfTriangleIndexes++;
+                indecies.push(indexOfPoint1,indexOfPoint2,indexOfPoint3);
             }
             
-            noise=mapping(noise,-1,1,0,1);
-            points[pointIndex] = {x:xCordinate,y:noise,z:zCordinate};
+            const color = {r:0,g:0,b:0};
+            const noiseForColoring = mapping(noise,-1,1,0,1);
+
+            //levels the watter
+            if(noiseForColoring <= 0.15){
+                noise = mapping(0.15,0,1,-1,1);
+            }
+            applyColor(noiseForColoring,color)
+            noise=mapping(noise,-1,1,0,generationVariables.scaleY);
+
+            positions.push(xCordinate,noise,zCordinate);
+            colors.push(color.r,color.g,color.b);
+
             pointIndex++;
             xCordinate+=stepX;
         }
         zCordinate+=stepY;
-
     }
-    return {points , pointsOfTriangleIndexes };
+
+    geometry.setIndex(indecies);
+    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ));
+    geometry.computeVertexNormals();//needed for light to work
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute( colors, 3 ));
+
+    return geometry;
 }
 export default createNoiseValues;

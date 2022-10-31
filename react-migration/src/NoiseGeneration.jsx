@@ -3,11 +3,11 @@ import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
 import BackButton from './BackButton';
 import * as THREE from 'three'
-// import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
+import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
 import terraform from '../scripts/terraforming/terraform';
-import createNoiseMap from '../scripts/test/createNoiseMap';
+// import createNoiseMap from '../scripts/test/createNoiseMap';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -43,12 +43,6 @@ function NoiseGeneration() {
             graph:graph
         })
 
-        const size = 100;
-const divisions = 10;
-
-const gridHelper = new THREE.GridHelper( size, divisions );
-THREEScene.scene.add( gridHelper );
-
         animate();
     },[]);
 
@@ -70,6 +64,7 @@ THREEScene.scene.add( gridHelper );
             })
         }
     },[isTerraforming])
+    
     function animate() {
         requestAnimationFrame( animate );
         THREEScene.controls.update();

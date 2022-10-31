@@ -1,4 +1,3 @@
-import {lerp} from "./mapping";
 import mapping from "./mapping";
 const setColor = (color1,color2)=>{
     color1.r=color2.r;
@@ -21,11 +20,9 @@ const blendColors = (y,color,colorsAndValues,i) =>{
     newColor.b = mapping(y,currentValue,nextValue,currentColor.b,nextColor.b)
     setColor(color,newColor);
 }
-const applyColor = (y1,y2,y3,color1,color2,color3) => {
+const applyColor = (y1,color1) => {
 
     setColor(color1,{r:0,g:0.3,b:0.6});
-    setColor(color2,{r:0,g:0.3,b:0.6});
-    setColor(color3,{r:0,g:0.3,b:0.6});
 
     const colorsAndValues =[
         {
@@ -63,22 +60,6 @@ const applyColor = (y1,y2,y3,color1,color2,color3) => {
                 blendColors(y1,color1,colorsAndValues,i);
             }else {
                 setColor(color1,colorsAndValues[i].color)
-            };
-        }
-
-        if(y2>colorsAndValues[i].value){
-            if(i+1<colorsAndValues.length){
-
-                blendColors(y2,color2,colorsAndValues,i);
-            }else {
-                setColor(color2,colorsAndValues[i].color)
-            };
-        }
-        if(y3>colorsAndValues[i].value){
-            if(i+1<colorsAndValues.length){
-                blendColors(y3,color3,colorsAndValues,i);
-            }else {
-                setColor(color3,colorsAndValues[i].color)
             };
         }
     }
