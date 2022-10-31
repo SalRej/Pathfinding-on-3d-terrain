@@ -25,15 +25,15 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
       <nav>
           <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
           <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
-          <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
           <p className={chosenTab==="terraform"?"chosen":""} onClick={()=>setChosenTab("terraform")}>Terraform</p>
+          <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
       </nav>
 
       {
         chosenTab==="settings" &&
         <main>
           <form onChange={handleResolutionChange}>
-            <Slider min={20} max={500} step={1} name={"resolution"} value={heightMapVariables.numPointsX}/>
+            <Slider min={20} max={200} step={1} name={"resolution"} value={heightMapVariables.numPointsX}/>
           </form>
 
           <form onChange={handleChange}>

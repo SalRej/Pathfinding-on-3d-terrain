@@ -20,7 +20,7 @@ const createPoints = (numPointsX,numPointsY) =>{
         for(let j = 0;j < numPointsX; j++){
             
             const y = 0;
-            points.push({x:xCordinate,y:y,z:zCordinate});
+            points.push(xCordinate,y,zCordinate);
 
             if(j < numPointsX-1 && i < numPointsY-1){
 
@@ -28,14 +28,14 @@ const createPoints = (numPointsX,numPointsY) =>{
                 let indexOfPoint1 = pointIndex;
                 let indexOfPoint2 = pointIndex + numPointsX + 1;
                 let indexOfPoint3 = pointIndex + numPointsX;
-                pointsOfTriangleIndexes.push({a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3});
+                pointsOfTriangleIndexes.push(indexOfPoint1,indexOfPoint2,indexOfPoint3);
 
                 //set the points for 2 triangles
                 indexOfPoint1 = pointIndex + numPointsX + 1;
                 indexOfPoint2 = pointIndex;
                 indexOfPoint3 = pointIndex + 1;
                 
-                pointsOfTriangleIndexes.push({a:indexOfPoint1,b:indexOfPoint2,c:indexOfPoint3});
+                pointsOfTriangleIndexes.push(indexOfPoint1,indexOfPoint2,indexOfPoint3);
             }
             pointIndex++;
             xCordinate+=stepX;
