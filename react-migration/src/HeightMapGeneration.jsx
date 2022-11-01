@@ -36,10 +36,11 @@ function HeightMapGeneration() {
 
   useOnLoad(createHeightMap,heightMapVariables,canvasHolder,mouseX,mouseY);
 
-  useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
-  useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createHeightMap,heightMapVariables);
-  useOnPathChange(pathFindingVariables,THREEScene);
-  const {startCounter,stopCounter} = useOnButtonHold(THREEScene,terraformingVariables,pathFindingVariables,mouseX,mouseY,heightMapVariables.scaleY);
+  useTriggerControls();
+  useHandleGenerationChange(initialRender,createHeightMap,heightMapVariables);
+  useOnPathChange();
+
+  const {startCounter,stopCounter} = useOnButtonHold(mouseX,mouseY,heightMapVariables.scaleY);
 
   const handleHeightMapSettings = (event)=>{
     setHeightMapVariables({

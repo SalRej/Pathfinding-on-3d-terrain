@@ -1,8 +1,11 @@
 import {useRef} from 'react'
 import terraform from '../../scripts/terraforming/terraform';
 import getTriangleClicked from '../../scripts/getTriangleClicked';
+import worldDataContext from '../contex';
+import { useContext } from 'react';
+function useOnButtonHold(mouseX,mouseY,scaleY){
 
-function useOnButtonHold(THREEScene,terraformingVariables,pathFindingVariables,mouseX,mouseY,scaleY){
+    const {THREEScene,terraformingVariables,pathFindingVariables} = useContext(worldDataContext);
 
     const intervalRef = useRef(null);
     const startCounter = (event) => {
