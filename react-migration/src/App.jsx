@@ -22,7 +22,6 @@ function App(){
 
   useEffect(()=>{
     //this code runs on a route change
-
     if(location.pathname==='/'){
       setPathFindingVariables({
         ...pathFindingVariables,
@@ -30,8 +29,6 @@ function App(){
         endId:-1,
         isEnagled:false,
       })
-
-      setIsTerraforming(false);
     }
 
   },[location.pathname])

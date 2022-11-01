@@ -4,6 +4,7 @@ import HeightMapSettings from './HeightMapSettings';
 import createHeightMap from '../scripts/heightMapGeneration/createHightMap';
 import worldDataContext from './contex';
 import BackButton from './BackButton';
+import useTriggerControls from './hooks/useTriggerControls';
 
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
@@ -91,24 +92,7 @@ function HeightMapGeneration() {
     }
   },[heightMapVariables]);
 
-  useEffect(()=>{
-    if(terraformingVariables.isEnabled===true){
-        const {controls} = THREEScene;
-        controls.enabled = false;
-        setTHREEScene({
-            ...THREEScene,
-            controls:controls
-        })
-    }
-    else{
-        const {controls} = THREEScene;
-        controls.enabled = true;
-        setTHREEScene({
-            ...THREEScene,
-            controls:controls
-        })
-    }
-  },[terraformingVariables.isEnabled])
+  useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
 
   const handleHeightMapSettings = (event)=>{
     setHeightMapVariables({
