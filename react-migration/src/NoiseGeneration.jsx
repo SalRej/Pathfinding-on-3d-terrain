@@ -6,10 +6,9 @@ import BackButton from './BackButton';
 import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
+import useCanvasClicked from './hooks/useCanvasClicked';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
-import getTriangleClicked from '../scripts/getTriangleClicked';
-import terraform from '../scripts/terraforming/terraform';
 import useOnButtonHold from './hooks/useOnButtonHold';
 
 function NoiseGeneration() {
@@ -91,40 +90,7 @@ function NoiseGeneration() {
     }
 
     const canvasClicked = (event)=>{
-        event.preventDefault();
-        event.stopPropagation();
-        if(terraformingVariables.isEnabled === true){
-            return;
-        }
-
-        const {camera,renderer,scene} = THREEScene;
-        const clickedFace = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
-
-        if(clickedFace===null)
-            return;
-            
-        if(pathFindingVariables.isEnagled===false)
-            return;
-
-        if(pathFindingVariables.graph[clickedFace].isObstical===true){
-            alert("cant travel on water");
-            return;
-        }
-
-        //click means left button is clicked
-        if(event.type === "click"){
-            setPathFindingVariables({
-                ...pathFindingVariables,
-                startId:clickedFace
-            })
-        }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
-            event.preventDefault();
-            event.stopPropagation();
-            setPathFindingVariables({
-                ...pathFindingVariables,
-                endId:clickedFace
-            })
-        }
+        useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables,mouseX,mouseY);
     }
 
     return (
