@@ -4,7 +4,9 @@ import HeightMapSettings from './HeightMapSettings';
 import createHeightMap from '../scripts/heightMapGeneration/createHightMap';
 import worldDataContext from './contex';
 import BackButton from './BackButton';
+
 import useTriggerControls from './hooks/useTriggerControls';
+import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
@@ -48,51 +50,15 @@ function HeightMapGeneration() {
     animate();
   },[]);
 
-  useEffect(()=>{
-    if(terraformingVariables.isEnabled===true){
-        const {controls} = THREEScene;
-        controls.enabled = false;
-        setTHREEScene({
-            ...THREEScene,
-            controls:controls
-        })
-    }
-    else{
-        const {controls} = THREEScene;
-        controls.enabled = true;
-        setTHREEScene({
-            ...THREEScene,
-            controls:controls
-        })
-    }
-  },[terraformingVariables.isEnabled])
-
+  
   function animate() {
     requestAnimationFrame( animate );
     THREEScene.controls.update();
     THREEScene.renderer.render( THREEScene.scene, THREEScene.camera );
   };
 
-  useEffect(()=>{
-    if(initialRender.current===true){
-        initialRender.current=false;
-        THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
-    }
-    else if(initialRender.current===false){
-      THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
-      THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
-        
-        const graph = createHeightMap(heightMapVariables,THREEScene.scene);
-        setPathFindingVariables({
-          startId:-1,
-          endId:-1,
-          isEnagled:false,
-          graph:graph
-      })
-    }
-  },[heightMapVariables]);
-
   useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
+  useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createHeightMap,heightMapVariables);
 
   const handleHeightMapSettings = (event)=>{
     setHeightMapVariables({
