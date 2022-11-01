@@ -7,10 +7,10 @@ import BackButton from './BackButton';
 
 import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
+import useOnPathChange from './hooks/useOnPathChange';
+import useOnButtonHold from './hooks/useOnButtonHold';
 
 import getTriangleClicked from '../scripts/getTriangleClicked';
-import findPath from '../scripts/graph/findPath';
-import terraform from '../scripts/terraforming/terraform';
 
 function HeightMapGeneration() {
   
@@ -59,6 +59,8 @@ function HeightMapGeneration() {
 
   useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
   useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createHeightMap,heightMapVariables);
+  useOnPathChange(pathFindingVariables,THREEScene);
+  const {startCounter,stopCounter} = useOnButtonHold(THREEScene,terraformingVariables,pathFindingVariables,mouseX,mouseY,heightMapVariables.scaleY);
 
   const handleHeightMapSettings = (event)=>{
     setHeightMapVariables({
@@ -96,48 +98,6 @@ function HeightMapGeneration() {
     })
   }
 
-  useEffect(()=>{
-
-    if(pathFindingVariables.isEnagled===true
-        &&pathFindingVariables.startId!=-1
-        &&pathFindingVariables.endId!=-1)
-      {
-
-        const isThereAPath = findPath(pathFindingVariables,THREEScene.scene);
-        if(isThereAPath===null){
-          alert("No path was found");
-        }
-      }
-
-    },[pathFindingVariables.startId,pathFindingVariables.endId]);
-
-      const intervalRef = React.useRef(null);
-      const startCounter = (event) => {
-        if (intervalRef.current) return;
-        if(terraformingVariables.isEnabled===false) return;
-
-        intervalRef.current = setInterval(() => {
-          const {scaleY} = heightMapVariables;
-          const {renderer,scene,camera} = THREEScene;
-          const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
-
-          if(event.button===0){//left button
-              terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
-          }
-          else if(event.button===2){//right button
-            
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false,terraformingVariables);
-          }
-          
-        }, 10);
-      };
-      
-      const stopCounter = () => {
-          if (intervalRef.current) {
-              clearInterval(intervalRef.current);
-              intervalRef.current = null;
-          }
-      };
     const canvasClicked = (event)=>{
       event.preventDefault();
       event.stopPropagation();

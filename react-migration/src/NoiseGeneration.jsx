@@ -5,11 +5,13 @@ import BackButton from './BackButton';
 
 import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
+import useOnPathChange from './hooks/useOnPathChange';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
-import findPath from '../scripts/graph/findPath';
 import terraform from '../scripts/terraforming/terraform';
+import useOnButtonHold from './hooks/useOnButtonHold';
+
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -71,6 +73,8 @@ function NoiseGeneration() {
     useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
     useHandleGenerationChange();
     useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createNoiseMap,generationVariables);
+    useOnPathChange(pathFindingVariables,THREEScene);
+    const {startCounter,stopCounter} = useOnButtonHold(THREEScene,terraformingVariables,pathFindingVariables,mouseX,mouseY,generationVariables.scaleY);
 
     const changeResolution = (value) =>{
         setGenerationVariables({
@@ -85,47 +89,6 @@ function NoiseGeneration() {
             [event.target.name]:event.target.value
         })
     }
-
-    useEffect(()=>{
-        if(pathFindingVariables.isEnagled===true
-            &&pathFindingVariables.startId!=-1
-            &&pathFindingVariables.endId!=-1){
-
-            const isThereAPath = findPath(pathFindingVariables,THREEScene.scene);
-            if(isThereAPath===null){
-                alert("No path was found");
-            }
-        }
-    },[pathFindingVariables.startId,pathFindingVariables.endId]);
-
-
-    const intervalRef = React.useRef(null);
-    const startCounter = (event) => {
-        
-        if (intervalRef.current) return;
-        if(terraformingVariables.isEnabled===false) return;
-
-        intervalRef.current = setInterval(() => {
-          const {scaleY} = generationVariables;
-          const {renderer,scene,camera} = THREEScene;
-          const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
-
-          if(event.button===0){//left button
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
-          }
-          else if(event.button===2){//right button
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false,terraformingVariables);
-          }
-          
-        }, 10);
-    };
-    
-    const stopCounter = () => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-        }
-    };
 
     const canvasClicked = (event)=>{
         event.preventDefault();
