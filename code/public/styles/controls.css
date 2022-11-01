@@ -223,6 +223,9 @@
 }
 
 @media only screen and (max-width: 1450px) {
+  .settings_holder .controls nav {
+    font-size: 1.3vw;
+  }
   .settings_holder .controls main {
     width: 90%;
   }
@@ -236,12 +239,31 @@
     margin: auto;
     width: 90%;
     max-width: 90%;
+    font-size: 3vw;
   }
   .settings_holder .controls main {
     overflow-y: scroll;
+    margin-bottom: 2em;
   }
   .settings_holder .controls main button {
     font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .settings_holder {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .settings_holder .controls main {
+    overflow-y: scroll;
+    margin-bottom: 2em;
+  }
+  .settings_holder .controls main .info {
+    height: 5em;
+  }
+  .settings_holder .controls main button {
+    font-size: 14px;
   }
 }
 /*# sourceMappingURL=controls.css.map */
