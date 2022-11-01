@@ -1,6 +1,6 @@
 import createNode from "../graph/createNode";
 import mapping from "../mapping";
-const createGraph = (geometry,width) =>{
+const createGraph = (geometry,width,sclaeY) =>{
     
     const indecies = geometry.getIndex();
     const positions = geometry.getAttribute('position');
@@ -24,9 +24,9 @@ const createGraph = (geometry,width) =>{
         const y3 = positions.getY(point3);
         const z3 = positions.getZ(point3);
 
-        const mappedY1 = mapping(y1,0,20,0,1);
-        const mappedY2 = mapping(y2,0,20,0,1);
-        const mappedY3 = mapping(y3,0,20,0,1);
+        const mappedY1 = mapping(y1,0,sclaeY,0,1);
+        const mappedY2 = mapping(y2,0,sclaeY,0,1);
+        const mappedY3 = mapping(y3,0,sclaeY,0,1);
 
         const avrageY = (mappedY1+mappedY2+mappedY3)/3;//needet to determine cost value of each node
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y cordinate a bit higher so the mesh is above the other one

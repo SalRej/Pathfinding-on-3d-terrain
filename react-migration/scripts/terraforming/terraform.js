@@ -1,4 +1,3 @@
-import getTriangleClicked from "../getTriangleClicked";
 import adjustTerrain from "./adjustTerrain";
 import adjustGraphNodes from "./adjustGraphNodes";
 
@@ -27,6 +26,7 @@ const isInRange = (currentTriangle,startCenterX,startCenterZ,range)=>{
 
 const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise,terraformingVariables) =>{
 
+    scaleY=Number(scaleY);
     const {scene} = THREEScene;
     // const triangleId = getTriangleClicked(event,renderer,camera,scene);
     const {graph} = pathFindingVariables;

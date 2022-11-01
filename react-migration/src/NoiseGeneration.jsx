@@ -21,7 +21,6 @@ function NoiseGeneration() {
 
     const {
         THREEScene,
-        setTHREEScene, 
         pathFindingVariables,
         setPathFindingVariables,
         terraformingVariables
