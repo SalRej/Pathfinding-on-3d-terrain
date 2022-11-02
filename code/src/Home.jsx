@@ -7,9 +7,7 @@ function Home() {
 
     return (
     <div>
-        <video autoPlay="autoplay" muted loop id="background-video">
-            <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
-        </video>
+        <img src=".\public\giphy.gif" id="background"></img>
 
         <CSSTransition in={showGetStarted}
             timeout={1000}
