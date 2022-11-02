@@ -29,6 +29,11 @@ function App(){
         endId:-1,
         isEnagled:false,
       })
+
+      setTerraformingVariables({
+        ...terraformingVariables,
+        isEnabled:false
+      })
     }
 
   },[location.pathname])
