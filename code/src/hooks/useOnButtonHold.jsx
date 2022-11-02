@@ -16,13 +16,16 @@ function useOnButtonHold(mouseX,mouseY,scaleY){
         intervalRef.current = setInterval(() => {
 
           const {renderer,scene,camera} = THREEScene;
-          const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
 
-          if(event.button===0){//left button
+          const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
+          if(event.button===0){//left button for pc
             terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
           }
-          else if(event.button===2){//right button
+          else if(event.button===2){//right button for pc
             terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false,terraformingVariables);
+          }
+          else if(event.type='touchstart'){//touch for mobile
+            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
           }
           
         }, 10);

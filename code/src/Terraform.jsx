@@ -36,11 +36,10 @@ function Terraform() {
             <div className='info'>
             <img src="icons8-info-24.png"></img>
                 <ul>
-                    <li>If you are using the app on mobile this wont work</li>
                     <li>Camera will be locked durring terrafoming</li>
                     <li>Left button to rise terrain</li>
                     <li>Right button to lower terrain</li>
-                    <li>Enabeling this option will disable pathfinding</li>
+                    <li>If you are using the app on mobile only rising the terrain will work</li>
                 </ul>
             </div>
             <button className={terraformingVariables.isEnabled===true?'enabled':'disabled'}

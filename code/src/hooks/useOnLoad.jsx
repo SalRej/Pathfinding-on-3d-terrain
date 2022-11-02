@@ -22,6 +22,10 @@ function useOnLoad(generationFunction,generationVariables,canvasHolder,mouseX,mo
             mouseX.current = event.clientX;
             mouseY.current = event.clientY;
         })
+        window.addEventListener('touchmove',(event)=>{
+            mouseX.current = event.touches[0].clientX;
+            mouseY.current = event.touches[0].clientY;
+        })
         animate();
 
     },[])

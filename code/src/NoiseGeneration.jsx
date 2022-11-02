@@ -70,6 +70,8 @@ function NoiseGeneration() {
             <div ref={canvasHolder} className='canvas_older'  onClick={canvasClicked} onContextMenu={canvasClicked}
             onMouseDown={startCounter}
             onMouseUp={stopCounter}
+            onTouchStart={startCounter}
+            onTouchEnd={stopCounter}
             ></div>
             <div className='settings_holder'>
                 <BackButton url={'/'}/>
