@@ -62,12 +62,12 @@ function NoiseGeneration() {
     }
 
     const canvasClicked = (event)=>{
-        useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables,mouseX,mouseY);
+        useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables);
     }
 
     return (
         <div className='flex'>
-            <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}
+            <div ref={canvasHolder} className='canvas_older'  onClick={canvasClicked} onContextMenu={canvasClicked}
             onMouseDown={startCounter}
             onMouseUp={stopCounter}
             ></div>
