@@ -4,6 +4,7 @@ import { Routes , Route , useLocation } from "react-router-dom";
 import Home from './Home';
 import NoiseGeneration from './NoiseGeneration';
 import HeightMapGeneration from './HeightMapGeneration';
+import NotFound from './NotFound';
 
 import initScene from '../scripts/initScene';
 import worldDataContext from './contex';
@@ -62,6 +63,7 @@ function App(){
       {(THREEScene!=null && pathFindingVariables!=null)&&
         <worldDataContext.Provider value={{THREEScene,setTHREEScene, pathFindingVariables,setPathFindingVariables , terraformingVariables , setTerraformingVariables}}>
           <Routes>
+            <Route path='*' element={<NotFound />} />
             <Route path="/" element={<Home />}/>
             <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
             <Route path='/heightMapGeneration' element={<HeightMapGeneration/>}/>
