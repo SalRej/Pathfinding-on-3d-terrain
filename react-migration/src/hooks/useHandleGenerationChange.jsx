@@ -1,7 +1,9 @@
-import {useEffect , useRef} from 'react'
-
-function useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,generationFunction,generationVariables){
+import { useContext } from 'react';
+import {useEffect} from 'react'
+import worldDataContext from '../contex';
+function useHandleGenerationChange(initialRender,generationFunction,generationVariables){
     
+    const {THREEScene,setPathFindingVariables} = useContext(worldDataContext);
     if(initialRender === undefined){
         return;
     }

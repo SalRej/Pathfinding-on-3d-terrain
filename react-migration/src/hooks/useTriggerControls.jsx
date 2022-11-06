@@ -1,7 +1,9 @@
-import React , {useEffect} from 'react'
+import { useContext } from 'react';
+import {useEffect} from 'react'
+import worldDataContext from '../contex';
+function useTriggerControls(){
 
-function useTriggerControls(THREEScene,setTHREEScene,terraformingVariables){
-
+    const {THREEScene,setTHREEScene,terraformingVariables} = useContext(worldDataContext);
     useEffect(()=>{
         if(terraformingVariables.isEnabled===true){
             const {controls} = THREEScene;

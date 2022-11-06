@@ -43,11 +43,10 @@ function NoiseGeneration() {
 
     useOnLoad(createNoiseMap,generationVariables,canvasHolder,mouseX,mouseY);
 
-    useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
-    useHandleGenerationChange();
-    useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createNoiseMap,generationVariables);
-    useOnPathChange(pathFindingVariables,THREEScene);
-    const {startCounter,stopCounter} = useOnButtonHold(THREEScene,terraformingVariables,pathFindingVariables,mouseX,mouseY,generationVariables.scaleY);
+    useTriggerControls();
+    useHandleGenerationChange(initialRender,createNoiseMap,generationVariables);
+    useOnPathChange();
+    const {startCounter,stopCounter} = useOnButtonHold(mouseX,mouseY,generationVariables.scaleY);
 
     const changeResolution = (value) =>{
         setGenerationVariables({

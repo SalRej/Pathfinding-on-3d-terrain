@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import {useEffect} from 'react'
 import findPath from '../../scripts/graph/findPath';
+import worldDataContext from '../contex';
+function useOnPathChange() {
 
-function useOnPathChange(pathFindingVariables,THREEScene) {
+    const {pathFindingVariables,THREEScene} = useContext(worldDataContext);
     useEffect(()=>{
         if(pathFindingVariables.isEnagled===true
             &&pathFindingVariables.startId!=-1
