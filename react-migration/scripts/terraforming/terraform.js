@@ -25,12 +25,12 @@ const isInRange = (currentTriangle,startCenterX,startCenterZ,range)=>{
     return false;
 }
 
-const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise) =>{
+const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise,terraformingVariables) =>{
 
-    const {camera,renderer,scene} = THREEScene;
+    const {scene} = THREEScene;
     // const triangleId = getTriangleClicked(event,renderer,camera,scene);
     const {graph} = pathFindingVariables;
-    const range = 10;
+    const {brushRadius,brushStrength} = terraformingVariables;
     
     //positions array structure = [x1,y1,z1  ,x2,y2,z2  ,x3,y3,z3]
     const worldMesh = scene.getObjectByName('worldMesh');
@@ -79,7 +79,7 @@ const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise) =>
             
             if(graph[neighbor].isVisited==false){
 
-                if(isInRange(graph[neighbor],startCenterX,startCenterZ,range)===true){
+                if(isInRange(graph[neighbor],startCenterX,startCenterZ,brushRadius)===true){
                     nodesIdToCheck.push(graph[neighbor].id);
                 }
 
@@ -94,7 +94,7 @@ const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise) =>
     }
 
     idsOfPointsToTerraform.forEach(pointId=>{
-        adjustTerrain(pointId,positions,colors,startCenterX,startCenterZ,range,scaleY,doRaise);
+        adjustTerrain(pointId,positions,colors,startCenterX,startCenterZ,brushRadius,brushStrength,scaleY,doRaise);
     })
 
 
