@@ -1,13 +1,9 @@
-import { useState , useEffect ,useRef } from 'react';
 import React from 'react';
-import createNoiseMap from '../scripts/createNoiseMap';
-import djikstra from '../scripts/djikstra';
-import animatePathFinding from '../scripts/animatePathFinding';
-import createHeightMap from '../scripts/createHightMap';
-import NoiseGeneration from './NoiseGeneration';
-import Home from './Home';
-import HeightMapGeneration from './HeightMapGeneration';
 import { Routes , Route } from "react-router-dom";
+
+import Home from './Home';
+import NoiseGeneration from './NoiseGeneration';
+import HeightMapGeneration from './HeightMapGeneration';
 
 function App() {
 
@@ -93,7 +89,7 @@ function App() {
   //     [event.target.name]:event.target.value
   //   })
   // }
-  
+
   return (
     <div className="App" id="App">
       <Routes>

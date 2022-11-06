@@ -1,11 +1,15 @@
 import React from 'react'
 
-function HeightMapSettings({heightMapVariables , handleHeightMapSettings}) {
+function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage}) {
 
   const handleChange = (event) =>{
     handleHeightMapSettings(event);
   }
 
+  const handleFileInput =(event) =>{
+    console.log(event);
+    loadImage(event.target.files);
+  }
   return (
     <div>
       <form onChange={handleChange}>
@@ -15,6 +19,8 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings}) {
         <p>ScaleY:{heightMapVariables.scaleY}</p>
         <input type='range' min={0} max={50} name="scaleY" value={heightMapVariables.scaleY} ></input>
         
+        <p>Choose an image</p>
+        <input type='file' accept="image/png, image/jpeg" onChange={handleFileInput}></input>
       </form>
     </div>
   )

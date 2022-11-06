@@ -14,9 +14,10 @@ function HeightMapGeneration() {
   const initialRender = useRef(true);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
-    numPointsX:100,
-    numPointsY:100,
-    scaleY:20
+    numPointsX:250,
+    numPointsY:250,
+    scaleY:20,
+    image:new Image()
   })
 
   useEffect(()=>{
@@ -67,6 +68,27 @@ function HeightMapGeneration() {
     })
   }
 
+  const loadImage = (file)=>{
+    const reader = new FileReader();
+
+    reader.addEventListener("load", () => {
+      const uploadedImageUrl = reader.result;
+      const image = new Image();
+
+      image.addEventListener('load',()=>{
+
+        setHeightMapVariables({
+          ...heightMapVariables,
+          image:image
+        })
+
+      })
+      image.src = uploadedImageUrl;
+    });
+
+    reader.readAsDataURL(file[0]);
+  }
+
   return (
     <div className='flex' style={{display:"flex"}}>
             <div ref={canvasHolder} className='canvas_older'></div>
@@ -74,6 +96,7 @@ function HeightMapGeneration() {
                 <HeightMapSettings
                     heightMapVariables={heightMapVariables}
                     handleHeightMapSettings={handleHeightMapSettings}
+                    loadImage={loadImage}
                 />
             </div>
         </div>
