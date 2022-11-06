@@ -93,8 +93,6 @@ const applyHeight = (mesh)=>{
 }
 const findTirangleCenter = (x1,x2,x3,y1,y2,y3,z1,z2,z3) =>{
     return {x:(x1+x2+x3)/3,y:(y1+y2+y3)/3 + 0.1,z:(z1+z2+z3)/3};
-    // return {x:(x1+x2+x3)/3,y:(y1+y2+y3)/3};
-
 }
 const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene) =>{
     // console.log(findTirangleCenter(5,9,10,3,6,6));
@@ -172,7 +170,7 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
             clearInterval(firstAnimationInterval);
             makeColorImage(triangleIndexes,points,mesh);
         }
-    },0.01)
+    },1)
 
 
     const graph = [];
@@ -191,7 +189,7 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
         const z2 = points[triangleIndexes[i].b].z;
         const z3 = points[triangleIndexes[i].c].z;
 
-        const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];
+        const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
         //needed later for animation of pathfinding
         const triangleCenter = findTirangleCenter(x1,x2,x3,y1,y2,y3,z1,z2,z3);
         const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node

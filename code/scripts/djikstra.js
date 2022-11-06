@@ -35,7 +35,6 @@ const djikstra = (graph,startId,endId) =>{
         graph[currentId].neighborId.forEach((neighbor)=>{
             //if the neigbor is visited or obsticle dont do anything
             if(graph[neighbor].isVisited==false && graph[neighbor].isObstical==false){
-
                 
                 //calculate the new short distance , if it is smaller then the previous one then update the distance and 
                 //update the prevNode
@@ -66,20 +65,6 @@ const djikstra = (graph,startId,endId) =>{
 
             }
         })
-
-        //this code below is questionable
-        //it should improve djikstra by ending it sooner
-        if(currentId==endId){
-            let isFninished = true;
-            graph[currentId].neighborId.forEach(neighbor=>{
-                if(graph[neighbor].isVisited==false){
-                    isFninished=false;
-                }
-            })
-            if(isFninished==true){
-                break;
-            }
-        }
 
         graph[currentId].isVisited=true;
         nodesIdToCheck=nodesIdToCheck.filter(data=>{

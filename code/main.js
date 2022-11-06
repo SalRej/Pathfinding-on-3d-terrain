@@ -1,13 +1,7 @@
 import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import createNoiseMap from './scripts/createNoiseMap';
-import setSkyBox from './scripts/setSkyBox';
-import setLight from './scripts/setLight';
 import djikstra from './scripts/djikstra';
-import colorPath from './scripts/colorPath';
-import resetMapColor from './scripts/resetMapColor';
 import initScene from './scripts/initScene';
-
 
 const initObjects = initScene();
 const {scene} = initObjects;
@@ -16,12 +10,12 @@ const {renderer}= initObjects;
 const {controls} = initObjects;
 
 //gui for map generation control
-const scale =70;
+const scale = 70;
 const octaves = 4;
-const persistance =0.5;
+const persistance = 0.5;
 const lacunarity = 2;
 
-const worldData = createNoiseMap(100,100,scale,octaves,persistance,lacunarity,scene,camera,renderer);
+const worldData = createNoiseMap(200,200,scale,octaves,persistance,lacunarity,scene);
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -30,7 +24,10 @@ let pathData = [];
 let vizualizingMesh;
 let pathMesh;
 
-function onPointerMove( event ) {
+let vizualizeMeshDrawRange = 0;
+let pathDrawRange = 0;
+
+function onMouseClick( event ) {
   
   // calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
@@ -42,6 +39,9 @@ function onPointerMove( event ) {
   // resetMapColor(path,scene);
   pathData= djikstra(worldData.graph,0,worldData.graph[intersect[0].faceIndex].id);
   
+  vizualizeMeshDrawRange = 0;
+  pathDrawRange = 0;
+
   const vizualizingMeshGeometry = new THREE.BufferGeometry();
   vizualizingMeshGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathData.vizualizingGeometry, 3 ));
   vizualizingMeshGeometry.computeVertexNormals();//needed for light to work
@@ -52,6 +52,7 @@ function onPointerMove( event ) {
 
   vizualizingMesh = new THREE.Mesh( vizualizingMeshGeometry, vizualizingMeshMaterial );
   vizualizingMesh.name = "vizualizingMesh";
+  scene.remove(scene.getObjectByName("pathMesh"));
 
   const pathGeometry = new THREE.BufferGeometry();
   pathGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathData.path, 3 ));
@@ -72,13 +73,9 @@ function onPointerMove( event ) {
   // console.log(scene)
   // console.log(mesh.geometry.attributes.position.array.length)
 }
-window.addEventListener( 'mousedown', onPointerMove );
+window.addEventListener( 'mousedown', onMouseClick );
 
-
-let vizualizeMeshDrawRange = 0;
-let pathDrawRange = 0;
 // draw range
-
 
 function animate() {
   requestAnimationFrame( animate );
