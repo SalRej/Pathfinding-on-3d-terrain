@@ -1,5 +1,5 @@
 import React , {useState , useEffect , useRef } from 'react'
-import NoiseGeneratorControls from './NoiseGeneratorControls';
+import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import * as THREE from 'three';
 import initScene from '../scripts/initScene';
 import createNoiseMap from '../scripts/createNoiseMap';
@@ -85,7 +85,7 @@ function NoiseGeneration() {
         <div className='flex' style={{display:"flex"}}>
             <div ref={canvasHolder} className='canvas_older'></div>
             <div className='settings_holder'>
-                <NoiseGeneratorControls 
+                <NoiseGeneratorSettings 
                     generationVariables={generationVariables}
                     handleNoiseSettings={handleNoiseSettings}
                     changeResolution={changeResolution}
