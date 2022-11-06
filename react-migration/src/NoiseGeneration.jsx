@@ -1,8 +1,10 @@
 import React , {useState , useEffect , useRef } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
+
 import * as THREE from 'three';
 import initScene from '../scripts/initScene';
 import createNoiseMap from '../scripts/createNoiseMap';
+import mouseClick from '../scripts/mouseClick';
 
 function NoiseGeneration() {
 
@@ -47,6 +49,7 @@ function NoiseGeneration() {
         const gridHelper = new THREE.GridHelper( size, divisions );
         scene.current.add( gridHelper );
         
+        window.addEventListener("click",handleMouseClick);
         createNoiseMap(generationVariables,scene.current,true);
         animate();
       },[]);
@@ -92,6 +95,9 @@ function NoiseGeneration() {
             current:string
         })
     }
+    const handleMouseClick = (event)=>[
+        mouseClick(event,renderer.current,camera.current,scene.current)
+    ]
     return (
         <div className='flex' style={{display:"flex"}}>
             <div ref={canvasHolder} className='canvas_older'></div>
