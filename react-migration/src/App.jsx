@@ -1,9 +1,10 @@
-import { useState , useEffect } from 'react';
+import { useState , useEffect ,useRef } from 'react';
 import React from 'react';
 import * as THREE from 'three';
 import initScene from '../scripts/initScene';
 import createNoiseMap from '../scripts/createNoiseMap';
 import djikstra from '../scripts/djikstra';
+import animatePathFinding from '../scripts/animatePathFinding';
 
 function App() {
 
@@ -12,8 +13,10 @@ function App() {
   let vizualizingMesh;
   let pathMesh;
 
-  let vizualizeMeshDrawRange = 0;
-  let pathDrawRange = 0;
+  const drawRanges = {
+    vizualizeMeshDrawRange:0,
+    pathDrawRange:0
+  }
   let worldData;
 
   useEffect(()=>{
@@ -37,8 +40,8 @@ function App() {
 
   const findPath = () => {
     pathData= djikstra(worldData.graph,0,4300);
-    vizualizeMeshDrawRange = 0;
-    pathDrawRange = 0;
+    drawRanges.vizualizeMeshDrawRange = 0;
+    drawRanges.pathDrawRange = 0;
 
     const vizualizingMeshGeometry = new THREE.BufferGeometry();
     vizualizingMeshGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathData.vizualizingGeometry, 3 ));
@@ -63,9 +66,8 @@ function App() {
 
     pathMesh = new THREE.Mesh( pathGeometry, pathMaterial );
     pathMesh.name = "pathMesh";
-    console.log(pathMesh);
-    pathMesh.geometry.setDrawRange(0,pathDrawRange);
 
+    pathMesh.geometry.setDrawRange(0,drawRanges.pathDrawRange);
     scene.add(vizualizingMesh);
     scene.add(pathMesh);
   }
@@ -77,25 +79,7 @@ function App() {
   
     // vizualize the pathfinding
     if(pathData.vizualizingGeometry!=undefined){
-      //vizualize the nodes visited by the djikstra algorithm in order
-      if(vizualizeMeshDrawRange <= vizualizingMesh.geometry.attributes.position.array.length/3){
-  
-        vizualizingMesh.geometry.setDrawRange( 0, vizualizeMeshDrawRange );
-        vizualizingMesh.geometry.attributes.position.needsUpdate = true;
-        vizualizeMeshDrawRange+=300;
-  
-      }else{
-        // vizualize the path
-        console.log(pathDrawRange , pathMesh.geometry.attributes.position.array.length/3);
-        scene.remove(scene.getObjectByName("vizualizingMesh"));
-
-        if(pathDrawRange<=pathMesh.geometry.attributes.position.array.length/3){
-
-          pathMesh.geometry.setDrawRange(0,pathDrawRange);
-          pathMesh.geometry.attributes.position.needsUpdate=true;
-          pathDrawRange+=5;
-        }
-      }
+      animatePathFinding(vizualizingMesh,pathMesh,drawRanges,scene);
     }
   
   };
