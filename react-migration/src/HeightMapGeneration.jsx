@@ -1,17 +1,13 @@
 import React , {useState , useEffect , useRef , useContext} from 'react'
 import HeightMapSettings from './HeightMapSettings';
 
-import * as THREE from 'three';
-import initScene from '../scripts/initScene';
 import createHeightMap from '../scripts/createHightMap';
 import worldDataContext from './contex';
 function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
   const initialRender = useRef(true);
-  const worldData = useContext(worldDataContext);
-
-  console.log(worldData);
+  const {THREEScene} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -23,33 +19,26 @@ function HeightMapGeneration() {
   useEffect(()=>{
 
     if(canvasHolder.current!=null){
-       canvasHolder.current.appendChild(renderer.current.domElement);
+       canvasHolder.current.appendChild(THREEScene.current.renderer.domElement);
     }
 
-    createHeightMap(heightMapVariables,scene.current);
+    createHeightMap(heightMapVariables,THREEScene.current.scene);
     animate();
   },[]);
 
   function animate() {
     requestAnimationFrame( animate );
-    controls.current.update();
-    renderer.current.render( scene.current, camera.current );
+    THREEScene.current.controls.update();
+    THREEScene.current.renderer.render( THREEScene.current.scene, THREEScene.current.camera );
   };
-
-  const setIsPathfindingEnabled = (boolean) =>{
-    setPathFindingVariables({
-        ...pathFindingVariables,
-        isEnagled:boolean
-    })
-  }
 
   useEffect(()=>{
     if(initialRender.current==true){
         initialRender.current=false;
     }
     else if(initialRender.current==false){
-        scene.current.remove(scene.current.getObjectByName('worldMesh'));
-        createHeightMap(heightMapVariables,scene.current);
+        THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('worldMesh'));
+        createHeightMap(heightMapVariables,THREEScene.current.scene);
     }
   },[heightMapVariables]);
 
@@ -82,7 +71,6 @@ function HeightMapGeneration() {
   }
 
   const changeResolution = (value)=>{
-    console.log(value);
     setHeightMapVariables({
       ...heightMapVariables,
       numPointsX:value,
