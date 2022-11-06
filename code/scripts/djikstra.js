@@ -46,6 +46,20 @@ const djikstra = (graph,startId,endId) =>{
             }
         })
 
+        //this code below is questionable
+        if(currentId==endId){
+            let isFninished = true;
+            graph[currentId].neighborId.forEach(neighbor=>{
+                if(graph[neighbor].isVisited==false){
+                    isFninished=false;
+                }
+            })
+            if(isFninished==true){
+                console.log("finished",currentId);
+                break;
+            }
+        }
+        
         graph[currentId].isVisited=true;
         nodesIdToCheck=nodesIdToCheck.filter(data=>{
             return data.id!=currentId;
