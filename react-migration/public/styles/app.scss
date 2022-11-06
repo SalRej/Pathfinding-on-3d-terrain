@@ -48,7 +48,16 @@
 
     }
     .two-buttons{
+        p{
+            color:white;
+            font-weight: 600;
+            font-size:40px;
+        }
         button{
+            box-shadow: rgb(248, 248, 248) 0px 3px 8px;
+            border:white 3px solid;
+            background-color: cornflowerblue;
+            color:white;
             margin-top:1em;
             width: 30vw;
             padding-top: 0.4em;

@@ -173,6 +173,7 @@ function App() {
 
         {showGetStarted===false &&
           <div className='holder two-buttons animate__fadeInUp animate__animated'>
+            <p>Make your choice</p>
             <button>Generete world with perlin noise</button>
             <button>Import height map image</button>
           </div>

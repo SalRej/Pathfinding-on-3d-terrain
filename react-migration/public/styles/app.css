@@ -48,7 +48,18 @@
   cursor: pointer;
 }
 
+.App .two-buttons p {
+  color: white;
+  font-weight: 600;
+  font-size: 40px;
+}
+
 .App .two-buttons button {
+  -webkit-box-shadow: #f8f8f8 0px 3px 8px;
+          box-shadow: #f8f8f8 0px 3px 8px;
+  border: white 3px solid;
+  background-color: cornflowerblue;
+  color: white;
   margin-top: 1em;
   width: 30vw;
   padding-top: 0.4em;
