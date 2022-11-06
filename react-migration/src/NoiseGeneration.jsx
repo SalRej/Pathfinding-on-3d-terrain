@@ -4,12 +4,12 @@ import worldDataContext from './contex';
 import BackButton from './BackButton';
 
 import useTriggerControls from './hooks/useTriggerControls';
+import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
 import terraform from '../scripts/terraforming/terraform';
-// import createNoiseMap from '../scripts/test/createNoiseMap';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -17,7 +17,13 @@ function NoiseGeneration() {
     const mouseX = useRef(null);
     const mouseY = useRef(null);
 
-    const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, terraformingVariables} = useContext(worldDataContext);
+    const {
+        THREEScene,
+        setTHREEScene, 
+        pathFindingVariables,
+        setPathFindingVariables,
+        terraformingVariables
+    } = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
         width:100,
@@ -63,25 +69,8 @@ function NoiseGeneration() {
     };
 
     useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
-    
-    useEffect(()=>{
-        if(initialRender.current==true){
-            initialRender.current=false;
-        }
-        else if(initialRender.current==false){
-            THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
-            THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
-    
-            const graph = createNoiseMap(generationVariables,THREEScene.scene,false);
-
-            setPathFindingVariables({
-                startId:-1,
-                endId:-1,
-                isEnagled:false,
-                graph:graph
-            })
-        }
-    },[generationVariables]);
+    useHandleGenerationChange();
+    useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createNoiseMap,generationVariables);
 
     const changeResolution = (value) =>{
         setGenerationVariables({
