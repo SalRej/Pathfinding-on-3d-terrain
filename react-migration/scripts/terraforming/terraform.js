@@ -25,10 +25,10 @@ const isInRange = (currentTriangle,startCenterX,startCenterZ,range)=>{
     return false;
 }
 
-const terraform = (event,THREEScene,pathFindingVariables,scaleY,doRaise) =>{
+const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise) =>{
 
     const {camera,renderer,scene} = THREEScene;
-    const triangleId = getTriangleClicked(event,renderer,camera,scene);
+    // const triangleId = getTriangleClicked(event,renderer,camera,scene);
     const {graph} = pathFindingVariables;
     const range = 10;
     

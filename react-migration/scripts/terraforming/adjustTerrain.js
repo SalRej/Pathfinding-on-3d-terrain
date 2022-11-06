@@ -9,7 +9,7 @@ const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,ran
     const dist = Math.sqrt(Math.pow(startCenterX-x,2)+Math.pow(startCenterZ-z,2));
 
     //apply new hight
-    const addedValueforY = mapping(-dist,-range,0,0,3);
+    const addedValueforY = mapping(-dist,-range,0,0,0.5);
 
     let newY;
     if(doRaise===true){

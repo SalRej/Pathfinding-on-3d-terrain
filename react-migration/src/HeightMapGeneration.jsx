@@ -13,6 +13,9 @@ function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
   const initialRender = useRef(true);
+  const mouseX = useRef(null);
+  const mouseY = useRef(null);
+
   const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, isTerraforming} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
@@ -37,6 +40,10 @@ function HeightMapGeneration() {
       graph:graph
     })
 
+    window.addEventListener('mousemove',(event)=>{
+      mouseX.current = event.clientX;
+      mouseY.current = event.clientY;
+    })
     animate();
   },[]);
 
@@ -154,29 +161,53 @@ function HeightMapGeneration() {
 
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
-    const handleTerraform = (event) =>{
-      const {scaleY} = heightMapVariables;
-      if(isTerraforming===true){
-          if(event.type === "click"){
-              console.log('here')
-              terraform(event,THREEScene,pathFindingVariables,scaleY,true);
-          }
-          if(event.type === "contextmenu"){
-              event.preventDefault();
-              event.stopPropagation();
-              terraform(event,THREEScene,pathFindingVariables,scaleY,false);
-          }
-      }
-  }
+  //   const handleTerraform = (event) =>{
+  //     const {scaleY} = heightMapVariables;
+  //     if(isTerraforming===true){
+  //         if(event.type === "click"){
+  //             console.log('here')
+  //             terraform(event,THREEScene,pathFindingVariables,scaleY,true);
+  //         }
+  //         if(event.type === "contextmenu"){
+  //             event.preventDefault();
+  //             event.stopPropagation();
+  //             terraform(event,THREEScene,pathFindingVariables,scaleY,false);
+  //         }
+  //     }
+  // }
+      const intervalRef = React.useRef(null);
+      const startCounter = (event) => {
+        if (intervalRef.current) return;
+        if(isTerraforming===false) return;
 
+        intervalRef.current = setInterval(() => {
+          const {scaleY} = heightMapVariables;
+          const {renderer,scene,camera} = THREEScene;
+          const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
+
+          if(event.button===0){//left button
+              terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true);
+          }
+          else if(event.button===2){//right button
+            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false);
+          }
+          
+        }, 10);
+      };
+      
+      const stopCounter = () => {
+          if (intervalRef.current) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+          }
+      };
     const canvasClicked = (event)=>{
       if(isTerraforming === true){
-        handleTerraform(event);
         return;
       }
 
       const {camera,renderer,scene} = THREEScene;
-      const clickedFace = getTriangleClicked(event,renderer,camera,scene);
+      const clickedFace = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
 
       if(clickedFace===null)
           return;
@@ -205,7 +236,10 @@ function HeightMapGeneration() {
 
   return (
     <div className='flex'>
-        <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
+        <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}
+          onMouseDown={startCounter}
+          onMouseUp={stopCounter}
+        ></div>
         <div className='settings_holder'>
             <BackButton url={'/'}/>
             <HeightMapSettings
