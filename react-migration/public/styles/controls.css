@@ -34,7 +34,6 @@
           justify-content: center;
   gap: 2em;
   margin-top: 3em;
-  margin-bottom: 3em;
   text-decoration: underline;
 }
 
@@ -44,6 +43,7 @@
   padding: 1em;
   width: 70%;
   margin: auto;
+  margin-top: 3em;
 }
 
 .settings_holder .controls main .info img {

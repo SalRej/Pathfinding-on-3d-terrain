@@ -33,7 +33,6 @@ function ExportFile() {
                     saveArrayBuffer( result, 'scene.glb' );
                 } else {
                     const output = JSON.stringify( result, null, 2 );
-                    console.log( output );
                     saveString( output, 'scene.gltf' );
                 }
             },
@@ -42,9 +41,16 @@ function ExportFile() {
             }
         )
     }
-    
+
     return (
         <main>
+            <div className='info'>
+                <img src="icons8-info-24.png"></img>
+                <ul>
+                    <li>Exported file is in gltf or glb format</li>
+                    <li>The heigher the resolution the bigger the file</li>
+                </ul>
+            </div>
             <a ref={downloadLink} >
                 <button onClick={download}>Export now
                     <img src='download.png'></img>
