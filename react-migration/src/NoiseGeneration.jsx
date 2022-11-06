@@ -5,7 +5,7 @@ import worldDataContext from './contex';
 import createNoiseMap from '../scripts/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/findPath';
-
+import {Link} from 'react-router-dom';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -27,12 +27,20 @@ function NoiseGeneration() {
     })
 
     useEffect(()=>{
-
+        THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
+        THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
+        setPathFindingVariables({
+            startId:-1,
+            endId:-1,
+            isEnagled:false,
+            graph:[]
+        })
+        
         if(canvasHolder.current!=null){
-           canvasHolder.current.appendChild(THREEScene.current.renderer.domElement);
+           canvasHolder.current.appendChild(THREEScene.renderer.domElement);
         }
         
-        const graph = createNoiseMap(generationVariables,THREEScene.current.scene,true);
+        const graph = createNoiseMap(generationVariables,THREEScene.scene,true);
 
         setPathFindingVariables({
             ...pathFindingVariables,
@@ -44,8 +52,8 @@ function NoiseGeneration() {
 
     function animate() {
         requestAnimationFrame( animate );
-        THREEScene.current.controls.update();
-        THREEScene.current.renderer.render( THREEScene.current.scene, THREEScene.current.camera);
+        THREEScene.controls.update();
+        THREEScene.renderer.render( THREEScene.scene, THREEScene.camera);
     };
 
     useEffect(()=>{
@@ -53,9 +61,9 @@ function NoiseGeneration() {
             initialRender.current=false;
         }
         else if(initialRender.current==false){
-            THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('worldMesh'));
-            THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('pathMesh'));
-            const graph = createNoiseMap(generationVariables,THREEScene.current.scene,false);
+            THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
+            THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
+            const graph = createNoiseMap(generationVariables,THREEScene.scene,false);
             setPathFindingVariables({
                 ...pathFindingVariables,
                 graph:graph
@@ -81,12 +89,12 @@ function NoiseGeneration() {
         if(pathFindingVariables.isEnagled===true
             &&pathFindingVariables.startId!=-1
             &&pathFindingVariables.endId!=-1){
-            findPath(pathFindingVariables,THREEScene.current.scene);
+            findPath(pathFindingVariables,THREEScene.scene);
         }
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
     const canvasClicked = (event)=>{
-        const {camera,renderer,scene} = THREEScene.current;
+        const {camera,renderer,scene} = THREEScene;
         const clickedFace = getTriangleClicked(event,renderer,camera,scene);
 
         if(clickedFace===null)
@@ -113,9 +121,15 @@ function NoiseGeneration() {
     }
 
     return (
-        <div className='flex' style={{display:"flex"}}>
+        <div className='flex'>
             <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
             <div className='settings_holder'>
+                <Link to='/'>
+                    <button className='go_back_button'>
+                        <img></img>
+                        <p>GO BACK</p>
+                    </button>
+                </Link>
                 <NoiseGeneratorSettings 
                     generationVariables={generationVariables}
                     handleNoiseSettings={handleNoiseSettings}

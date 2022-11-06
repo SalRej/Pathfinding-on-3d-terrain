@@ -19,12 +19,18 @@ function HeightMapGeneration() {
   })
 
   useEffect(()=>{
-
+    THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
+    THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
+    setPathFindingVariables({
+      startId:-1,
+      endId:-1,
+      isEnagled:false,
+      graph:[]
+  })
     if(canvasHolder.current!=null){
-       canvasHolder.current.appendChild(THREEScene.current.renderer.domElement);
+       canvasHolder.current.appendChild(THREEScene.renderer.domElement);
     }
-
-    const graph = createHeightMap(heightMapVariables,THREEScene.current.scene);
+    const graph = createHeightMap(heightMapVariables,THREEScene.scene);
 
     setPathFindingVariables({
       ...pathFindingVariables,
@@ -35,8 +41,8 @@ function HeightMapGeneration() {
 
   function animate() {
     requestAnimationFrame( animate );
-    THREEScene.current.controls.update();
-    THREEScene.current.renderer.render( THREEScene.current.scene, THREEScene.current.camera );
+    THREEScene.controls.update();
+    THREEScene.renderer.render( THREEScene.scene, THREEScene.camera );
   };
 
   useEffect(()=>{
@@ -44,10 +50,10 @@ function HeightMapGeneration() {
         initialRender.current=false;
     }
     else if(initialRender.current==false){
-        const {scene} = THREEScene.current;
+        const {scene} = THREEScene;
         scene.remove(scene.getObjectByName('worldMesh'));
         scene.remove(scene.getObjectByName('pathMesh'));
-        const graph = createHeightMap(heightMapVariables,THREEScene.current.scene);
+        const graph = createHeightMap(heightMapVariables,THREEScene.scene);
         setPathFindingVariables({
           ...pathFindingVariables,
           startId:-1,
@@ -77,8 +83,8 @@ function HeightMapGeneration() {
           ...heightMapVariables,
           image:image
         })
-
       })
+
       image.src = uploadedImageUrl;
     });
 
@@ -97,13 +103,13 @@ function HeightMapGeneration() {
     if(pathFindingVariables.isEnagled===true
         &&pathFindingVariables.startId!=-1
         &&pathFindingVariables.endId!=-1){
-        findPath(pathFindingVariables,THREEScene.current.scene);
+        findPath(pathFindingVariables,THREEScene.scene);
       }
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
 
   const canvasClicked = (event)=>{
-    const {camera,renderer,scene} = THREEScene.current;
+    const {camera,renderer,scene} = THREEScene;
     const clickedFace = getTriangleClicked(event,renderer,camera,scene);
 
     if(clickedFace===null)
@@ -129,7 +135,7 @@ function HeightMapGeneration() {
   }
 
   return (
-    <div className='flex' style={{display:"flex"}}>
+    <div className='flex'>
         <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
         <div className='settings_holder'>
             <HeightMapSettings
@@ -139,7 +145,7 @@ function HeightMapGeneration() {
                 changeResolution={changeResolution}
             />
         </div>
-      </div>
+    </div>
   )
 }
 

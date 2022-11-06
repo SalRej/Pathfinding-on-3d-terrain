@@ -47,6 +47,7 @@ const createMesh = (points , pointsOfTriangleIndexes , scaleY ,width) =>{
         createNode(graph,i,avrageY,width,position);
     }
 
+    
     const bufferGeometry = new THREE.BufferGeometry();
     bufferGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( trianglePositions, 3 ));
     bufferGeometry.computeVertexNormals();
@@ -96,6 +97,7 @@ const createHeightMap = (heightMapVariables,scene) =>{
     const mesh = new THREE.Mesh(bufferGeometry,material);
     mesh.name="worldMesh";
     scene.add(mesh); 
+    canvas.remove();
     return graph; 
 }
 
