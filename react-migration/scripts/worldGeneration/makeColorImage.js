@@ -17,9 +17,9 @@ const makeColorImage =(triangleIndexes,points,mesh,scaleY)=>{
             let color2={r:0,g:1,b:0};
             let color3={r:0,g:1,b:0};
     
-            const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
-            const y2= mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
-            const y3= mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
+            const y1 = points[triangleIndexes[i].a].y;
+            const y2 = points[triangleIndexes[i].b].y;
+            const y3 = points[triangleIndexes[i].c].y;
             
             applyColor(y1,y2,y3,color1,color2,color3);
 

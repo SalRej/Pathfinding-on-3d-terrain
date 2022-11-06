@@ -5,6 +5,7 @@ import createNode from "../createNode";
 
 import * as THREE from 'three';
 const animateWorldGeneration = (data) =>{
+    console.log(mapping(3,0,20,0,1));
 
     const {
         triangleIndexes,
