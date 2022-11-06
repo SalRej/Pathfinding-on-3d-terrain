@@ -36,9 +36,10 @@ function Terraform() {
             <div className='info'>
             <img src="icons8-info-24.png"></img>
                 <ul>
-                    <li>camera will be locked durring terrafoming</li>
-                    <li>left button to rise terrain</li>
-                    <li>right button to lower the terrain</li>
+                    <li>If you are using the app on mobile this wont work</li>
+                    <li>Camera will be locked durring terrafoming</li>
+                    <li>Left button to rise terrain</li>
+                    <li>Right button to lower the terrain</li>
                     <li>Enabeling this option will diasble pathfinding</li>
                 </ul>
             </div>

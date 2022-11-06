@@ -47,6 +47,7 @@ function ExportFile() {
             <div className='info'>
                 <img src="icons8-info-24.png"></img>
                 <ul>
+                    <li>If you are using the app on mobile this may not work</li>
                     <li>Exported file is in gltf or glb format</li>
                     <li>The heigher the resolution the bigger the file</li>
                 </ul>
