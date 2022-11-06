@@ -1,0 +1,178 @@
+.settings_holder {
+  margin: auto;
+}
+
+.settings_holder .controls {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 40vw;
+  height: 90vh;
+}
+
+.settings_holder .controls .heading {
+  color: rgba(0, 0, 0, 0.614);
+  text-align: center;
+  font-size: 45px;
+  font-weight: bold;
+  padding-top: 1.2em;
+  margin-bottom: 1em;
+}
+
+.settings_holder .controls .slider {
+  width: 60%;
+  margin: auto;
+}
+
+.settings_holder .controls .slider .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.settings_holder .controls .slider .flex input {
+  width: 60%;
+}
+
+.settings_holder .controls .slider .flex p {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 1em;
+  font-size: 1.2em;
+}
+
+.settings_holder .controls .slider label {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0000007a;
+}
+
+.settings_holder .controls p {
+  text-align: center;
+}
+
+.settings_holder .controls input[type=text] {
+  margin-top: 1em;
+  display: block;
+  margin: auto;
+  width: 40%;
+  height: 2em;
+  border-radius: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.437);
+  padding-left: 1em;
+}
+
+.settings_holder .controls input[type=file] {
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+}
+
+.settings_holder input[type=range] {
+  height: 34px;
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+.settings_holder input[type=range]:focus {
+  outline: none;
+}
+
+.settings_holder input[type=range]::-webkit-slider-runnable-track {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+          box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #00afff;
+  border-radius: 7px;
+}
+
+.settings_holder input[type=range]::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 15px;
+  border: 1px solid black;
+  background: #FFFFFF;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+
+.settings_holder input[type=range]:focus::-webkit-slider-runnable-track {
+  background: lightblue;
+}
+
+.settings_holder input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 11px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #00afff;
+  border-radius: 7px;
+  border: 0px solid #010101;
+}
+
+.settings_holder input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000031;
+  border: 1px solid #00001E;
+  height: 26px;
+  width: 26px;
+  border-radius: 15px;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+.settings_holder input[type=range]::-ms-track {
+  width: 100%;
+  height: 11px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.settings_holder input[type=range]::-ms-fill-lower {
+  background: #00afff;
+  border: 0px solid #010101;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px #000000;
+}
+
+.settings_holder input[type=range]::-ms-fill-upper {
+  background: #00afff;
+  border: 0px solid #010101;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px #000000;
+}
+
+.settings_holder input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 1px 1px 1px #000031;
+  border: 1px solid #00001E;
+  height: 26px;
+  width: 26px;
+  border-radius: 15px;
+  background: #FFFFFF;
+  cursor: pointer;
+}
+
+.settings_holder input[type=range]:focus::-ms-fill-lower {
+  background: #74A9D8;
+}
+
+.settings_holder input[type=range]:focus::-ms-fill-upper {
+  background: #74A9D8;
+}
+/*# sourceMappingURL=controls.css.map */

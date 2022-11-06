@@ -14,9 +14,7 @@ const applyHeight = (mesh,scaleY)=>{
                 mesh.geometry.attributes.position.array[i+1]=y;
                 mesh.geometry.attributes.position.needsUpdate=true;
             }
-
         },100)
-
     }
 
     setTimeout(()=>{

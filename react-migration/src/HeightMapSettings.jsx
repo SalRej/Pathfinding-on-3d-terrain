@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Slider from './Slider';
 function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage}) {
 
   const handleChange = (event) =>{
@@ -11,13 +11,12 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
     loadImage(event.target.files);
   }
   return (
-    <div>
-      <form onChange={handleChange}>
-        <p>resolution:{heightMapVariables.numPointsX}</p>
-        <input type='range' min={2} max={1000} value={heightMapVariables.numPointsX}></input>
+    <div className='controls'>
+      <p className='heading'>World generation settings</p>
 
-        <p>ScaleY:{heightMapVariables.scaleY}</p>
-        <input type='range' min={0} max={50} name="scaleY" value={heightMapVariables.scaleY} ></input>
+      <form onChange={handleChange}>
+        <Slider min={0} max={500} step={1} name={"resolution"} value={heightMapVariables.numPointsX}/>
+        <Slider min={0} max={50} step={1} name={"scaleY"} value={heightMapVariables.scaleY}/>
         
         <p>Choose an image</p>
         <input type='file' accept="image/png, image/jpeg" onChange={handleFileInput}></input>
