@@ -1,0 +1,52 @@
+.go_back_button{
+    
+    display: flex;
+    border:none;
+    background-color:transparent;
+    margin-left:auto;
+    align-items: center;
+    height: 2.5em;
+    transition: all 1s;
+    border-radius: 11px;
+    padding-left:5px;
+    padding-right: 5px;
+    margin-bottom: 10px;
+    p{
+        font-weight: bold;
+        font-size: 1.1em;
+        width: 0;        
+        color:white;
+        border-radius: 11px;
+        transition: all 1s;
+        white-space: nowrap;
+        line-height: 2.5em;
+        height: 2.5em;
+    }
+    img{
+        width: 1.8em;
+        transition: all 1s;
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: orange;
+        img{
+            z-index: 2;
+            margin-right: -9px;
+            background-color: white;
+            background-color: transparent;
+        }
+        p{
+            text-overflow: clip;
+            padding-left: 1em;
+            padding-right: 1em;
+            width: 5em;
+        }
+    }
+}
+
+@media only screen and (max-width: 1100px) {
+    .go_back_button{
+        margin-top: 1em;
+    }
+}

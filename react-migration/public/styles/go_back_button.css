@@ -1,0 +1,63 @@
+.go_back_button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: none;
+  background-color: transparent;
+  margin-left: auto;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 2.5em;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  border-radius: 11px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 10px;
+}
+
+.go_back_button p {
+  font-weight: bold;
+  font-size: 1.1em;
+  width: 0;
+  color: white;
+  border-radius: 11px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  white-space: nowrap;
+  line-height: 2.5em;
+  height: 2.5em;
+}
+
+.go_back_button img {
+  width: 1.8em;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.go_back_button:hover {
+  cursor: pointer;
+  background-color: orange;
+}
+
+.go_back_button:hover img {
+  z-index: 2;
+  margin-right: -9px;
+  background-color: white;
+  background-color: transparent;
+}
+
+.go_back_button:hover p {
+  text-overflow: clip;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 5em;
+}
+
+@media only screen and (max-width: 1100px) {
+  .go_back_button {
+    margin-top: 1em;
+  }
+}
+/*# sourceMappingURL=go_back_button.css.map */
