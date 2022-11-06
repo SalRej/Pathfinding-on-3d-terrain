@@ -12,7 +12,7 @@ function NoiseGeneration() {
     const canvasHolder = useRef(null);
     const initialRender = useRef(true);
 
-    const {THREEScene , pathFindingVariables, setPathFindingVariables} = useContext(worldDataContext);
+    const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, isTerraforming} = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
         width:100,
@@ -42,8 +42,26 @@ function NoiseGeneration() {
             graph:graph
         })
         animate();
-      },[]);
+    },[]);
 
+    useEffect(()=>{
+        if(isTerraforming===true){
+            const {controls} = THREEScene;
+            controls.enabled = false;
+            setTHREEScene({
+                ...THREEScene,
+                controls:controls
+            })
+        }
+        else{
+            const {controls} = THREEScene;
+            controls.enabled = true;
+            setTHREEScene({
+                ...THREEScene,
+                controls:controls
+            })
+        }
+    },[isTerraforming])
     function animate() {
         requestAnimationFrame( animate );
         THREEScene.controls.update();

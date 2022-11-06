@@ -11,7 +11,7 @@ function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
   const initialRender = useRef(true);
-  const {THREEScene , pathFindingVariables, setPathFindingVariables} = useContext(worldDataContext);
+  const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables,isTerraforming} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -62,6 +62,25 @@ function HeightMapGeneration() {
       })
     }
   },[heightMapVariables]);
+
+  useEffect(()=>{
+    if(isTerraforming===true){
+        const {controls} = THREEScene;
+        controls.enabled = false;
+        setTHREEScene({
+            ...THREEScene,
+            controls:controls
+        })
+    }
+    else{
+        const {controls} = THREEScene;
+        controls.enabled = true;
+        setTHREEScene({
+            ...THREEScene,
+            controls:controls
+        })
+    }
+  },[isTerraforming])
 
   const handleHeightMapSettings = (event)=>{
     setHeightMapVariables({
