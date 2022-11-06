@@ -28,8 +28,8 @@ function App() {
 
   //world generation varaibles 
   const [generationVariables,setGenerationVariables] = useState({
-    width:130,
-    height:130,
+    width:300,
+    height:300,
     scale:70,
     octaves:4,
     persistance:0.5,
@@ -52,7 +52,7 @@ function App() {
 
     const gridHelper = new THREE.GridHelper( size, divisions );
     scene.current.add( gridHelper );
-    worldData.current = createNoiseMap(generationVariables,scene.current,true);
+    worldData.current = createNoiseMap(generationVariables,scene.current,false);
     // createHeightMap(200,200,scene.current);
     animate();
   },[]);
@@ -115,6 +115,13 @@ function App() {
 
   },[generationVariables]);
 
+  const changeResolution = (value) =>{
+      setGenerationVariables({
+        ...generationVariables,
+        ['width']:value,
+        ['height']:value
+      })
+  }
   const handleNoiseSettings = (event)=>{
     setGenerationVariables({
       ...generationVariables,
@@ -127,6 +134,7 @@ function App() {
         <NoiseGeneratorControls 
           generationVariables={generationVariables}
           handleNoiseSettings={handleNoiseSettings}
+          changeResolution={changeResolution}
         />
     </div>
   )

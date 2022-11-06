@@ -1,25 +1,25 @@
 import mapping from "../mapping";
 import * as THREE from 'three';
 
-const makeGreyImage = (triangleIndexes,positions,colors,points) =>{
+const makeGreyImage = (pointsOfTriangleIndexes,positions,colors,points) =>{
 
-    for(let i=0;i<triangleIndexes.length;i++){
+    for(let i=0;i<pointsOfTriangleIndexes.length;i++){
 
         //add the points
         positions.push(
-            points[triangleIndexes[i].a].x,points[triangleIndexes[i].a].y,points[triangleIndexes[i].a].z,
-            points[triangleIndexes[i].b].x,points[triangleIndexes[i].b].y,points[triangleIndexes[i].b].z,
-            points[triangleIndexes[i].c].x,points[triangleIndexes[i].c].y,points[triangleIndexes[i].c].z
+            points[pointsOfTriangleIndexes[i].a].x,points[pointsOfTriangleIndexes[i].a].y,points[pointsOfTriangleIndexes[i].a].z,
+            points[pointsOfTriangleIndexes[i].b].x,points[pointsOfTriangleIndexes[i].b].y,points[pointsOfTriangleIndexes[i].b].z,
+            points[pointsOfTriangleIndexes[i].c].x,points[pointsOfTriangleIndexes[i].c].y,points[pointsOfTriangleIndexes[i].c].z
         );
         
         //create colors according to y cordinate into grey scale
-        const grey1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,1);
+        const grey1 = mapping(points[pointsOfTriangleIndexes[i].a].y,-1,1,0,1);
         const color1 = new THREE.Color(grey1,grey1,grey1);
 
-        const grey2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,1);
+        const grey2 = mapping(points[pointsOfTriangleIndexes[i].b].y,-1,1,0,1);
         const color2 = new THREE.Color(grey2,grey2,grey2);
 
-        const grey3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,1);
+        const grey3 = mapping(points[pointsOfTriangleIndexes[i].c].y,-1,1,0,1);
         const color3 = new THREE.Color(grey3,grey3,grey3);
 
         //push colors

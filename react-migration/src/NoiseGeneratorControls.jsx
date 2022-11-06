@@ -1,13 +1,19 @@
 import React from 'react'
 
-function NoiseGeneratorControls({generationVariables , handleNoiseSettings}){
+function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution}){
 
     const handleChange = (e) =>{
         handleNoiseSettings(e);
     }
+    const test = (e) =>{
+        changeResolution(Number(e.target.value));
+    }
     return (
         <div>
+                <p>resolutionX:{generationVariables.width}</p>
+                <input type='range' min={0} max={400} name="resolution" onChange={test}></input>
             <form onChange={handleChange}>
+
 
                 <p>Scale:{generationVariables.scale}</p>
                 <input type='range' min={0} max={200} name="scale" value={generationVariables.scale}></input>

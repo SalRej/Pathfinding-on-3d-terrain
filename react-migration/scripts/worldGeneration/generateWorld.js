@@ -7,7 +7,7 @@ const generateWorld = (data) =>{
     const {
         positions,
         points,
-        triangleIndexes,
+        pointsOfTriangleIndexes,
         graph,
         colors,
         width,
@@ -18,7 +18,7 @@ const generateWorld = (data) =>{
 
     } = data;
 
-    for(let i=0;i<triangleIndexes.length;i++){
+    for(let i=0;i<pointsOfTriangleIndexes.length;i++){
 
         //3 colors for each vertex of the triangle
         let color1={r:0,g:1,b:0};
@@ -27,25 +27,24 @@ const generateWorld = (data) =>{
 
         //apply diffrent colors depending on vertex.y value
         
-        let y1 = points[triangleIndexes[i].a].y;
-        let y2 = points[triangleIndexes[i].b].y;
-        let y3 = points[triangleIndexes[i].c].y;
+        let y1 = points[pointsOfTriangleIndexes[i].a].y;
+        let y2 = points[pointsOfTriangleIndexes[i].b].y;
+        let y3 = points[pointsOfTriangleIndexes[i].c].y;
         
-        const x1 = points[triangleIndexes[i].a].x;
-        const x2 = points[triangleIndexes[i].b].x;
-        const x3 = points[triangleIndexes[i].c].x;
+        const x1 = points[pointsOfTriangleIndexes[i].a].x;
+        const x2 = points[pointsOfTriangleIndexes[i].b].x;
+        const x3 = points[pointsOfTriangleIndexes[i].c].x;
         
-        const z1 = points[triangleIndexes[i].a].z;
-        const z2 = points[triangleIndexes[i].b].z;
-        const z3 = points[triangleIndexes[i].c].z;
+        const z1 = points[pointsOfTriangleIndexes[i].a].z;
+        const z2 = points[pointsOfTriangleIndexes[i].b].z;
+        const z3 = points[pointsOfTriangleIndexes[i].c].z;
         
-        let isWater = false;
         applyColor(y1,y2,y3,color1,color2,color3);
 
         //chesck if the pints is too low this means its water so make it one level of height
-        y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,scaleY);
-        y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,scaleY);
-        y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,scaleY);
+        y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,-1,1,0,scaleY);
+        y2 = mapping(points[pointsOfTriangleIndexes[i].b].y,-1,1,0,scaleY);
+        y3 = mapping(points[pointsOfTriangleIndexes[i].c].y,-1,1,0,scaleY);
 
         const checkY1 = mapping(y1,0,scaleY,0,1);
         const checkY2 = mapping(y2,0,scaleY,0,1);
