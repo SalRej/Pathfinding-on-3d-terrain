@@ -9,8 +9,8 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
     const { persistance, lacunarity, seed, offsetX, offsetY ,width ,height} = generationVariables;
 
     const prng = alea(seed);
+    const myrng = new Math.seedrandom(seed);
     const noise2D = createNoise2D(prng);
-    let myrng = new Math.seedrandom(seed);
 
     const octvaeOffsets = [];
     const {octaves} = generationVariables;

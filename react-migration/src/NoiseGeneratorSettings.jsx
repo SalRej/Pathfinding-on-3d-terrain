@@ -39,7 +39,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
                         <Slider min={0} max={2} step={0.01} name={"persistance"} value={generationVariables.persistance}/>
                         <Slider min={0} max={5} step={0.05} name={"offsetX"} value={generationVariables.offsetX}/>
                         <Slider min={0} max={5} step={0.05} name={"offsetY"} value={generationVariables.offsetY}/>
-                        <Slider min={0} max={50} step={1} name={"scaleY"} value={generationVariables.scaleY}/>
+                        <Slider min={3} max={50} step={1} name={"scaleY"} value={generationVariables.scaleY}/>
                         <p>Seed</p>
                         <input type='text' name="seed" value={generationVariables.seed}></input>
                     </form>

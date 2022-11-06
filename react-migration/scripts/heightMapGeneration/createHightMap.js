@@ -53,7 +53,7 @@ const createHeightMap = (heightMapVariables,scene) =>{
         vertexColors:true
     });
     
-    const graph = createGraph(bufferGeometry,numPointsX);
+    const graph = createGraph(bufferGeometry,numPointsX,scaleY);
     const mesh = new THREE.Mesh(bufferGeometry,material);
     mesh.name="worldMesh";
     scene.add(mesh); 

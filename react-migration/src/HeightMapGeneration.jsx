@@ -21,7 +21,6 @@ function HeightMapGeneration() {
 
   const {
     THREEScene,
-    setTHREEScene,
     pathFindingVariables,
     setPathFindingVariables,
     terraformingVariables
