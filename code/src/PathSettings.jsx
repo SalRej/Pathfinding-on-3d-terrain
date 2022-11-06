@@ -23,9 +23,9 @@ function PathSettings(){
             <div className='info'>
                 <img src="icons8-info-24.png"></img>
                 <ul>
-                    <li>If you are using the app on mobile this wont work</li>
                     <li>Press left mouse button to place a start point</li>
                     <li>Press right mouse button to place an end point</li>
+                    <li>If you are using the mobile hold for a few seconds to place an end point</li>
                     <li>Start and end points must be selected</li>    
                     <li>When working with high resolution map , pahtfinding my take a few seconds</li>
                     <li>If terrafoming is enabled you cant use pathfinding</li>

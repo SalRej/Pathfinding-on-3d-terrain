@@ -1,7 +1,7 @@
 import React from 'react'
 import getTriangleClicked from '../../scripts/getTriangleClicked';
 
-function useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables,mouseX,mouseY){
+function useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables){
     event.preventDefault();
     event.stopPropagation();
     if(terraformingVariables.isEnabled === true){
@@ -9,7 +9,7 @@ function useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVari
     }
 
     const {camera,renderer,scene} = THREEScene;
-    const clickedFace = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
+    const clickedFace = getTriangleClicked(event.clientX,event.clientY,renderer,camera,scene);
 
     if(clickedFace===null)
         return;
