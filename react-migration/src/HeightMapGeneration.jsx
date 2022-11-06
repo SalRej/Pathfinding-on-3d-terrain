@@ -1,6 +1,7 @@
-import React , {useState , useEffect , useRef , useContext} from 'react'
-import HeightMapSettings from './HeightMapSettings';
+import React , {useState , useEffect , useRef , useContext} from 'react';
+import {Link} from 'react-router-dom';
 
+import HeightMapSettings from './HeightMapSettings';
 import createHeightMap from '../scripts/createHightMap';
 import worldDataContext from './contex';
 import getTriangleClicked from '../scripts/getTriangleClicked';
@@ -21,12 +22,7 @@ function HeightMapGeneration() {
   useEffect(()=>{
     THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
     THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
-    setPathFindingVariables({
-      startId:-1,
-      endId:-1,
-      isEnagled:false,
-      graph:[]
-  })
+    
     if(canvasHolder.current!=null){
        canvasHolder.current.appendChild(THREEScene.renderer.domElement);
     }
@@ -36,6 +32,7 @@ function HeightMapGeneration() {
       ...pathFindingVariables,
       graph:graph
     })
+
     animate();
   },[]);
 
@@ -46,18 +43,14 @@ function HeightMapGeneration() {
   };
 
   useEffect(()=>{
-    if(initialRender.current==true){
+    if(initialRender.current===true){
         initialRender.current=false;
+        THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
     }
-    else if(initialRender.current==false){
-        const {scene} = THREEScene;
-        scene.remove(scene.getObjectByName('worldMesh'));
-        scene.remove(scene.getObjectByName('pathMesh'));
+    else if(initialRender.current===false){
         const graph = createHeightMap(heightMapVariables,THREEScene.scene);
         setPathFindingVariables({
           ...pathFindingVariables,
-          startId:-1,
-          endId:-1,
           graph:graph
       })
     }
@@ -100,44 +93,53 @@ function HeightMapGeneration() {
   }
 
   useEffect(()=>{
+
     if(pathFindingVariables.isEnagled===true
         &&pathFindingVariables.startId!=-1
-        &&pathFindingVariables.endId!=-1){
+        &&pathFindingVariables.endId!=-1)
+      {
         findPath(pathFindingVariables,THREEScene.scene);
       }
+
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
+    const canvasClicked = (event)=>{
+      const {camera,renderer,scene} = THREEScene;
+      const clickedFace = getTriangleClicked(event,renderer,camera,scene);
 
-  const canvasClicked = (event)=>{
-    const {camera,renderer,scene} = THREEScene;
-    const clickedFace = getTriangleClicked(event,renderer,camera,scene);
+      if(clickedFace===null)
+          return;
+          
+      if(pathFindingVariables.isEnagled===false)
+          return;
 
-    if(clickedFace===null)
-        return;
-
-    if(pathFindingVariables.isEnagled===false)
-        return;
       if(pathFindingVariables.graph[clickedFace].isObstical===true)
-        return;
+          return;
 
-    //click means left button is clicked
-    if(event.type === "click"){
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            startId:clickedFace
-        })
-    }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            endId:clickedFace
-        })
-    }
+      //click means left button is clicked
+      if(event.type === "click"){
+          setPathFindingVariables({
+              ...pathFindingVariables,
+              startId:clickedFace
+          })
+      }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
+          setPathFindingVariables({
+              ...pathFindingVariables,
+              endId:clickedFace
+          })
+      }
   }
 
   return (
     <div className='flex'>
         <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
         <div className='settings_holder'>
+            <Link to='/'>
+                <button className='go_back_button'>
+                    <img></img>
+                    <p>GO BACK</p>
+                </button>
+            </Link>
             <HeightMapSettings
                 heightMapVariables={heightMapVariables}
                 handleHeightMapSettings={handleHeightMapSettings}

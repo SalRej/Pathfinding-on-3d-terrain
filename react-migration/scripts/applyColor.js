@@ -49,7 +49,7 @@ const applyColor = (y1,y2,y3,color1,color2,color3) => {
             color:{r:0.3,g:0.19,b:0.05}//darker brown
         },
         {
-            value:0.9,
+            value:1.0,
             color:{r:1,g:1,b:1}//white
         }
     ]
