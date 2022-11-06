@@ -177,6 +177,9 @@
 @media only screen and (max-width: 1450px) {
   .settings_holder{
     .controls{
+      nav{
+        font-size: 1.3vw;
+      }
       main{
         width: 90%;
       }
@@ -191,11 +194,32 @@
         margin: auto;
         width: 90%;
         max-width: 90%;
+        font-size: 3vw;
       }
       main{
         overflow-y: scroll;
+        margin-bottom: 2em;
         button{
           font-size: 24px;
+        }
+      }
+    }
+  }
+} 
+
+@media only screen and (max-width: 400px) {
+  .settings_holder{
+    margin-bottom: 0;
+    padding-bottom: 0;
+    .controls{
+      main{
+        overflow-y: scroll;
+        margin-bottom: 2em;
+        .info{
+          height: 5em;
+        }
+        button{
+          font-size: 14px;
         }
       }
     }
