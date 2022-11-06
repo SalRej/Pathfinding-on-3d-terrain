@@ -74,7 +74,12 @@ function NoiseGeneration() {
         }
         else if(initialRender.current==false){
             scene.current.remove(scene.current.getObjectByName('worldMesh'));
-            createNoiseMap(generationVariables,scene.current,false);
+            scene.current.remove(scene.current.getObjectByName('pathMesh'));
+            const graph = createNoiseMap(generationVariables,scene.current,false);
+            setPathFindingVariables({
+                ...pathFindingVariables,
+                graph:graph
+            })
         }
     },[generationVariables]);
 
@@ -122,6 +127,7 @@ function NoiseGeneration() {
         if(pathFindingVariables.isEnagled===true){
             findPath();
         }
+
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
     const canvasClicked = (event)=>{
@@ -135,7 +141,6 @@ function NoiseGeneration() {
 
         //click means left button is clicked
         if(event.type === "click"){
-            console.log("vleze");
             setPathFindingVariables({
                 ...pathFindingVariables,
                 startId:clickedFace
