@@ -2,7 +2,7 @@ function norm(value, min, max) {
     return (value - min) / (max - min);
 }
 
-function lerp(norm, min, max) {
+export function lerp(norm, min, max) {
     return (max - min) * norm + min;
 }
 
