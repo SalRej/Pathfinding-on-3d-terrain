@@ -22,7 +22,7 @@ function PathSettings(){
                     <li>Press left mouse button to place a start point</li>
                     <li>Press right mouse button to place an end point</li>
                     <li>Start and end points must be selected</li>    
-                    <li>When working with high resolution of map , pahtfinding my take a few seconds</li>
+                    <li>When working with high resolution map , pahtfinding my take a few seconds</li>
                 </ul>
             </div>
 

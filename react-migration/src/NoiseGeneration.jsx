@@ -6,6 +6,7 @@ import BackButton from './BackButton';
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
+
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -40,7 +41,6 @@ function NoiseGeneration() {
             ...pathFindingVariables,
             graph:graph
         })
-        console.log("1");
         animate();
       },[]);
 
@@ -58,7 +58,6 @@ function NoiseGeneration() {
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
     
-            console.log("2")
             const graph = createNoiseMap(generationVariables,THREEScene.scene,false);
             setPathFindingVariables({
                 startId:-1,
