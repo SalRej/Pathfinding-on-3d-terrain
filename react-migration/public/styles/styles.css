@@ -3,6 +3,7 @@
 @import url("./slider");
 @import url("./go_back_button");
 @import url("./scroll_bar");
+@import url("./range_input");
 * {
   margin: 0;
   padding: 0;
