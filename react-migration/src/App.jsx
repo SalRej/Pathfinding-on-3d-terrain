@@ -97,6 +97,7 @@ function App() {
       initialRender.current=false;
     }
     else if(initialRender.current==false){
+      scene.current.remove(scene.current.getObjectByName('worldMesh'));
       worldData.current = createNoiseMap(generationVariables,scene.current,false);
     }
 
@@ -114,8 +115,10 @@ function App() {
         <button onClick={ ()=>{setCounter((prev)=>prev+1)} }>Increment</button>
 
         <form onChange={handleGenerationVariableChange}>
-          <input type='range' min={0} max={100} name="scale" value={generationVariables.scale}></input>
-          <input type='range' min={0} max={100} name="octaves" value={generationVariables.octaves}></input>
+          <p>Scale:{generationVariables.scale}</p>
+          <input type='range' min={0} max={200} name="scale" value={generationVariables.scale}></input>
+          <p>Octaves:{generationVariables.octaves}</p>
+          <input type='range' min={0} max={10} name="octaves" value={generationVariables.octaves}></input>
         </form>
 
     </div>
