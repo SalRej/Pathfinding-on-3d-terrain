@@ -73,20 +73,16 @@ function sleep(ms) {
 }
 const applyHeight = (mesh)=>{
 
-    console.log(mesh.geometry.attributes.position.array.length);
+    console.log("len",mesh.geometry.attributes.position.array.length);
+
     for(let i=0;i<mesh.geometry.attributes.position.array.length;i+=3){
 
         let y = mesh.geometry.attributes.position.array[i+1];
+        // console.log(i);
         y=mapping(y,-1,1,0,20);
         const interval = setInterval(()=>{
 
             if(mesh.geometry.attributes.position.array[i+1]>=y){
-
-                //when last vertex is reached
-                if(i==mesh.geometry.attributes.position.array.length-3){
-                    //comupet normals so light can be aplied
-                    mesh.geometry.computeVertexNormals();
-                }
                 clearInterval(interval);
             }else{
                 if(y<=3){
@@ -99,8 +95,11 @@ const applyHeight = (mesh)=>{
             }
 
         },1)
-        // sleep(3);
     }
+
+    setTimeout(()=>{
+        mesh.geometry.computeVertexNormals()
+    },3000);
 }
 const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene) =>{
 
