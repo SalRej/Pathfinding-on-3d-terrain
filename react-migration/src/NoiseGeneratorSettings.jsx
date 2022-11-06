@@ -1,9 +1,11 @@
 import React , { useState } from 'react'
 import Slider from './Slider';
+
 import PathSettings from './PathSettings';
 function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution , pathFindingVariables , setIsPathfindingEnabled}){
 
     const [chosenTab , setChosenTab] = useState("settings");
+
     const handleChange = (e) =>{
         handleNoiseSettings(e);
     }
@@ -17,7 +19,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
             <p className='heading'>World generation settings</p>
             <nav>
                 <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
-                <p className={chosenTab==="path"?"chosen":""}onClick={()=>setChosenTab("path")}>Find path</p>
+                <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
             </nav>
             {   chosenTab==="settings" &&
                 <main>
