@@ -14,6 +14,7 @@ const adjustGraphNodes = (nodesIdsToAdjust,graph,ind,positions,scaleY) =>{
         const y2 = positions.getY(point2);
         const y3 = positions.getY(point3);
         
+        
         const normalizedY1 = mapping(y1,0,scaleY,0,1);
         const normalizedY2 = mapping(y2,0,scaleY,0,1);
         const normalizedY3 = mapping(y3,0,scaleY,0,1);
