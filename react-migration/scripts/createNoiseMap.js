@@ -7,11 +7,6 @@ import createNode from './createNode';
 import makeGreyImage from './worldGeneration/makeGreyImage';
 import makeColorImage from './worldGeneration/makeColorImage';
 
-
-
-const findTirangleCenter = (x1,x2,x3,y1,y2,y3,z1,z2,z3) =>{
-    return {x:(x1+x2+x3)/3,y:(y1+y2+y3)/3 + 0.1,z:(z1+z2+z3)/3};
-}
 const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,seed,scene,doAnimate) =>{
 
     const noise2D = createNoise2D();
@@ -79,6 +74,7 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,seed,s
     });
     const mesh = new THREE.Mesh( geometry, material );
     mesh.receiveShadow = true;
+    const graph = [];
     
     scene.add(mesh);
 
@@ -92,33 +88,32 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,seed,s
                 makeColorImage(triangleIndexes,points,mesh);
             }
         },1)
+        //creates graph
+        for(let i=0;i<triangleIndexes.length;i++){
+            
+            const x1 = points[triangleIndexes[i].a].x;
+            const x2 = points[triangleIndexes[i].b].x;
+            const x3 = points[triangleIndexes[i].c].x;
+
+            const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
+            const y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
+            const y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
+
+            const z1 = points[triangleIndexes[i].a].z;
+            const z2 = points[triangleIndexes[i].b].z;
+            const z3 = points[triangleIndexes[i].c].z;
+
+            const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
+            //needed later for animation of pathfinding
+            const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
+            createNode(graph,i,avrageY,width,position);
+        }
+
     }else{
     }
 
 
-    const graph = [];
-    //creates graph
-    for(let i=0;i<triangleIndexes.length;i++){
-        
-        const x1 = points[triangleIndexes[i].a].x;
-        const x2 = points[triangleIndexes[i].b].x;
-        const x3 = points[triangleIndexes[i].c].x;
-
-        const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
-        const y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
-        const y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
-
-        const z1 = points[triangleIndexes[i].a].z;
-        const z2 = points[triangleIndexes[i].b].z;
-        const z3 = points[triangleIndexes[i].c].z;
-
-        const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
-        //needed later for animation of pathfinding
-        const triangleCenter = findTirangleCenter(x1,x2,x3,y1,y2,y3,z1,z2,z3);
-        const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
-        createNode(graph,i,avrageY,triangleCenter,width,position);
-    }
-
+    
     return{positions,colors,triangleIndexes,graph};
 }
 export default createNoiseMap;
