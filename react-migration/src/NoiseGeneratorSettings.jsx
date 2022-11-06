@@ -21,8 +21,8 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
             <nav>
                 <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
                 <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
-                <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
                 <p className={chosenTab==="terraform"?"chosen":""} onClick={()=>setChosenTab("terraform")}>Terraform</p>
+                <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
             </nav>
             
             {   chosenTab==="settings" &&
