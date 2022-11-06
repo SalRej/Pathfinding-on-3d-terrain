@@ -2,9 +2,9 @@ import React , {useState , useEffect , useRef ,useContext } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
 
-import createNoiseMap from '../scripts/createNoiseMap';
+import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
-import findPath from '../scripts/findPath';
+import findPath from '../scripts/graph/findPath';
 import {Link} from 'react-router-dom';
 function NoiseGeneration() {
 

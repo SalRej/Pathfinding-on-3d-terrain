@@ -2,10 +2,10 @@ import React , {useState , useEffect , useRef , useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import HeightMapSettings from './HeightMapSettings';
-import createHeightMap from '../scripts/createHightMap';
+import createHeightMap from '../scripts/heightMapGeneration/createHightMap';
 import worldDataContext from './contex';
 import getTriangleClicked from '../scripts/getTriangleClicked';
-import findPath from '../scripts/findPath';
+import findPath from '../scripts/graph/findPath';
 function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);

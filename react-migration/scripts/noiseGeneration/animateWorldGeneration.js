@@ -1,7 +1,7 @@
 import mapping from "../mapping";
 import makeGreyImage from "./makeGreyImage";
 import makeColorImage from "./makeColorImage";
-import createNode from "../createNode";
+import createNode from "../graph/createNode";
 
 import * as THREE from 'three';
 const animateWorldGeneration = (data) =>{

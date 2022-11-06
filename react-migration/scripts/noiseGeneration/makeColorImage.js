@@ -1,4 +1,3 @@
-import mapping from "../mapping";
 import applyColor from "../applyColor";
 import applyHeight from "./applyHeight";
 const makeColorImage =(pointsOfTriangleIndexes,points,mesh,scaleY)=>{
