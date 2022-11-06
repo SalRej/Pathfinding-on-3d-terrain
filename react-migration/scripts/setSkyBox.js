@@ -10,7 +10,6 @@ const setSkyBox = (scene) =>{
       './skybox/back.jpg'
     ])
     scene.background=texture;
-    // scene.background=new THREE.Color(0xffffff);
 }
 
 export default setSkyBox;
