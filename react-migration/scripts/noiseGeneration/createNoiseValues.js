@@ -24,7 +24,7 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
     const numPointsOfTriangleIndexes = (height-1) * (width-1) * 2;
     const pointsOfTriangleIndexes = new Array(numPointsOfTriangleIndexes);
     let indexOfPointsOfTriangleIndexes = 0;
-    
+
     const mapWidth = 100;
     const mapHeight = 100;
 
@@ -42,6 +42,7 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
             let amplitude = 1;
             let frequancy = 1;
             let noise = 0;
+
             for(let k=0;k<octaves;k++){
                 let  {scale} = generationVariables;
                 
@@ -83,8 +84,6 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
         zCordinate+=stepY;
 
     }
-    console.log(pointsOfTriangleIndexes.length);
     return {points , pointsOfTriangleIndexes };
-        
 }
 export default createNoiseValues;
