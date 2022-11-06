@@ -6,34 +6,22 @@ import setLight from './scripts/setLight';
 import djikstra from './scripts/djikstra';
 import colorPath from './scripts/colorPath';
 import resetMapColor from './scripts/resetMapColor';
-
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.set( 0, 70, 10);
-camera.lookAt( 0, 0, 0 );
-
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );      
-document.body.appendChild( renderer.domElement );
-
-const controls = new OrbitControls( camera, renderer.domElement );
-controls.update();
+import initScene from './scripts/initScene';
 
 
-setLight(scene)
-// const sphereSize = 1;
-// const pointLightHelper = new THREE.PointLightHelper( light, sphereSize );
-// scene.add( pointLightHelper );
-setSkyBox(scene);
+const initObjects = initScene();
+const {scene} = initObjects;
+const {camera} = initObjects;
+const {renderer}= initObjects;
+const {controls} = initObjects;
 
 //gui for map generation control
-const scale ={s:70};
-const octaves = {o:4};
-const persistance ={p:0.5};
-const lacunarity = {l:2};
+const scale =70;
+const octaves = 4;
+const persistance =0.5;
+const lacunarity = 2;
 
-const worldData = createNoiseMap(300,300,scale.s,octaves.o,persistance.p,lacunarity.l,scene,camera,renderer);
+const worldData = createNoiseMap(100,100,scale,octaves,persistance,lacunarity,scene,camera,renderer);
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
