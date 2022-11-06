@@ -3,7 +3,7 @@ import * as THREE from 'three';
 const setLight = (scene)=>{
     const ambient = new THREE.AmbientLight(0xffffff,0.5);
     const directional = new THREE.DirectionalLight(0xffffff,0.5);
-    directional.position.set(0,50,50);
+    directional.position.set(0,100,0);
     directional.target.position.set(0,0,0);
     directional.castShadow = true;
 
