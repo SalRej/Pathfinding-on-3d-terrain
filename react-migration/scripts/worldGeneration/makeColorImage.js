@@ -1,7 +1,7 @@
 import mapping from "../mapping";
 import applyColor from "../applyColor";
 import applyHeight from "./applyHeight";
-const makeColorImage =(triangleIndexes,points,mesh)=>{
+const makeColorImage =(triangleIndexes,points,mesh,scaleY)=>{
 
     const numTimes = triangleIndexes.length;
     let i = 0;
@@ -9,7 +9,7 @@ const makeColorImage =(triangleIndexes,points,mesh)=>{
 
         if(i>=numTimes){
             clearInterval(interval);
-            applyHeight(mesh);
+            applyHeight(mesh,scaleY);
         }
 
         for(let j = 0;j<100;j++){
@@ -22,12 +22,15 @@ const makeColorImage =(triangleIndexes,points,mesh)=>{
             const y3= mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
             
             applyColor(y1,y2,y3,color1,color2,color3);
+
             mesh.geometry.attributes.color.array[i*9]=color1.r;
             mesh.geometry.attributes.color.array[i*9+1]=color1.g;
             mesh.geometry.attributes.color.array[i*9+2]=color1.b;
+            
             mesh.geometry.attributes.color.array[i*9+3]=color2.r;
             mesh.geometry.attributes.color.array[i*9+4]=color2.g;
             mesh.geometry.attributes.color.array[i*9+5]=color2.b;
+
             mesh.geometry.attributes.color.array[i*9+6]=color3.r;
             mesh.geometry.attributes.color.array[i*9+7]=color3.g;
             mesh.geometry.attributes.color.array[i*9+8]=color3.b;

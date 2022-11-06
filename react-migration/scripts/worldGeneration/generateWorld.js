@@ -13,7 +13,8 @@ const generateWorld = (data) =>{
         width,
         scene,
         geometry,
-        material
+        material,
+        scaleY
 
     } = data;
 
@@ -26,9 +27,9 @@ const generateWorld = (data) =>{
 
         //apply diffrent colors depending on vertex.y value
         
-        let y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
-        let y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
-        let y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
+        let y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,scaleY);
+        let y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,scaleY);
+        let y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,scaleY);
         
         const x1 = points[triangleIndexes[i].a].x;
         const x2 = points[triangleIndexes[i].b].x;

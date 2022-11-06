@@ -1,10 +1,10 @@
 import mapping from "../mapping";
-const applyHeight = (mesh)=>{
+const applyHeight = (mesh,scaleY)=>{
 
     for(let i=0;i<mesh.geometry.attributes.position.array.length;i+=3){
 
         let y = mesh.geometry.attributes.position.array[i+1];
-        y=mapping(y,-1,1,0,20);
+        y=mapping(y,-1,1,0,scaleY);
         setTimeout(()=>{
 
             if(y<=3){
@@ -14,6 +14,7 @@ const applyHeight = (mesh)=>{
                 mesh.geometry.attributes.position.array[i+1]=y;
                 mesh.geometry.attributes.position.needsUpdate=true;
             }
+
         },100)
 
     }

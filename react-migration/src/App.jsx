@@ -36,6 +36,7 @@ function App() {
     lacunarity:2,
     offsetX:0,
     offsetY:0,
+    scaleY:20,
     seed:"hello"
   })
 
@@ -57,7 +58,7 @@ function App() {
   },[]);
 
   const findPath = () => {
-    pathData.current = djikstra(worldData.current.graph,3000,5300);
+    pathData.current = djikstra(worldData.current.graph,3000,25300);
 
     drawRanges.current.vizualizeMeshDrawRange = 0;
     drawRanges.current.pathDrawRange = 0;
@@ -114,7 +115,7 @@ function App() {
 
   },[generationVariables]);
 
-  const handleGenerationVariableChange = (event)=>{
+  const handleNoiseSettings = (event)=>{
     setGenerationVariables({
       ...generationVariables,
       [event.target.name]:event.target.value
@@ -125,7 +126,7 @@ function App() {
         <button onClick={findPath}>click</button>
         <NoiseGeneratorControls 
           generationVariables={generationVariables}
-          handleGenerationVariableChange={handleGenerationVariableChange}
+          handleNoiseSettings={handleNoiseSettings}
         />
     </div>
   )

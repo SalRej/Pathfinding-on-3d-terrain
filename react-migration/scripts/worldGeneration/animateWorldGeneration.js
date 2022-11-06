@@ -16,7 +16,8 @@ const animateWorldGeneration = (data) =>{
         material,
         graph,
         positions,
-        colors
+        colors,
+        scaleY
     } = data;
 
     makeGreyImage(triangleIndexes,positions,colors,points,geometry);
@@ -35,7 +36,7 @@ const animateWorldGeneration = (data) =>{
         scene.children[3].geometry.setDrawRange(0,step);
         if(step>(width*height)*9){
             clearInterval(firstAnimationInterval);
-            makeColorImage(triangleIndexes,points,mesh);
+            makeColorImage(triangleIndexes,points,mesh,scaleY);
         }
     },1)
 
@@ -46,9 +47,9 @@ const animateWorldGeneration = (data) =>{
         const x2 = points[triangleIndexes[i].b].x;
         const x3 = points[triangleIndexes[i].c].x;
 
-        const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
-        const y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
-        const y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
+        const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,scaleY);
+        const y2 = mapping(points[triangleIndexes[i].b].y,-1,1,0,scaleY);
+        const y3 = mapping(points[triangleIndexes[i].c].y,-1,1,0,scaleY);
 
         const z1 = points[triangleIndexes[i].a].z;
         const z2 = points[triangleIndexes[i].b].z;
