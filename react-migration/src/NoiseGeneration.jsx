@@ -10,6 +10,7 @@ import useCanvasClicked from './hooks/useCanvasClicked';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import useOnButtonHold from './hooks/useOnButtonHold';
+import useOnLoad from './hooks/useOnLoad';
 
 function NoiseGeneration() {
 
@@ -39,35 +40,8 @@ function NoiseGeneration() {
         seed:String(Math.floor(Math.random()*100000))
     })
 
-    useEffect(()=>{
-        
-        if(canvasHolder.current!=null){
-           canvasHolder.current.appendChild(THREEScene.renderer.domElement);
-        }
-        
-        THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
-        THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh')); 
-        const graph = createNoiseMap(generationVariables,THREEScene.scene,true);
 
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            graph:graph
-        })
-
-        window.addEventListener('mousemove',(event)=>{
-            mouseX.current = event.clientX;
-            mouseY.current = event.clientY;
-        })
-        animate();
-
-    },[]);
-
-    
-    function animate() {
-        requestAnimationFrame( animate );
-        THREEScene.controls.update();
-        THREEScene.renderer.render( THREEScene.scene, THREEScene.camera);
-    };
+    useOnLoad(createNoiseMap,generationVariables,canvasHolder,mouseX,mouseY);
 
     useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
     useHandleGenerationChange();

@@ -10,6 +10,7 @@ import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
 import useOnButtonHold from './hooks/useOnButtonHold';
 import useCanvasClicked from './hooks/useCanvasClicked';
+import useOnLoad from './hooks/useOnLoad';
 
 function HeightMapGeneration() {
   
@@ -18,7 +19,13 @@ function HeightMapGeneration() {
   const mouseX = useRef(null);
   const mouseY = useRef(null);
 
-  const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, terraformingVariables} = useContext(worldDataContext);
+  const {
+    THREEScene,
+    setTHREEScene,
+    pathFindingVariables,
+    setPathFindingVariables,
+    terraformingVariables
+  } = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -27,34 +34,7 @@ function HeightMapGeneration() {
     image:new Image()
   })
 
-  useEffect(()=>{
-    
-    if(canvasHolder.current!=null){
-       canvasHolder.current.appendChild(THREEScene.renderer.domElement);
-    }
-
-    THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
-    THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh')); 
-    const graph = createHeightMap(heightMapVariables,THREEScene.scene);
-
-    setPathFindingVariables({
-      ...pathFindingVariables,
-      graph:graph
-    })
-
-    window.addEventListener('mousemove',(event)=>{
-      mouseX.current = event.clientX;
-      mouseY.current = event.clientY;
-    })
-    animate();
-  },[]);
-
-  
-  function animate() {
-    requestAnimationFrame( animate );
-    THREEScene.controls.update();
-    THREEScene.renderer.render( THREEScene.scene, THREEScene.camera );
-  };
+  useOnLoad(createHeightMap,heightMapVariables,canvasHolder,mouseX,mouseY);
 
   useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
   useHandleGenerationChange(initialRender,THREEScene,setPathFindingVariables,createHeightMap,heightMapVariables);
