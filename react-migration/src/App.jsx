@@ -62,11 +62,11 @@ function App() {
 
     const start = Date.now();
     // worldData.current = createNoiseMap(generationVariables,scene.current,false);
-    createHeightMap(heightMapVariables,scene.current);
+    // createHeightMap(heightMapVariables,scene.current);
     const end = Date.now();
     console.log(`Execution time: ${end - start} ms`);
     //300-600
-    animate();
+    // animate();
   },[]);
 
   const findPath = () => {
@@ -157,14 +157,18 @@ function App() {
   }
   return (
     <div className="App" id="App">
-        <button onClick={findPath}>click</button>
+      <video autoplay="autoplay" muted loop id="myVideo">
+        <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
+      </video>
+
+        {/* <button onClick={findPath}>click</button> */}
         {/* <NoiseGeneratorControls 
           generationVariables={generationVariables}
           handleNoiseSettings={handleNoiseSettings}
           changeResolution={changeResolution}
         /> */}
 
-        <HeightMapSettings heightMapVariables={heightMapVariables} handleHeightMapSettings={handleHeightMapSettings} />
+        {/* <HeightMapSettings heightMapVariables={heightMapVariables} handleHeightMapSettings={handleHeightMapSettings} /> */}
     </div>
   )
 }
