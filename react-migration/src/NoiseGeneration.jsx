@@ -2,7 +2,9 @@ import React , {useState , useEffect , useRef ,useContext } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
 import BackButton from './BackButton';
-import * as THREE from 'three'
+
+import useTriggerControls from './hooks/useTriggerControls';
+
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
@@ -50,26 +52,9 @@ function NoiseGeneration() {
             mouseY.current = event.clientY;
         })
         animate();
+
     },[]);
 
-    useEffect(()=>{
-        if(terraformingVariables.isEnabled===true){
-            const {controls} = THREEScene;
-            controls.enabled = false;
-            setTHREEScene({
-                ...THREEScene,
-                controls:controls
-            })
-        }
-        else{
-            const {controls} = THREEScene;
-            controls.enabled = true;
-            setTHREEScene({
-                ...THREEScene,
-                controls:controls
-            })
-        }
-    },[terraformingVariables.isEnabled])
     
     function animate() {
         requestAnimationFrame( animate );
@@ -77,6 +62,8 @@ function NoiseGeneration() {
         THREEScene.renderer.render( THREEScene.scene, THREEScene.camera);
     };
 
+    useTriggerControls(THREEScene,setTHREEScene,terraformingVariables);
+    
     useEffect(()=>{
         if(initialRender.current==true){
             initialRender.current=false;

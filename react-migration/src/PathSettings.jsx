@@ -2,13 +2,16 @@ import React , {useContext} from 'react'
 import worldDataContext from './contex';
 function PathSettings(){
 
-    const {setPathFindingVariables , pathFindingVariables, setIsTerraforming} = useContext(worldDataContext);
+    const {setPathFindingVariables , pathFindingVariables,terraformingVariables, setTerraformingVariables} = useContext(worldDataContext);
     const handleClick =()=>{
         setPathFindingVariables({
             ...pathFindingVariables,
             isEnagled:!pathFindingVariables.isEnagled
         });
-        setIsTerraforming(false);
+        setTerraformingVariables({
+            ...terraformingVariables,
+            isEnabled:false
+        })
     }
     return (
         <main>
