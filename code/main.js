@@ -15,7 +15,7 @@ const octaves = 4;
 const persistance = 0.5;
 const lacunarity = 2;
 
-const worldData = createNoiseMap(200,200,scale,octaves,persistance,lacunarity,scene);
+const worldData = createNoiseMap(100,100,scale,octaves,persistance,lacunarity,scene);
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -31,8 +31,12 @@ function onMouseClick( event ) {
   
   // calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
-	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  console.log(renderer);
+  const rendererSize = new THREE.Vector2();
+  renderer.getSize(rendererSize);
+  console.log(rendererSize);
+	pointer.x = ( event.clientX / rendererSize.x ) * 2 - 1;
+	pointer.y = - ( event.clientY / rendererSize.y ) * 2 + 1;
   raycaster.setFromCamera(pointer,camera);
   
   const intersect = raycaster.intersectObjects(scene.children);
@@ -47,7 +51,7 @@ function onMouseClick( event ) {
   vizualizingMeshGeometry.computeVertexNormals();//needed for light to work
   
   const vizualizingMeshMaterial = new THREE.MeshStandardMaterial( {
-    side: THREE.DoubleSide,color:0xff0000
+    side: THREE.DoubleSide,color:0xffffff,opacity:0.4,transparent:true
   });
 
   vizualizingMesh = new THREE.Mesh( vizualizingMeshGeometry, vizualizingMeshMaterial );
@@ -85,6 +89,7 @@ function animate() {
   //vizualize the pathfinding
   if(pathData.vizualizingGeometry!=undefined){
 
+
     //vizualize the nodes visited by the djikstra algorithm in order
     if(vizualizeMeshDrawRange <= vizualizingMesh.geometry.attributes.position.array.length/3){
 
@@ -96,7 +101,6 @@ function animate() {
       // vizualize the path
       scene.remove(scene.getObjectByName("vizualizingMesh"));
       if(pathDrawRange<=pathMesh.geometry.attributes.position.array.length/3){
-        console.log(pathDrawRange)
         pathMesh.geometry.setDrawRange(0,pathDrawRange);
         pathMesh.geometry.attributes.position.needsUpdate=true;
         pathDrawRange+=5;

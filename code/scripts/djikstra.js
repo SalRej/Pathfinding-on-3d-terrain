@@ -5,9 +5,9 @@ const djikstra = (graph,startId,endId) =>{
     const vizualizingGeometry = [];
     //clear graph from before
     graph.forEach(node=>{
-        node.isVisited=false;
-        node.prevNodeId =undefined;
-        node.shortestDistance=Infinity;
+        node.isVisited = false;
+        node.prevNodeId = undefined;
+        node.shortestDistance = Infinity;
     })
 
     //set the distance from start node to be 0
@@ -20,7 +20,7 @@ const djikstra = (graph,startId,endId) =>{
     while(nodesIdToCheck.length>0){
         
         //take the node with smallest cost value
-        let min =Infinity;
+        let min = Infinity;
         let index = -1;
 
         for(let i =0;i<nodesIdToCheck.length;i++){
@@ -44,20 +44,9 @@ const djikstra = (graph,startId,endId) =>{
                     graph[neighbor].shortestDistance=newShortesDistance;
                     graph[neighbor].prevNodeId = currentId;
 
-                    //draws a line from current triangle center to the neighbor triangle center
-                        // const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
-                        // const points = [];
-                        // const currentTriangleCenter = graph[currentId].triangleCenter;
-                        // const neighborTriangleCenter = graph[neighbor].triangleCenter;
-                        // points.push( new THREE.Vector3(currentTriangleCenter.x, currentTriangleCenter.y, currentTriangleCenter.z ) );
-                        // points.push( new THREE.Vector3( neighborTriangleCenter.x,neighborTriangleCenter.y,neighborTriangleCenter.z ) );
-                        
-                        // const geometry = new THREE.BufferGeometry().setFromPoints( points );
-                        // const line = new THREE.Line( geometry, material );
-                        // vizualizingGeometry.push(line);
-                        graph[neighbor].position.forEach(cordinate=>{
-                            vizualizingGeometry.push(cordinate);
-                        })
+                    graph[neighbor].position.forEach(cordinate=>{
+                        vizualizingGeometry.push(cordinate);//pushes cordinates if triangles to be drawn as vizualization later
+                    })
                 }
 
                 //add this neighbor in array to be chaked later
@@ -73,7 +62,7 @@ const djikstra = (graph,startId,endId) =>{
     }
 
     //backtrack
-    const path=[];
+    const path = [];
     const backtrack = [];
     backtrack.push(graph[endId].prevNodeId);
     while(backtrack[backtrack.length-1]!=startId){
