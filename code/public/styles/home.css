@@ -1,19 +1,23 @@
 .App {
+  width: 100vw;
+  height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
 }
 
-.App video {
+.App #background {
   width: 100vw;
   height: 100vh;
   -o-object-fit: cover;
      object-fit: cover;
   position: fixed;
-  left: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: -1;
+  z-index: 0;
 }
 
 .App .holder {
