@@ -1,20 +1,22 @@
+/*
+    this function creates a node and push it to the graph with nodes
+    every node contains id and array of neighbors
+    the array of neighbors contain the ids of the neoighbor triangles
+    
+    the function takes graph,i as 1d index of array with triangles
+    widht is needed to convert 1d index to 2d index of array
+    
+    every first triangle is goning to have left,right,top triangles as neighbors
+    every second triangle is going to have left,right,bottom triangles as neighbros 
+    
+    every neighbor that is not certein i calculate otherwise directly add it
 
+    this calculates the moving cost to a certain node
+    the higher the y cordinate is the harder it is to travel ot this node
+*/
 const createNode = (graph,i,avrageY,width,position) =>{
     
-    //this function creates a node and push it to the graph with nodes
-    //every node contains id and array of neighbors
-    //the array of neighbors contain the ids of the neoighbor triangles
     
-    //the function takes graph,i as 1d index of array with triangles
-    //widht is needed to convert 1d index to 2d index of array
-    
-    //every first triangle is goning to have left,right,top triangles as neighbors
-    //every second triangle is going to have left,right,bottom triangles as neighbros 
-    
-    //every neighbor that is not certein i calculate otherwise directly add it
-
-    //this calculates the moving cost to a certain node
-    //the higher the y cordinate is the harder it is to travel ot this node
     let movingCost = 0;
     if(avrageY>3 && avrageY<8){
        movingCost=1;

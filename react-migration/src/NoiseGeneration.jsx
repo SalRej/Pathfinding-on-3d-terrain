@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import initScene from '../scripts/initScene';
 import createNoiseMap from '../scripts/createNoiseMap';
 import mouseClick from '../scripts/mouseClick';
+import djikstra from '../scripts/djikstra';
 
 function NoiseGeneration() {
 
@@ -31,8 +32,10 @@ function NoiseGeneration() {
     const [pathFindingVariables,setPathFindingVariables] = useState({
         startId:-1,
         endId:-1,
-        setCurrent:"none"
+        isEnagled:false,
+        graph:[]
     })
+
     useEffect(()=>{
         const initObjects = initScene();
         scene.current = initObjects.scene;
@@ -49,8 +52,13 @@ function NoiseGeneration() {
         const gridHelper = new THREE.GridHelper( size, divisions );
         scene.current.add( gridHelper );
         
-        window.addEventListener("click",handleMouseClick);
-        createNoiseMap(generationVariables,scene.current,true);
+        const graph = createNoiseMap(generationVariables,scene.current,true);
+
+        setPathFindingVariables({
+            ...pathFindingVariables,
+            graph:graph
+        })
+
         animate();
       },[]);
 
@@ -58,11 +66,6 @@ function NoiseGeneration() {
         requestAnimationFrame( animate );
         controls.current.update();
         renderer.current.render( scene.current, camera.current );
-
-        // vizualize the pathfinding
-        // if(pathData.current.vizualizingGeometry!=undefined){
-        //     animatePathFinding(vizualizingMesh.current,pathMesh.current,drawRanges.current,scene.current);
-        // }
     };
 
     useEffect(()=>{
@@ -89,25 +92,72 @@ function NoiseGeneration() {
         })
     }
 
-    const handlePathSettings = (string) =>{
+    const findPath = () =>{
+        const {startId , endId , graph } = pathFindingVariables;
+
+        if(startId!=-1 && endId!=- 1){
+            scene.current.remove(scene.current.getObjectByName("pathMesh"));
+            const pathCordinates = djikstra(graph,startId,endId);
+
+            const pathGeometry = new THREE.BufferGeometry();
+            pathGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathCordinates.path, 3 ));
+            pathGeometry.computeVertexNormals();//needed for light to work
+            
+            const pathMaterial = new THREE.MeshStandardMaterial( {
+                side: THREE.DoubleSide,color:0xff0000
+            });
+
+            const pathMesh = new THREE.Mesh( pathGeometry, pathMaterial );
+            pathMesh.name = "pathMesh";
+            scene.current.add(pathMesh);
+        }
+    }
+    const setIsPathfindingEnabled = (boolean) =>{
         setPathFindingVariables({
             ...pathFindingVariables,
-            current:string
+            isEnagled:boolean
         })
     }
-    const handleMouseClick = (event)=>[
-        mouseClick(event,renderer.current,camera.current,scene.current)
-    ]
+    useEffect(()=>{
+        if(pathFindingVariables.isEnagled===true){
+            findPath();
+        }
+    },[pathFindingVariables.startId,pathFindingVariables.endId]);
+
+    const canvasClicked = (event)=>{
+        const clickedFace = mouseClick(event,renderer.current,camera.current,scene.current);
+
+        if(clickedFace===null)
+            return;
+
+        if(pathFindingVariables.isEnagled===false)
+            return;
+
+        //click means left button is clicked
+        if(event.type === "click"){
+            console.log("vleze");
+            setPathFindingVariables({
+                ...pathFindingVariables,
+                startId:clickedFace
+            })
+        }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
+            setPathFindingVariables({
+                ...pathFindingVariables,
+                endId:clickedFace
+            })
+        }
+    }
+
     return (
         <div className='flex' style={{display:"flex"}}>
-            <div ref={canvasHolder} className='canvas_older'></div>
+            <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
             <div className='settings_holder'>
                 <NoiseGeneratorSettings 
                     generationVariables={generationVariables}
                     pathFindingVariables={pathFindingVariables}
                     handleNoiseSettings={handleNoiseSettings}
                     changeResolution={changeResolution}
-                    handlePathSettings={handlePathSettings}
+                    setIsPathfindingEnabled={setIsPathfindingEnabled}
                 />
             </div>
         </div>

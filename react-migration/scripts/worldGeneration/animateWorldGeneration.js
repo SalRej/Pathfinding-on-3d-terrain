@@ -63,5 +63,6 @@ const animateWorldGeneration = (data) =>{
         const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
         createNode(graph,i,avrageY,width,position);
     }
+    return graph;
 }
 export default animateWorldGeneration;

@@ -23,7 +23,6 @@ const generateWorld = (data) =>{
 
     for(let i=0;i<pointsOfTriangleIndexes.length;i++){
 
-        
         let y1 = points[pointsOfTriangleIndexes[i].a].y;
         let y2 = points[pointsOfTriangleIndexes[i].b].y;
         let y3 = points[pointsOfTriangleIndexes[i].c].y;
@@ -43,7 +42,6 @@ const generateWorld = (data) =>{
         
         //apply diffrent colors depending on vertex.y value
         applyColor(y1,y2,y3,color1,color2,color3);
-
 
         //chesck if the pints is too low this means its water so make it one level of height
         y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,0,1,0,scaleY);
@@ -100,5 +98,6 @@ const generateWorld = (data) =>{
     const mesh = new THREE.Mesh( geometry, material );
     mesh.name='worldMesh';
     scene.add(mesh);
+    return graph;
 }
 export default generateWorld;
