@@ -1,6 +1,7 @@
 import React , {useState} from 'react'
 import Slider from './Slider';
 import PathSettings from './PathSettings';
+import ExportFile from './ExportFile';
 function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage , changeResolution}) {
 
   const handleChange = (event) =>{
@@ -23,6 +24,7 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
       <nav>
           <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
           <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
+          <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
       </nav>
 
       {
@@ -42,6 +44,10 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
       {
         chosenTab==="path" &&
         <PathSettings />
+      }
+      {
+        chosenTab==='export' &&
+        <ExportFile />
       }
     </div>
   )
