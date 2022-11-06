@@ -33,7 +33,7 @@ const octaves = {o:4};
 const persistance ={p:0.5};
 const lacunarity = {l:2};
 
-const worldData = createNoiseMap(200,200,scale.s,octaves.o,persistance.p,lacunarity.l,scene);
+const worldData = createNoiseMap(100,100,scale.s,octaves.o,persistance.p,lacunarity.l,scene,camera,renderer);
 //const path = djikstra(worldData.graph,1,1000);
 //console.log(path);
 const raycaster = new THREE.Raycaster();
@@ -71,6 +71,8 @@ function onPointerMove( event ) {
 
 }
 window.addEventListener( 'mousedown', onPointerMove );
+
+
 
 function animate() {
   requestAnimationFrame( animate );
