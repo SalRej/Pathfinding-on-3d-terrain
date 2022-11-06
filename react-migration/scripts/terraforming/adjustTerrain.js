@@ -1,5 +1,5 @@
 import mapping from "../mapping";
-import applyColor from "../test/applyColor";
+import applyColor from "../applyColor";
 const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,range,scaleY,doRaise) =>{
 
     //find distance of each point to middle of triangle clicked

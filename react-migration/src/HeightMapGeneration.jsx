@@ -7,11 +7,13 @@ import BackButton from './BackButton';
 
 import getTriangleClicked from '../scripts/getTriangleClicked';
 import findPath from '../scripts/graph/findPath';
+import terraform from '../scripts/terraforming/terraform';
+
 function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
   const initialRender = useRef(true);
-  const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables,isTerraforming} = useContext(worldDataContext);
+  const {THREEScene ,setTHREEScene, pathFindingVariables, setPathFindingVariables, isTerraforming} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -37,6 +39,25 @@ function HeightMapGeneration() {
 
     animate();
   },[]);
+
+  useEffect(()=>{
+    if(isTerraforming===true){
+        const {controls} = THREEScene;
+        controls.enabled = false;
+        setTHREEScene({
+            ...THREEScene,
+            controls:controls
+        })
+    }
+    else{
+        const {controls} = THREEScene;
+        controls.enabled = true;
+        setTHREEScene({
+            ...THREEScene,
+            controls:controls
+        })
+    }
+  },[isTerraforming])
 
   function animate() {
     requestAnimationFrame( animate );
@@ -133,7 +154,27 @@ function HeightMapGeneration() {
 
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
+    const handleTerraform = (event) =>{
+      const {scaleY} = heightMapVariables;
+      if(isTerraforming===true){
+          if(event.type === "click"){
+              console.log('here')
+              terraform(event,THREEScene,pathFindingVariables,scaleY,true);
+          }
+          if(event.type === "contextmenu"){
+              event.preventDefault();
+              event.stopPropagation();
+              terraform(event,THREEScene,pathFindingVariables,scaleY,false);
+          }
+      }
+  }
+
     const canvasClicked = (event)=>{
+      if(isTerraforming === true){
+        handleTerraform(event);
+        return;
+      }
+
       const {camera,renderer,scene} = THREEScene;
       const clickedFace = getTriangleClicked(event,renderer,camera,scene);
 

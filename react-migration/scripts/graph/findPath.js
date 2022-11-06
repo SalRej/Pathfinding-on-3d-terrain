@@ -1,4 +1,4 @@
-import djikstra from "./djikstra";
+import djikstra from '../graph/djikstra';
 import * as THREE from 'three'
 
 const findPath = (pathFindingVariables,scene) =>{

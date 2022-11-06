@@ -29,7 +29,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
                 <main>
 
                     <form onChange={handleResolutionChange}>
-                        <Slider min={20} max={500} name='resolution' value={generationVariables.width}/>
+                        <Slider min={20} max={200} name='resolution' value={generationVariables.width}/>
                     </form>
 
                     <form onChange={handleChange}>
