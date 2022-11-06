@@ -154,7 +154,7 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
     // draw range
     geometry.setAttribute('color', new THREE.Float32BufferAttribute( colors, 3 ));
 
-    const material = new THREE.MeshPhysicalMaterial( {
+    const material = new THREE.MeshStandardMaterial( {
         side: THREE.DoubleSide,vertexColors: true
     });
     const mesh = new THREE.Mesh( geometry, material );

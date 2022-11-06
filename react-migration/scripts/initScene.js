@@ -12,8 +12,12 @@ const initScene = () =>{
     camera.lookAt( 0, 0, 0 );
     
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize( width, height );      
-    document.body.appendChild( renderer.domElement );
+    renderer.setSize( width, height ); 
+    
+    const app = document.getElementById("root");
+    // app.ap
+    app.appendChild(renderer.domElement);
+    document.body.appendChild( app );
     
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.update();

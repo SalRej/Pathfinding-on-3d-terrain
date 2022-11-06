@@ -31,10 +31,9 @@ function onMouseClick( event ) {
   
   // calculate pointer position in normalized device coordinates
 	// (-1 to +1) for both components
-  console.log(renderer);
   const rendererSize = new THREE.Vector2();
   renderer.getSize(rendererSize);
-  console.log(rendererSize);
+  
 	pointer.x = ( event.clientX / rendererSize.x ) * 2 - 1;
 	pointer.y = - ( event.clientY / rendererSize.y ) * 2 + 1;
   raycaster.setFromCamera(pointer,camera);
