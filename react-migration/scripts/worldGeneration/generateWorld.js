@@ -8,6 +8,7 @@ const generateWorld = (data) =>{
         points,
         pointsOfTriangleIndexes,
         width,
+        height,
         scene,
         geometry,
         material,
@@ -17,17 +18,11 @@ const generateWorld = (data) =>{
     const numVertecies = pointsOfTriangleIndexes.length*9;
     let vertexIndex = 0;
     const positions = new Float32Array(numVertecies);
-    const colors = new Float32Array(numVertecies);
     const graph = [];
+    const colors = new Float32Array(numVertecies);
 
     for(let i=0;i<pointsOfTriangleIndexes.length;i++){
 
-        //3 colors for each vertex of the triangle
-        let color1={r:0,g:1,b:0};
-        let color2={r:0,g:1,b:0};
-        let color3={r:0,g:1,b:0};
-
-        //apply diffrent colors depending on vertex.y value
         
         let y1 = points[pointsOfTriangleIndexes[i].a].y;
         let y2 = points[pointsOfTriangleIndexes[i].b].y;
@@ -41,7 +36,14 @@ const generateWorld = (data) =>{
         const z2 = points[pointsOfTriangleIndexes[i].b].z;
         const z3 = points[pointsOfTriangleIndexes[i].c].z;
         
+        //3 colors for each vertex of the triangle
+        let color1={r:0,g:1,b:0};
+        let color2={r:0,g:1,b:0};
+        let color3={r:0,g:1,b:0};
+        
+        //apply diffrent colors depending on vertex.y value
         applyColor(y1,y2,y3,color1,color2,color3);
+
 
         //chesck if the pints is too low this means its water so make it one level of height
         y1 = mapping(points[pointsOfTriangleIndexes[i].a].y,-1,1,0,scaleY);
@@ -61,6 +63,7 @@ const generateWorld = (data) =>{
         if(checkY3 <= 0.15){
             y3=mapping(0.15,0,1,0,scaleY);
         } 
+        
         
         positions[vertexIndex+0]=x1;
         positions[vertexIndex+1]=y1;
@@ -83,6 +86,7 @@ const generateWorld = (data) =>{
         colors[vertexIndex+8]=color3.b;
         
         vertexIndex+=9;
+
         const position = [x1,y1+1,z1,x2,y2+1,z2,x3,y3+1,z3];//position of each triangle with y a bit higher so the mesh is above the othe one
         //needed later for animation of pathfinding
         const avrageY = (y1+y2+y3)/3;//needet to determine cost value of each node
@@ -95,8 +99,6 @@ const generateWorld = (data) =>{
 
     const mesh = new THREE.Mesh( geometry, material );
     mesh.name='worldMesh';
-    
     scene.add(mesh);
-    return graph;
 }
 export default generateWorld;

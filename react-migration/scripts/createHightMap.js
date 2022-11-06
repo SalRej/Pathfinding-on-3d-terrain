@@ -5,7 +5,7 @@ import mapping from './mapping';
 import createPoints from './createPoints';
 
 
-const createMesh = (points , pointsOfTriangleIndexes) =>{
+const createMesh = (points , pointsOfTriangleIndexes , scaleY) =>{
 
     const trianglePositions = [];
     const bufferGeometryColors = [];
@@ -28,30 +28,17 @@ const createMesh = (points , pointsOfTriangleIndexes) =>{
         const color2={r:0,g:0,b:0};
         const color3={r:0,g:0,b:0};
 
-        if(y1 <= 3){
-            y1=3;
-            points[pointsOfTriangleIndexes[i].a].y=3;
-        }
-        if(y2 <= 3){
-            y2=3;
-            points[pointsOfTriangleIndexes[i].b].y=3;
-        }
-        if(y3 <= 3){
-            y3=3;
-            points[pointsOfTriangleIndexes[i].c].y=3;
-        }
-        applyColor(y1,y2,y3,color1,color2,color3);
+        trianglePositions.push(
+            x1,mapping(y1,0,1,0,scaleY),z1,
+            x2,mapping(y2,0,1,0,scaleY),z2,
+            x3,mapping(y3,0,1,0,scaleY),z3
+        )
 
+        applyColor(y1,y2,y3,color1,color2,color3);
         bufferGeometryColors.push(
             color1.r,color1.g,color1.b,
             color2.r,color2.g,color2.b,
             color3.r,color3.g,color3.b
-        )
-
-        trianglePositions.push(
-            x1,y1,z1,
-            x2,y2,z2,
-            x3,y3,z3
         )
     }
 
@@ -63,8 +50,9 @@ const createMesh = (points , pointsOfTriangleIndexes) =>{
     return bufferGeometry;
 }
 
-const createHeightMap = (numPointsX,numPointsY,scene) =>{
+const createHeightMap = (heightMapVariables,scene) =>{
 
+    const { numPointsX  ,numPointsY , scaleY} = heightMapVariables;
     const imgOfHeightMap = new Image(); 
 
     imgOfHeightMap.addEventListener('load',()=>{
@@ -90,22 +78,23 @@ const createHeightMap = (numPointsX,numPointsY,scene) =>{
             
             const grey = (color.r + color.b + color.g)/3;
         
-            points[j].y = mapping(grey,0,255,0,20);
+            points[j].y = mapping(grey,0,255,0,1);
             j++;
         }
         
-        const bufferGeometry = createMesh(points,pointsOfTriangleIndexes);
+        const bufferGeometry = createMesh(points,pointsOfTriangleIndexes,scaleY);
         const material = new THREE.MeshStandardMaterial({
             side:DoubleSide,
             vertexColors:true
         });
             
         const mesh = new THREE.Mesh(bufferGeometry,material);
+        mesh.name="worldMesh";
         scene.add(mesh);
 
     },false)
 
-    imgOfHeightMap.src = '/heightMaps/test.png';
+    imgOfHeightMap.src = '/heightMaps/r.png';
     
 }
 

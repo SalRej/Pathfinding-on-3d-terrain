@@ -7,9 +7,10 @@ import djikstra from '../scripts/djikstra';
 import animatePathFinding from '../scripts/animatePathFinding';
 import createHeightMap from '../scripts/createHightMap';
 import NoiseGeneratorControls from './NoiseGeneratorControls';
-
+import HeightMapSettings from './HeightMapSettings';
 function App() {
 
+  let isNoiseMap = false;
   const scene = useRef();
   const camera = useRef ();
   const renderer = useRef();
@@ -40,6 +41,12 @@ function App() {
     seed:"hello"
   })
 
+  const [heightMapVariables,setHeightMapVariables] = useState({
+    numPointsX:300,
+    numPointsY:300,
+    scaleY:20
+  })
+
   useEffect(()=>{
     const initObjects = initScene();
     scene.current = initObjects.scene;
@@ -54,11 +61,11 @@ function App() {
     scene.current.add( gridHelper );
 
     const start = Date.now();
-    worldData.current = createNoiseMap(generationVariables,scene.current,true);
+    // worldData.current = createNoiseMap(generationVariables,scene.current,false);
+    createHeightMap(heightMapVariables,scene.current);
     const end = Date.now();
     console.log(`Execution time: ${end - start} ms`);
     //300-600
-    // createHeightMap(200,200,scene.current);
     animate();
   },[]);
 
@@ -109,16 +116,20 @@ function App() {
   };
 
   useEffect(()=>{
-
     if(initialRender.current==true){
       initialRender.current=false;
     }
     else if(initialRender.current==false){
+
       scene.current.remove(scene.current.getObjectByName('worldMesh'));
-      worldData.current = createNoiseMap(generationVariables,scene.current,false);
+      if(isNoiseMap == true){
+        worldData.current = createNoiseMap(generationVariables,scene.current,false);
+      }else{
+        createHeightMap(heightMapVariables,scene.current);
+      }
     }
 
-  },[generationVariables]);
+  },[generationVariables,heightMapVariables]);
 
   const changeResolution = (value) =>{
       setGenerationVariables({
@@ -133,14 +144,27 @@ function App() {
       [event.target.name]:event.target.value
     })
   }
+
+  const handleHeightMapSettings = (event)=>{
+    
+    console.log(event.target.name);
+    console.log(event.target.value);
+
+    setHeightMapVariables({
+      ...heightMapVariables,
+      [event.target.name]:event.target.value
+    })
+  }
   return (
     <div className="App" id="App">
         <button onClick={findPath}>click</button>
-        <NoiseGeneratorControls 
+        {/* <NoiseGeneratorControls 
           generationVariables={generationVariables}
           handleNoiseSettings={handleNoiseSettings}
           changeResolution={changeResolution}
-        />
+        /> */}
+
+        <HeightMapSettings heightMapVariables={heightMapVariables} handleHeightMapSettings={handleHeightMapSettings} />
     </div>
   )
 }

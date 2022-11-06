@@ -4,6 +4,7 @@ const setColor = (color,r,g,b)=>{
     color.g=g;
     color.b=b;
 }
+
 const applyColor = (y1,y2,y3,color1,color2,color3) => {
 
     setColor(color1,0,0.3,0.6);
