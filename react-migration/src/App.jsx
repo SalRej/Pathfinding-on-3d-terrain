@@ -8,10 +8,11 @@ import animatePathFinding from '../scripts/animatePathFinding';
 import createHeightMap from '../scripts/createHightMap';
 import NoiseGeneratorControls from './NoiseGeneratorControls';
 import HeightMapSettings from './HeightMapSettings';
+import {CSSTransition} from 'react-transition-group';
 function App() {
 
   let isNoiseMap = false;
-  const [isGetStartedClicked,setIsGetStartedClicked] = useState(false);
+  const [showGetStarted,setShowGetStarted] = useState(true);
   const scene = useRef(); 
   const camera = useRef ();
   const renderer = useRef();
@@ -147,9 +148,6 @@ function App() {
   }
 
   const handleHeightMapSettings = (event)=>{
-    
-    console.log(event.target.name);
-    console.log(event.target.value);
 
     setHeightMapVariables({
       ...heightMapVariables,
@@ -163,11 +161,22 @@ function App() {
         <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
       </video>
 
-      <div className='holder'>
-        <h1>Create you own world</h1>
-        <p>Get started now</p>
-      </div>
+      <CSSTransition in={showGetStarted}
+        timeout={1000}
+        classNames='get-started'
+      >
+        <div className='holder'>
+          <h1>Create you own world</h1>
+          <button onClick={()=>setShowGetStarted(false)}>Get started now</button>
+        </div>
+      </CSSTransition>
 
+        {showGetStarted===false &&
+          <div className='holder two-buttons animate__fadeInUp animate__animated'>
+            <button>Generete world with perlin noise</button>
+            <button>Import height map image</button>
+          </div>
+        }
         {/* <button onClick={findPath}>click</button> */}
         {/* <NoiseGeneratorControls 
           generationVariables={generationVariables}

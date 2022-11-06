@@ -29,7 +29,7 @@
   font-size: 55px;
 }
 
-.App .holder p {
+.App .holder button {
   background-color: orange;
   width: 60%;
   margin-left: auto;
@@ -42,9 +42,26 @@
   color: rgba(0, 0, 0, 0.555);
 }
 
-.App .holder p:hover {
+.App .holder button:hover {
   color: black;
   background-color: white;
   cursor: pointer;
+}
+
+.App .two-buttons button {
+  margin-top: 1em;
+  width: 30vw;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+}
+
+.get-started-exit-active {
+  opacity: 0;
+  -webkit-transition: opacity 1000ms;
+  transition: opacity 1000ms;
+}
+
+.get-started-exit-done {
+  opacity: 0;
 }
 /*# sourceMappingURL=app.css.map */
