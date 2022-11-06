@@ -16,7 +16,7 @@ const djikstra = (graph,startId,endId) =>{
 
     while(nodesIdToCheck.length>0){
         
-        //take the node with smallest value
+        //take the node with smallest cost value
         let min =Infinity;
         let index = -1;
 
@@ -26,13 +26,13 @@ const djikstra = (graph,startId,endId) =>{
                 index = nodesIdToCheck[i].id;
             }
         }
+
         const currentId = index;
         //check all neihbors of current node
         graph[currentId].neighborId.forEach((neighbor)=>{
-            //if the neigbor is visited dont do anything
+            //if the neigbor is visited or obsticle dont do anything
             if(graph[neighbor].isVisited==false && graph[neighbor].isObstical==false){
 
-                //add this neighbor in array to be chaked later
                 
                 //calculate the new short distance , if it is smaller then the previous one then update the distance and 
                 //update the prevNode
@@ -42,11 +42,17 @@ const djikstra = (graph,startId,endId) =>{
                     graph[neighbor].shortestDistance=newShortesDistance;
                     graph[neighbor].prevNodeId = currentId;
                 }
+
+                //add this neighbor in array to be chaked later
                 nodesIdToCheck.push({id:neighbor,value:graph[neighbor].shortestDistance});
+
+                //draws a line from current triangle center to the neighbor triangle center
+                const currentTriangleCenter = 
             }
         })
 
         //this code below is questionable
+        //it should improve djikstra by ending it sooner
         if(currentId==endId){
             let isFninished = true;
             graph[currentId].neighborId.forEach(neighbor=>{
@@ -55,7 +61,6 @@ const djikstra = (graph,startId,endId) =>{
                 }
             })
             if(isFninished==true){
-                console.log("finished",currentId);
                 break;
             }
         }
@@ -68,7 +73,6 @@ const djikstra = (graph,startId,endId) =>{
 
     //backtrack
     const path=[];
-    //console.log(graph[endId]);
     path.push(graph[endId].prevNodeId);
     while(path[path.length-1]!=startId){
         path.push(graph[path[path.length-1]].prevNodeId);
