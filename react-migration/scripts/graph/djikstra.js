@@ -2,13 +2,6 @@ import * as THREE from 'three';
 
 const djikstra = (graph,startId,endId) =>{
     
-    //clear graph from before
-    graph.forEach(node=>{
-        node.isVisited = false;
-        node.prevNodeId = undefined;
-        node.shortestDistance = Infinity;
-    })
-
     //set the distance from start node to be 0
     graph[startId].cost=0;
     graph[startId].shortestDistance=0;
@@ -76,6 +69,13 @@ const djikstra = (graph,startId,endId) =>{
         backtrack.push(graph[backtrack[backtrack.length-1]].prevNodeId);
     }
     
+    //reset graph
+    graph.forEach(node=>{
+        node.isVisited = false;
+        node.prevNodeId = undefined;
+        node.shortestDistance = Infinity;
+    })
+
     return path;
 }
 
