@@ -73,24 +73,33 @@ function sleep(ms) {
 }
 const applyHeight = (mesh)=>{
 
+    console.log(mesh.geometry.attributes.position.array.length);
     for(let i=0;i<mesh.geometry.attributes.position.array.length;i+=3){
 
         let y = mesh.geometry.attributes.position.array[i+1];
         y=mapping(y,-1,1,0,20);
         const interval = setInterval(()=>{
+
             if(mesh.geometry.attributes.position.array[i+1]>=y){
+
+                //when last vertex is reached
+                if(i==mesh.geometry.attributes.position.array.length-3){
+                    //comupet normals so light can be aplied
+                    mesh.geometry.computeVertexNormals();
+                }
                 clearInterval(interval);
             }else{
                 if(y<=3){
-                    mesh.geometry.attributes.position.array[i+1]=y;
+                    mesh.geometry.attributes.position.array[i+1]=3;
                     mesh.geometry.attributes.position.needsUpdate=true;
                 }else{
                     mesh.geometry.attributes.position.array[i+1]=y;
                     mesh.geometry.attributes.position.needsUpdate=true;
                 }
             }
-        },100)
-        sleep(3);
+
+        },1)
+        // sleep(3);
     }
 }
 const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene) =>{
@@ -148,9 +157,8 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
     const positions = [];
     makeGreyImage(triangleIndexes,positions,colors,points,geometry);
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ));
-    // draw range
-
     geometry.computeVertexNormals();//needed for light to work
+    // draw range
     geometry.setAttribute('color', new THREE.Float32BufferAttribute( colors, 3 ));
 
     const material = new THREE.MeshStandardMaterial( {
@@ -167,37 +175,16 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
         if(t>(width*height)*9){
             clearInterval(firstAnimationInterval);
             makeColorImage(triangleIndexes,points,mesh);
-
         }
     },0.01)
-    
+
     const graph = [];
-
-    //applyHeight(mesh);
-
     // for(let i=0;i<triangleIndexes.length;i++){
-
-    //     //if y<3 this is going to be water so i make it all same haight
-    //     if(points[triangleIndexes[i].a].y<=3){
-    //         points[triangleIndexes[i].a].y=3
-    //     }
-    //     if(points[triangleIndexes[i].b].y<=3){
-    //         points[triangleIndexes[i].b].y=3
-    //     }
-    //     if(points[triangleIndexes[i].c].y<=3){
-    //         points[triangleIndexes[i].c].y=3
-    //     }
-
-    //     //push vertecies making a triangle in order
         
-
-    //     colors.push(color1.r,color1.g,color1.b,color2.r,color2.g,color2.b,color3.r,color3.g,color3.b);
         
     //     const avrageY = (points[triangleIndexes[i].a].y+points[triangleIndexes[i].b].y+points[triangleIndexes[i].c].y)/3
     //     createNode(graph,i,avrageY,width)
     // }
-
-    
 
     return{positions,colors,triangleIndexes,graph};
 }
