@@ -26,6 +26,11 @@ function NoiseGeneration() {
         seed:String(Math.floor(Math.random()*100000))
     })
 
+    const [pathFindingVariables,setPathFindingVariables] = useState({
+        startId:-1,
+        endId:-1,
+        setCurrent:"none"
+    })
     useEffect(()=>{
         const initObjects = initScene();
         scene.current = initObjects.scene;
@@ -43,7 +48,6 @@ function NoiseGeneration() {
         scene.current.add( gridHelper );
         
         createNoiseMap(generationVariables,scene.current,true);
-        // createHeightMap(heightMapVariables,scene.current);
         animate();
       },[]);
 
@@ -81,14 +85,23 @@ function NoiseGeneration() {
             [event.target.name]:event.target.value
         })
     }
+
+    const handlePathSettings = (string) =>{
+        setPathFindingVariables({
+            ...pathFindingVariables,
+            current:string
+        })
+    }
     return (
         <div className='flex' style={{display:"flex"}}>
             <div ref={canvasHolder} className='canvas_older'></div>
             <div className='settings_holder'>
                 <NoiseGeneratorSettings 
                     generationVariables={generationVariables}
+                    pathFindingVariables={pathFindingVariables}
                     handleNoiseSettings={handleNoiseSettings}
                     changeResolution={changeResolution}
+                    handlePathSettings={handlePathSettings}
                 />
             </div>
         </div>
