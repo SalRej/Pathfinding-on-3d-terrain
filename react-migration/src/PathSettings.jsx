@@ -1,7 +1,8 @@
-import React from 'react'
+import React , {useContext} from 'react'
+import worldDataContext from './contex';
+function PathSettings(){
 
-function PathSettings({pathFindingVariables, setIsPathfindingEnabled}){
-
+    const {setIsPathfindingEnabled , pathFindingVariables} = useContext(worldDataContext);
     const handleClick =()=>{
         setIsPathfindingEnabled(!pathFindingVariables.isEnagled);
     }

@@ -1,7 +1,7 @@
 import React , {useState} from 'react'
 import Slider from './Slider';
 import PathSettings from './PathSettings';
-function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage , changeResolution , pathFindingVariables , setIsPathfindingEnabled}) {
+function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage , changeResolution}) {
 
   const handleChange = (event) =>{
     handleHeightMapSettings(event);
@@ -29,7 +29,7 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
         chosenTab==="settings" &&
         <main>
           <form onChange={handleResolutionChange}>
-            <Slider min={0} max={500} step={1} name={"resolution"} value={heightMapVariables.numPointsX}/>
+            <Slider min={20} max={500} step={1} name={"resolution"} value={heightMapVariables.numPointsX}/>
           </form>
 
           <form onChange={handleChange}>
@@ -41,10 +41,7 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
       }
       {
         chosenTab==="path" &&
-        <PathSettings 
-            pathFindingVariables={pathFindingVariables}
-            setIsPathfindingEnabled={setIsPathfindingEnabled}
-        />
+        <PathSettings />
       }
     </div>
   )

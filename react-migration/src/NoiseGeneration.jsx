@@ -11,7 +11,7 @@ function NoiseGeneration() {
     const canvasHolder = useRef(null);
     const initialRender = useRef(true);
 
-    const {THREEScene , pathFindingVariables, setPathFindingVariables , setIsPathfindingEnabled} = useContext(worldDataContext);
+    const {THREEScene , pathFindingVariables, setPathFindingVariables} = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
         width:100,
@@ -78,7 +78,9 @@ function NoiseGeneration() {
     }
 
     useEffect(()=>{
-        if(pathFindingVariables.isEnagled===true){
+        if(pathFindingVariables.isEnagled===true
+            &&pathFindingVariables.startId!=-1
+            &&pathFindingVariables.endId!=-1){
             findPath(pathFindingVariables,THREEScene.current.scene);
         }
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
@@ -89,7 +91,7 @@ function NoiseGeneration() {
 
         if(clickedFace===null)
             return;
-
+            
         if(pathFindingVariables.isEnagled===false)
             return;
 
@@ -113,10 +115,8 @@ function NoiseGeneration() {
             <div className='settings_holder'>
                 <NoiseGeneratorSettings 
                     generationVariables={generationVariables}
-                    pathFindingVariables={pathFindingVariables}
                     handleNoiseSettings={handleNoiseSettings}
                     changeResolution={changeResolution}
-                    setIsPathfindingEnabled={setIsPathfindingEnabled}
                 />
             </div>
         </div>

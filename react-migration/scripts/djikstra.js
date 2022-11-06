@@ -18,7 +18,6 @@ const djikstra = (graph,startId,endId) =>{
     nodesIdToCheck.push({id:startId,value:0});
 
     while(nodesIdToCheck.length>0){
-        
         //take the node with smallest cost value
         let min = Infinity;
         let index = -1;

@@ -3,11 +3,13 @@ import HeightMapSettings from './HeightMapSettings';
 
 import createHeightMap from '../scripts/createHightMap';
 import worldDataContext from './contex';
+import getTriangleClicked from '../scripts/getTriangleClicked';
+import findPath from '../scripts/findPath';
 function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
   const initialRender = useRef(true);
-  const {THREEScene , pathFindingVariables, setPathFindingVariables , setIsPathfindingEnabled} = useContext(worldDataContext);
+  const {THREEScene , pathFindingVariables, setPathFindingVariables} = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,
@@ -42,10 +44,14 @@ function HeightMapGeneration() {
         initialRender.current=false;
     }
     else if(initialRender.current==false){
-        THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('worldMesh'));
+        const {scene} = THREEScene.current;
+        scene.remove(scene.getObjectByName('worldMesh'));
+        scene.remove(scene.getObjectByName('pathMesh'));
         const graph = createHeightMap(heightMapVariables,THREEScene.current.scene);
         setPathFindingVariables({
           ...pathFindingVariables,
+          startId:-1,
+          endId:-1,
           graph:graph
       })
     }
@@ -87,18 +93,51 @@ function HeightMapGeneration() {
     })
   }
 
+  useEffect(()=>{
+    if(pathFindingVariables.isEnagled===true
+        &&pathFindingVariables.startId!=-1
+        &&pathFindingVariables.endId!=-1){
+        findPath(pathFindingVariables,THREEScene.current.scene);
+      }
+    },[pathFindingVariables.startId,pathFindingVariables.endId]);
+
+
+  const canvasClicked = (event)=>{
+    const {camera,renderer,scene} = THREEScene.current;
+    const clickedFace = getTriangleClicked(event,renderer,camera,scene);
+
+    if(clickedFace===null)
+        return;
+
+    if(pathFindingVariables.isEnagled===false)
+        return;
+
+    //click means left button is clicked
+    if(event.type === "click"){
+        setPathFindingVariables({
+            ...pathFindingVariables,
+            startId:clickedFace
+        })
+    }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
+        setPathFindingVariables({
+            ...pathFindingVariables,
+            endId:clickedFace
+        })
+    }
+  }
+
   return (
     <div className='flex' style={{display:"flex"}}>
-            <div ref={canvasHolder} className='canvas_older'></div>
-            <div className='settings_holder'>
-                <HeightMapSettings
-                    heightMapVariables={heightMapVariables}
-                    handleHeightMapSettings={handleHeightMapSettings}
-                    loadImage={loadImage}
-                    changeResolution={changeResolution}
-                />
-            </div>
+        <div ref={canvasHolder} className='canvas_older' onClick={canvasClicked} onContextMenu={canvasClicked}></div>
+        <div className='settings_holder'>
+            <HeightMapSettings
+                heightMapVariables={heightMapVariables}
+                handleHeightMapSettings={handleHeightMapSettings}
+                loadImage={loadImage}
+                changeResolution={changeResolution}
+            />
         </div>
+      </div>
   )
 }
 
