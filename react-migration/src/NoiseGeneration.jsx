@@ -2,11 +2,9 @@ import React , {useState , useEffect , useRef ,useContext } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
 import worldDataContext from './contex';
 
-import * as THREE from 'three';
-import initScene from '../scripts/initScene';
 import createNoiseMap from '../scripts/createNoiseMap';
 import mouseClick from '../scripts/mouseClick';
-import djikstra from '../scripts/djikstra';
+import findPath from '../scripts/findPath';
 
 function NoiseGeneration() {
 
@@ -79,30 +77,9 @@ function NoiseGeneration() {
         })
     }
 
-    const findPath = () =>{
-        const {startId , endId , graph } = pathFindingVariables;
-
-        if(startId!=-1 && endId!=- 1){
-            THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName("pathMesh"));
-            const pathCordinates = djikstra(graph,startId,endId);
-
-            const pathGeometry = new THREE.BufferGeometry();
-            pathGeometry.setAttribute( 'position', new THREE.Float32BufferAttribute( pathCordinates.path, 3 ));
-            pathGeometry.computeVertexNormals();//needed for light to work
-            
-            const pathMaterial = new THREE.MeshStandardMaterial( {
-                side: THREE.DoubleSide,color:0xff0000
-            });
-
-            const pathMesh = new THREE.Mesh( pathGeometry, pathMaterial );
-            pathMesh.name = "pathMesh";
-            THREEScene.current.scene.add(pathMesh);
-        }
-    }
-
     useEffect(()=>{
         if(pathFindingVariables.isEnagled===true){
-            findPath();
+            findPath(pathFindingVariables,THREEScene.current.scene);
         }
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
