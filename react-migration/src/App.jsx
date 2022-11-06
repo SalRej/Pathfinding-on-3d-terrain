@@ -6,13 +6,20 @@ import createNoiseMap from '../scripts/createNoiseMap';
 import djikstra from '../scripts/djikstra';
 import animatePathFinding from '../scripts/animatePathFinding';
 import createHeightMap from '../scripts/createHightMap';
-import NoiseGeneratorControls from './NoiseGeneratorControls';
-import HeightMapSettings from './HeightMapSettings';
+import NoiseGeneration from './NoiseGeneration';
 import {CSSTransition} from 'react-transition-group';
+import Home from './Home';
+import HeightMapGeneration from './HeightMapGeneration';
+import {
+  BrowserRouter ,
+  Routes ,
+  Route ,
+  Link
+} from "react-router-dom";
+
 function App() {
 
   let isNoiseMap = false;
-  const [showGetStarted,setShowGetStarted] = useState(true);
   const scene = useRef(); 
   const camera = useRef ();
   const renderer = useRef();
@@ -156,28 +163,12 @@ function App() {
   }
   return (
     <div className="App" id="App">
-
-      <video autoplay="autoplay" muted loop id="background-video">
-        <source src="/video/earth-rotation.mp4" type="video/mp4"></source>
-      </video>
-
-      <CSSTransition in={showGetStarted}
-        timeout={1000}
-        classNames='get-started'
-      >
-        <div className='holder'>
-          <h1>Create you own world</h1>
-          <button onClick={()=>setShowGetStarted(false)}>Get started now</button>
-        </div>
-      </CSSTransition>
-
-        {showGetStarted===false &&
-          <div className='holder two-buttons animate__fadeInUp animate__animated'>
-            <p>Make your choice</p>
-            <button>Generete world with perlin noise</button>
-            <button>Import height map image</button>
-          </div>
-        }
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
+        <Route path='/heightMapGeneration' element={<HeightMapGeneration/>}/>
+      </Routes>
+      
         {/* <button onClick={findPath}>click</button> */}
         {/* <NoiseGeneratorControls 
           generationVariables={generationVariables}
