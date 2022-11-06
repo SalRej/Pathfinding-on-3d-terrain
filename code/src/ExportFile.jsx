@@ -21,7 +21,8 @@ function ExportFile() {
 
     }
 
-    const download = () =>{
+    const download = (event) =>{
+        console.log(event)
         const {scene} = THREEScene;
         const gltfExporter = new GLTFExporter();
         const input = scene.getObjectByName('worldMesh');
@@ -47,9 +48,9 @@ function ExportFile() {
             <div className='info'>
                 <img src="icons8-info-24.png"></img>
                 <ul>
-                    <li>If you are using the app on mobile this may not work</li>
+                    <li>If the app is used in messenger browser this may now work</li>
                     <li>Exported file is in gltf or glb format</li>
-                    <li>The heigher the resolution the bigger the file</li>
+                    <li>The higher the resolution the bigger the file</li>
                 </ul>
             </div>
             <a ref={downloadLink} >
