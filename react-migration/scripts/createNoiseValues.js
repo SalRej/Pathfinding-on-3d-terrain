@@ -2,7 +2,7 @@ import alea from 'alea';
 import { createNoise2D } from 'simplex-noise';
 import mapping from './mapping';
 
-const createNoiseValues = (generationVariables,width,height,sclaeMuliplayerX,sclaeMuliplayerY) =>{
+const createNoiseValues = (generationVariables,points,width,height,sclaeMuliplayerX,sclaeMuliplayerY) =>{
 
     const { persistance, lacunarity, seed, offsetX, offsetY} = generationVariables;
 
@@ -20,7 +20,7 @@ const createNoiseValues = (generationVariables,width,height,sclaeMuliplayerX,scl
     }
 
     const noiseValues = [];
-
+    let index = 0;
     for(let i = 0; i < height; i++){
         for(let j = 0; j < width;j++){
 
@@ -41,14 +41,12 @@ const createNoiseValues = (generationVariables,width,height,sclaeMuliplayerX,scl
                 frequancy *= lacunarity;
             }
             
-            noiseValues.push(noise);
-            // noiseValues.push(noise);
-            // noiseValues.push(noise);
-            // noiseValues.push(noise);
+            points[index].y = noise;
+            index++;
         }
     }
 
-    return noiseValues;
+    // return noiseValues;
         
 }
 export default createNoiseValues;
