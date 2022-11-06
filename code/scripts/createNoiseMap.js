@@ -40,9 +40,10 @@ const makeColorImage =(triangleIndexes,points,mesh)=>{
 
         if(i>=numTimes){
             clearInterval(interval);
+            applyHeight(mesh);
         }
 
-        for(let j = 0;j<10;j++){
+        for(let j = 0;j<100;j++){
             let color1={r:0,g:1,b:0};
             let color2={r:0,g:1,b:0};
             let color3={r:0,g:1,b:0};
@@ -50,7 +51,7 @@ const makeColorImage =(triangleIndexes,points,mesh)=>{
             const y1 = mapping(points[triangleIndexes[i].a].y,-1,1,0,20);
             const y2= mapping(points[triangleIndexes[i].b].y,-1,1,0,20);
             const y3= mapping(points[triangleIndexes[i].c].y,-1,1,0,20);
-    
+            
             applyColor(y1,y2,y3,color1,color2,color3);
             mesh.geometry.attributes.color.array[i*9]=color1.r;
             mesh.geometry.attributes.color.array[i*9+1]=color1.g;
@@ -66,6 +67,31 @@ const makeColorImage =(triangleIndexes,points,mesh)=>{
             i++;
         }
     },0)
+}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+const applyHeight = (mesh)=>{
+
+    for(let i=0;i<mesh.geometry.attributes.position.array.length;i+=3){
+
+        let y = mesh.geometry.attributes.position.array[i+1];
+        y=mapping(y,-1,1,0,20);
+        const interval = setInterval(()=>{
+            if(mesh.geometry.attributes.position.array[i+1]>=y){
+                clearInterval(interval);
+            }else{
+                if(y<=3){
+                    mesh.geometry.attributes.position.array[i+1]=y;
+                    mesh.geometry.attributes.position.needsUpdate=true;
+                }else{
+                    mesh.geometry.attributes.position.array[i+1]=y;
+                    mesh.geometry.attributes.position.needsUpdate=true;
+                }
+            }
+        },100)
+        sleep(3);
+    }
 }
 const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene) =>{
 
@@ -147,12 +173,9 @@ const createNoiseMap = (width,height,scale,octaves,persistance,lacunarity,scene)
     
     const graph = [];
 
-    // applyHeight();
+    //applyHeight(mesh);
 
     // for(let i=0;i<triangleIndexes.length;i++){
-
-    //     //apply diffrent colors depending on vertex.y value
-    //     applyColor(points[triangleIndexes[i].a].y,points[triangleIndexes[i].b].y,points[triangleIndexes[i].c].y,color1,color2,color3);
 
     //     //if y<3 this is going to be water so i make it all same haight
     //     if(points[triangleIndexes[i].a].y<=3){
