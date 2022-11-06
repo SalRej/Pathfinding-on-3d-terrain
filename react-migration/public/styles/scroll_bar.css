@@ -1,15 +1,15 @@
-main::-webkit-scrollbar {
+main::-webkit-scrollbar, .info::-webkit-scrollbar {
   width: 10px;
   /* width of the entire scrollbar */
 }
 
-main::-webkit-scrollbar-track {
+main::-webkit-scrollbar-track, .info::-webkit-scrollbar-track {
   border-radius: 11px;
   background: rgba(255, 166, 0, 0.492);
   /* color of the tracking area */
 }
 
-main::-webkit-scrollbar-thumb {
+main::-webkit-scrollbar-thumb, .info::-webkit-scrollbar-thumb {
   background-color: #52b7e6;
   border-radius: 20px;
   /* roundness of the scroll thumb */
