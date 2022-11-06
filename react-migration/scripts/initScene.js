@@ -15,10 +15,10 @@ const initScene = () =>{
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize( width, height ); 
     
-    const app = document.getElementById("root");
+    // const app = document.getElementById("root");
     // app.ap
-    app.appendChild(renderer.domElement);
-    document.body.appendChild( app );
+    // app.appendChild(renderer.domElement);
+    // document.body.appendChild( app );
     
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.update();

@@ -94,7 +94,7 @@ const createHeightMap = (heightMapVariables,scene) =>{
 
     },false)
 
-    imgOfHeightMap.src = '/heightMaps/r.png';
+    imgOfHeightMap.src = '/heightMaps/test.png';
     
 }
 
