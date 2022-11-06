@@ -45,6 +45,11 @@ function App() {
     renderer.current = initObjects.renderer;
     controls.current = initObjects.controls;
 
+    const size = 100;
+    const divisions = 10;
+
+    const gridHelper = new THREE.GridHelper( size, divisions );
+    scene.current.add( gridHelper );
     // worldData.current = createNoiseMap(generationVariables,scene.current,true);
     createHeightMap(100,100,scene.current);
     animate();
