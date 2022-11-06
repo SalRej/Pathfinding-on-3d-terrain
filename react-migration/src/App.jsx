@@ -15,12 +15,16 @@ function App(){
   let location = useLocation();
 
   useEffect(()=>{
-    setPathFindingVariables({
-      startId:-1,
-      endId:-1,
-      isEnagled:false,
-      graph:[]
-    })
+
+    if(location.pathname==='/'){
+      setPathFindingVariables({
+        ...pathFindingVariables,
+        startId:-1,
+        endId:-1,
+        isEnagled:false,
+      })
+    }
+
   },[location.pathname])
 
   useEffect(()=>{

@@ -17,7 +17,7 @@ function NoiseGeneration() {
         width:100,
         height:100,
         scale:70,
-        octaves:4,
+        octaves:7,
         persistance:0.5,
         lacunarity:2,
         offsetX:0,
@@ -27,26 +27,20 @@ function NoiseGeneration() {
     })
 
     useEffect(()=>{
-        THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
-        THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
-        setPathFindingVariables({
-            startId:-1,
-            endId:-1,
-            isEnagled:false,
-            graph:[]
-        })
         
         if(canvasHolder.current!=null){
            canvasHolder.current.appendChild(THREEScene.renderer.domElement);
         }
         
+        THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
+        THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh')); 
         const graph = createNoiseMap(generationVariables,THREEScene.scene,true);
 
         setPathFindingVariables({
             ...pathFindingVariables,
             graph:graph
         })
-
+        console.log("1");
         animate();
       },[]);
 
@@ -63,9 +57,13 @@ function NoiseGeneration() {
         else if(initialRender.current==false){
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
+    
+            console.log("2")
             const graph = createNoiseMap(generationVariables,THREEScene.scene,false);
             setPathFindingVariables({
-                ...pathFindingVariables,
+                startId:-1,
+                endId:-1,
+                isEnagled:false,
                 graph:graph
             })
         }
