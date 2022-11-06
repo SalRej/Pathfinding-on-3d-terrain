@@ -54,6 +54,7 @@
 }
 
 .App .two-buttons button {
+  display: block;
   -webkit-box-shadow: #f8f8f8 0px 3px 8px;
           box-shadow: #f8f8f8 0px 3px 8px;
   border: white 3px solid;
@@ -73,5 +74,30 @@
 
 .get-started-exit-done {
   opacity: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .App .holder {
+    width: 60vw;
+    margin-top: 1em;
+  }
+  .App .two-buttons button {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .App .holder {
+    width: 80vw;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .App .holder {
+    width: 100vw;
+  }
+  .App .holder button {
+    width: 90%;
+  }
 }
 /*# sourceMappingURL=home.css.map */

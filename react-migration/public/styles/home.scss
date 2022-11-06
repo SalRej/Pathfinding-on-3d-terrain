@@ -53,6 +53,7 @@
             font-size:40px;
         }
         button{
+            display: block;
             box-shadow: rgb(248, 248, 248) 0px 3px 8px;
             border:white 3px solid;
             background-color: cornflowerblue;
@@ -73,4 +74,37 @@
 
 .get-started-exit-done{
     opacity: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+    .App{
+        .holder{
+            width: 60vw;
+            margin-top:1em;
+        }
+        .two-buttons{
+            button{
+                width: 80%;
+            }
+        }    
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .App{
+        .holder{
+            width: 80vw;
+        }    
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .App{
+        .holder{
+            width: 100vw;
+            button{
+                width: 90%;
+            }
+        }    
+    }
 }
