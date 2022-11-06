@@ -8,12 +8,66 @@
         background-color:#c7e9ff;
         border-radius: 5px;
         main{
+          position:relative;
           background-color: white;
           border-radius: 11px;
           width: 70%;
           height: 65%;
           margin: auto;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;          padding:1em 0 1em 0;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+          padding:1em 0 1em 0;
+          .start-end{
+            width: 100%;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            gap:2em;
+            margin-top:3em;
+            margin-bottom: 3em;
+            text-decoration: underline;
+          }
+          .info{
+            background-color: rgba(255, 166, 0, 0.519);
+            border-radius: 12px;
+            padding:1em;
+            width: 70%;
+            img{
+              float: right;
+              opacity: 0.5;
+            }
+            li{
+              text-align: left;
+              margin-bottom: 1em;
+              font-weight: bold;
+              color:rgba(0, 0, 0, 0.523);
+              margin-left:1em;
+            }
+          }
+          button{
+            position: absolute;
+            bottom: 10;
+            left: 0; 
+            right: 0; 
+            margin-left: auto; 
+            margin-right: auto; 
+            display: block;
+            width: 77%;
+            padding:1em;
+            background-color: orange;
+            border:none;
+            border-radius: 12px;
+            color:white;
+            font-weight: bold;
+            font-size: 24px;
+            &:hover{
+              cursor: pointer;
+              background-color: rgba(255, 166, 0, 0.601);
+            }
+          }
+          .enabled{
+            background-color: white;
+            color:black;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;          }
         }
         .heading{
             color:rgba(0, 0, 0, 0.614);
