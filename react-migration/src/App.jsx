@@ -52,7 +52,12 @@ function App() {
 
     const gridHelper = new THREE.GridHelper( size, divisions );
     scene.current.add( gridHelper );
+
+    const start = Date.now();
     worldData.current = createNoiseMap(generationVariables,scene.current,false);
+    const end = Date.now();
+    console.log(`Execution time: ${end - start} ms`);
+    //300-600
     // createHeightMap(200,200,scene.current);
     animate();
   },[]);

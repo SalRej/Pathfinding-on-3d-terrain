@@ -20,22 +20,14 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
     const sclaeMuliplayerX = width/mapWidth;
     const sclaeMuliplayerY = height/mapHeight;
 
-    const {points , pointsOfTriangleIndexes } = createPoints(width,height);
-    createNoiseValues(generationVariables,points,width,height,sclaeMuliplayerX,sclaeMuliplayerY);
-
-    // for(let i = 0;i<points.length;i++){
-    //     points[i].y = noiseValues[i];
-    // }
+    const {points , pointsOfTriangleIndexes } = createNoiseValues(generationVariables,sclaeMuliplayerX,sclaeMuliplayerY);
 
     const geometry = new THREE.BufferGeometry();
     const material = new THREE.MeshStandardMaterial( {
         side: THREE.DoubleSide,vertexColors: true
     });
 
-    const positions = [];
-    const colors = [];    //colors for each vertex
-    const graph = [];
-
+    let graph;
     if(doAnimate===true){
         const data ={
             geometry,
@@ -55,18 +47,15 @@ const createNoiseMap = (generationVariables,scene,doAnimate) =>{
         const data ={
             pointsOfTriangleIndexes,
             points,
-            positions,
-            graph,
-            colors,
             width,
             scene,
             geometry,
             material,
             scaleY
         }
-        generateWorld(data);
+        graph = generateWorld(data);
     }
 
-    return{positions,colors,pointsOfTriangleIndexes,graph};
+    return graph;
 }
 export default createNoiseMap;
