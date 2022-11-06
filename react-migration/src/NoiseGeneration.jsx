@@ -1,5 +1,6 @@
-import React , {useState , useEffect , useRef } from 'react'
+import React , {useState , useEffect , useRef ,useContext } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
+import worldDataContext from './contex';
 
 import * as THREE from 'three';
 import initScene from '../scripts/initScene';
@@ -9,12 +10,10 @@ import djikstra from '../scripts/djikstra';
 
 function NoiseGeneration() {
 
-    const scene = useRef(); 
-    const camera = useRef ();
-    const renderer = useRef();
-    const controls = useRef();
     const canvasHolder = useRef(null);
     const initialRender = useRef(true);
+
+    const {THREEScene , pathFindingVariables, setPathFindingVariables , setIsPathfindingEnabled} = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
         width:100,
@@ -29,30 +28,13 @@ function NoiseGeneration() {
         seed:String(Math.floor(Math.random()*100000))
     })
 
-    const [pathFindingVariables,setPathFindingVariables] = useState({
-        startId:-1,
-        endId:-1,
-        isEnagled:false,
-        graph:[]
-    })
-
     useEffect(()=>{
-        const initObjects = initScene();
-        scene.current = initObjects.scene;
-        camera.current = initObjects.camera;
-        renderer.current = initObjects.renderer;
-        controls.current = initObjects.controls;
 
         if(canvasHolder.current!=null){
-           canvasHolder.current.appendChild(renderer.current.domElement);
+           canvasHolder.current.appendChild(THREEScene.current.renderer.domElement);
         }
-
-        const size = 100;
-        const divisions = 10;
-        const gridHelper = new THREE.GridHelper( size, divisions );
-        scene.current.add( gridHelper );
         
-        const graph = createNoiseMap(generationVariables,scene.current,true);
+        const graph = createNoiseMap(generationVariables,THREEScene.current.scene,true);
 
         setPathFindingVariables({
             ...pathFindingVariables,
@@ -64,8 +46,8 @@ function NoiseGeneration() {
 
     function animate() {
         requestAnimationFrame( animate );
-        controls.current.update();
-        renderer.current.render( scene.current, camera.current );
+        THREEScene.current.controls.update();
+        THREEScene.current.renderer.render( THREEScene.current.scene, THREEScene.current.camera);
     };
 
     useEffect(()=>{
@@ -73,9 +55,9 @@ function NoiseGeneration() {
             initialRender.current=false;
         }
         else if(initialRender.current==false){
-            scene.current.remove(scene.current.getObjectByName('worldMesh'));
-            scene.current.remove(scene.current.getObjectByName('pathMesh'));
-            const graph = createNoiseMap(generationVariables,scene.current,false);
+            THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('worldMesh'));
+            THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName('pathMesh'));
+            const graph = createNoiseMap(generationVariables,THREEScene.current.scene,false);
             setPathFindingVariables({
                 ...pathFindingVariables,
                 graph:graph
@@ -101,7 +83,7 @@ function NoiseGeneration() {
         const {startId , endId , graph } = pathFindingVariables;
 
         if(startId!=-1 && endId!=- 1){
-            scene.current.remove(scene.current.getObjectByName("pathMesh"));
+            THREEScene.current.scene.remove(THREEScene.current.scene.getObjectByName("pathMesh"));
             const pathCordinates = djikstra(graph,startId,endId);
 
             const pathGeometry = new THREE.BufferGeometry();
@@ -114,24 +96,19 @@ function NoiseGeneration() {
 
             const pathMesh = new THREE.Mesh( pathGeometry, pathMaterial );
             pathMesh.name = "pathMesh";
-            scene.current.add(pathMesh);
+            THREEScene.current.scene.add(pathMesh);
         }
     }
-    const setIsPathfindingEnabled = (boolean) =>{
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            isEnagled:boolean
-        })
-    }
+
     useEffect(()=>{
         if(pathFindingVariables.isEnagled===true){
             findPath();
         }
-
     },[pathFindingVariables.startId,pathFindingVariables.endId]);
 
     const canvasClicked = (event)=>{
-        const clickedFace = mouseClick(event,renderer.current,camera.current,scene.current);
+        const {camera,renderer,scene} = THREEScene.current;
+        const clickedFace = mouseClick(event,renderer,camera,scene);
 
         if(clickedFace===null)
             return;

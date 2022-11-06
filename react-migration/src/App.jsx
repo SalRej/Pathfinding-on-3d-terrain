@@ -35,7 +35,7 @@ function App(){
 
   return (
     <div className="App" id="App">
-      <worldDataContext.Provider value={{THREEScene, pathFindingVariables}}>
+      <worldDataContext.Provider value={{THREEScene, pathFindingVariables,setPathFindingVariables ,setIsPathfindingEnabled}}>
         <Routes>
           <Route path="/" element={<Home />}/>
             <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
