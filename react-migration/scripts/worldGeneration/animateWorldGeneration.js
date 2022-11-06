@@ -14,11 +14,13 @@ const animateWorldGeneration = (data) =>{
         scene,
         geometry,
         material,
-        graph,
-        positions,
-        colors,
         scaleY
     } = data;
+
+    const numVertecies = pointsOfTriangleIndexes.length*9;
+    const positions = new Float32Array(numVertecies);
+    const colors = new Float32Array(numVertecies);
+    const graph = [];
 
     makeGreyImage(pointsOfTriangleIndexes,positions,colors,points,geometry);
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( positions, 3 ));
@@ -34,7 +36,9 @@ const animateWorldGeneration = (data) =>{
     const firstAnimationInterval = setInterval(()=>{
         step+=200;
         scene.children[3].geometry.setDrawRange(0,step);
+
         if(step>(width*height)*9){
+
             clearInterval(firstAnimationInterval);
             makeColorImage(pointsOfTriangleIndexes,points,mesh,scaleY);
         }
