@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const mouseClick = (event,renderer,camera,scene) =>{
+const getTriangleClicked = (event,renderer,camera,scene) =>{
 
     const raycaster = new THREE.Raycaster();
     const pointer = new THREE.Vector2();
@@ -21,4 +21,4 @@ const mouseClick = (event,renderer,camera,scene) =>{
     }else return null;
 }
 
-export default mouseClick;
+export default getTriangleClicked;
