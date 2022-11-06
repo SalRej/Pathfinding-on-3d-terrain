@@ -28,6 +28,7 @@
   white-space: nowrap;
   line-height: 2.5em;
   height: 2.5em;
+  text-overflow: clip;
 }
 
 .go_back_button img {
@@ -49,7 +50,6 @@
 }
 
 .go_back_button:hover p {
-  text-overflow: clip;
   padding-left: 1em;
   padding-right: 1em;
   width: 5em;

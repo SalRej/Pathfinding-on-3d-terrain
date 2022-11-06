@@ -14,13 +14,15 @@
     p{
         font-weight: bold;
         font-size: 1.1em;
-        width: 0;        
+        width: 0;
         color:white;
         border-radius: 11px;
         transition: all 1s;
         white-space: nowrap;
         line-height: 2.5em;
         height: 2.5em;
+        text-overflow: clip;
+
     }
     img{
         width: 1.8em;
@@ -37,7 +39,6 @@
             background-color: transparent;
         }
         p{
-            text-overflow: clip;
             padding-left: 1em;
             padding-right: 1em;
             width: 5em;
