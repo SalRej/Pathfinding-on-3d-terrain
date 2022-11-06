@@ -9,8 +9,7 @@ import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
 import useOnButtonHold from './hooks/useOnButtonHold';
-
-import getTriangleClicked from '../scripts/getTriangleClicked';
+import useCanvasClicked from './hooks/useCanvasClicked';
 
 function HeightMapGeneration() {
   
@@ -98,39 +97,8 @@ function HeightMapGeneration() {
     })
   }
 
-    const canvasClicked = (event)=>{
-      event.preventDefault();
-      event.stopPropagation();
-      if(terraformingVariables.isEnabled === true){
-        return;
-      }
-
-      const {camera,renderer,scene} = THREEScene;
-      const clickedFace = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
-
-      if(clickedFace===null)
-          return;
-          
-      if(pathFindingVariables.isEnagled===false)
-          return;
-
-      if(pathFindingVariables.graph[clickedFace].isObstical===true){
-        alert("cant travel on water");
-        return;
-      }
-
-      //click means left button is clicked
-      if(event.type === "click"){
-          setPathFindingVariables({
-              ...pathFindingVariables,
-              startId:clickedFace
-          })
-      }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
-          setPathFindingVariables({
-              ...pathFindingVariables,
-              endId:clickedFace
-          })
-      }
+  const canvasClicked = (event)=>{
+    useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables,mouseX,mouseY);
   }
 
   return (
