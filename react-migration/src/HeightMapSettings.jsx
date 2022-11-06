@@ -2,6 +2,7 @@ import React , {useState} from 'react'
 import Slider from './Slider';
 import PathSettings from './PathSettings';
 import ExportFile from './ExportFile';
+import Terraform from './Terraform';
 function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage , changeResolution}) {
 
   const handleChange = (event) =>{
@@ -25,6 +26,7 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
           <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
           <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
           <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
+          <p className={chosenTab==="terraform"?"chosen":""} onClick={()=>setChosenTab("terraform")}>Terraform</p>
       </nav>
 
       {
@@ -48,6 +50,10 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
       {
         chosenTab==='export' &&
         <ExportFile />
+      }
+      {
+        chosenTab==="terraform" && 
+        <Terraform />
       }
     </div>
   )

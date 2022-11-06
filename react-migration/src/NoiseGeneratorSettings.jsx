@@ -2,6 +2,7 @@ import React , { useState } from 'react'
 import Slider from './Slider';
 import ExportFile from './ExportFile';
 import PathSettings from './PathSettings';
+import Terraform from './Terraform';
 function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution}){
 
     const [chosenTab , setChosenTab] = useState("settings");
@@ -21,6 +22,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
                 <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
                 <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
                 <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
+                <p className={chosenTab==="terraform"?"chosen":""} onClick={()=>setChosenTab("terraform")}>Terraform</p>
             </nav>
             
             {   chosenTab==="settings" &&
@@ -50,6 +52,10 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
             {
                 chosenTab==="export" && 
                 <ExportFile />
+            }
+            {
+                chosenTab==="terraform" && 
+                <Terraform />
             }
         </div>
     )

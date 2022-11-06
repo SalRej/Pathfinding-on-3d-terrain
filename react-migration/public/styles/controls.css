@@ -128,13 +128,14 @@
   border: solid rgba(0, 0, 0, 0.504) 1px;
   background-color: orange;
   padding: 0.5em 1em 0.5em 1em;
-  width: 6em;
+  max-width: 6em;
   white-space: nowrap;
   overflow: hidden;
   text-align: center;
   border: none;
   -webkit-transition: all 500ms;
   transition: all 500ms;
+  border-right: solid lightgrey 1px;
 }
 
 .settings_holder .controls nav p:first-child {
@@ -143,6 +144,7 @@
 
 .settings_holder .controls nav p:last-child {
   border-top-right-radius: 12px;
+  border-right: none;
 }
 
 .settings_holder .controls nav p:hover {
