@@ -24,16 +24,18 @@ const createMesh = (points , pointsOfTriangleIndexes , scaleY) =>{
         const z2 = points[pointsOfTriangleIndexes[i].b].z;
         const z3 = points[pointsOfTriangleIndexes[i].c].z;
 
-        const color1={r:0,g:0,b:0};
-        const color2={r:0,g:0,b:0};
-        const color3={r:0,g:0,b:0};
-
+        
         trianglePositions.push(
             x1,mapping(y1,0,1,0,scaleY),z1,
             x2,mapping(y2,0,1,0,scaleY),z2,
             x3,mapping(y3,0,1,0,scaleY),z3
         )
 
+        const color1={r:0,g:0,b:0};
+        const color2={r:0,g:0,b:0};
+        const color3={r:0,g:0,b:0};
+            
+        // console.log(y1,y2,y3);
         applyColor(y1,y2,y3,color1,color2,color3);
         bufferGeometryColors.push(
             color1.r,color1.g,color1.b,
@@ -52,50 +54,45 @@ const createMesh = (points , pointsOfTriangleIndexes , scaleY) =>{
 
 const createHeightMap = (heightMapVariables,scene) =>{
 
+    const imgOfHeightMap = heightMapVariables.image;
+
     const { numPointsX  ,numPointsY , scaleY} = heightMapVariables;
-    const imgOfHeightMap = new Image(); 
 
-    imgOfHeightMap.addEventListener('load',()=>{
-        //load img on canvas so can read pixes from it later
-        const canvas = document.createElement('canvas');
-        canvas.width=numPointsX;
-        canvas.height=numPointsY;
+    //load img on canvas so can read pixes from it later
+    const canvas = document.createElement('canvas');
+    canvas.width=numPointsX;
+    canvas.height=numPointsY;
 
-        // document.body.appendChild(canvas);
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(imgOfHeightMap,0,0,numPointsX,numPointsY);
+    // document.body.appendChild(canvas);
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(imgOfHeightMap,0,0,numPointsX,numPointsY);
 
-        //get pixels from canvas
-        const pixelsOfHeightMapImg = ctx.getImageData(0,0,numPointsX,numPointsY);
-        const { points , pointsOfTriangleIndexes } = createPoints(numPointsX,numPointsY);
-        
-        let j = 0;
-        for(let i = 0; i < pixelsOfHeightMapImg.data.length ; i+=4){
-            const color = {r:0,g:0,b:0};
-            color.r = pixelsOfHeightMapImg.data[i];
-            color.g = pixelsOfHeightMapImg.data[i+1];
-            color.b = pixelsOfHeightMapImg.data[i+2];
-            
-            const grey = (color.r + color.b + color.g)/3;
-        
-            points[j].y = mapping(grey,0,255,0,1);
-            j++;
-        }
-        
-        const bufferGeometry = createMesh(points,pointsOfTriangleIndexes,scaleY);
-        const material = new THREE.MeshStandardMaterial({
-            side:DoubleSide,
-            vertexColors:true
-        });
-            
-        const mesh = new THREE.Mesh(bufferGeometry,material);
-        mesh.name="worldMesh";
-        scene.add(mesh);
-
-    },false)
-
-    imgOfHeightMap.src = '/heightMaps/test.png';
+    //get pixels from canvas
+    const pixelsOfHeightMapImg = ctx.getImageData(0,0,numPointsX,numPointsY);
+    const { points , pointsOfTriangleIndexes } = createPoints(numPointsX,numPointsY);
     
+    let j = 0;
+    for(let i = 0; i < pixelsOfHeightMapImg.data.length ; i+=4){
+        const color = {r:0,g:0,b:0};
+        color.r = pixelsOfHeightMapImg.data[i];
+        color.g = pixelsOfHeightMapImg.data[i+1];
+        color.b = pixelsOfHeightMapImg.data[i+2];
+        
+        const grey = (color.r + color.b + color.g)/3;
+    
+        points[j].y = mapping(grey,0,255,0,1);
+        j++;
+    }
+    
+    const bufferGeometry = createMesh(points,pointsOfTriangleIndexes,scaleY);
+    const material = new THREE.MeshStandardMaterial({
+        side:DoubleSide,
+        vertexColors:true
+    });
+        
+    const mesh = new THREE.Mesh(bufferGeometry,material);
+    mesh.name="worldMesh";
+    scene.add(mesh);    
 }
 
 export default createHeightMap;

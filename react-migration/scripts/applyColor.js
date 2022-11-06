@@ -11,9 +11,9 @@ const applyColor = (y1,y2,y3,color1,color2,color3) => {
     setColor(color2,0,0.3,0.6);
     setColor(color3,0,0.3,0.6);
 
-    y1 = mapping(y1,-1,1,0,1);
-    y2 = mapping(y2,-1,1,0,1);
-    y3 = mapping(y3,-1,1,0,1);
+    // y1 = mapping(y1,-1,1,0,1);
+    // y2 = mapping(y2,-1,1,0,1);
+    // y3 = mapping(y3,-1,1,0,1);
 
     //yellow
     if(y1>0.15){
