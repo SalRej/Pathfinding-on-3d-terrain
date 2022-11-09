@@ -1,6 +1,8 @@
 import React , {useContext} from 'react'
 import mapping from '../scripts/mapping';
 import rgbHex from 'rgb-hex';
+import hexRgb from 'hex-rgb';
+
 import worldDataContext from './contex';
 
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
@@ -28,6 +30,27 @@ function ColorsSettings({generationVariables}){
             })
         })
     }
+    const handleColorChange = (event) =>{
+        const id = Number(event.target.dataset.colorId);
+        const colorRGB = hexRgb(event.target.value);
+        const r = mapping(colorRGB.red,0,255,0,1);
+        const g = mapping(colorRGB.green,0,255,0,1);
+        const b = mapping(colorRGB.blue,0,255,0,1);
+
+        const color = {r:r,g:g,b:b};
+        setColorValues((prev)=>{
+            return prev.map((colorAndValue)=>{
+                if(id===colorAndValue.id){
+                    return {
+                        ...colorAndValue,
+                        color:color
+                    }
+                }
+                return colorAndValue;
+            })
+        })
+
+    }
     const removeColor = (id) =>{
         setColorValues((prev)=>{
             return prev.filter(color=>{
@@ -35,6 +58,7 @@ function ColorsSettings({generationVariables}){
             })
         })
     }
+
     const sRGBtoHex = (color) =>{
         const r = mapping(color.r,0,1,0,255);
         const g = mapping(color.g,0,1,0,255);
@@ -50,7 +74,7 @@ function ColorsSettings({generationVariables}){
                         colorValues.map(colorAndValue=>{
                             return(
                                 <div className='single_color_holder'>
-                                    <input type="color" value={sRGBtoHex(colorAndValue.color)}></input>
+                                    <input data-color-id={colorAndValue.id} onChange = {handleColorChange} type="color" value={sRGBtoHex(colorAndValue.color)}></input>
                                     <input id={colorAndValue.id} type='range' min={0} max = {1} step={0.01} value={colorAndValue.value} onChange={handleColorHeightChange}></input>
                                     <p>{colorAndValue.value}</p>
                                     <img onClick = {()=>removeColor(colorAndValue.id)} src='remove.png'></img>
