@@ -124,13 +124,15 @@
       -ms-flex-pack: center;
           justify-content: center;
   text-align: center;
+  width: 100%;
 }
 
 .settings_holder .controls nav p {
   border: solid rgba(0, 0, 0, 0.504) 1px;
   background-color: orange;
   padding: 0.5em 1em 0.5em 1em;
-  max-width: 6em;
+  max-width: 4.5em;
+  font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
   text-align: center;
@@ -265,6 +267,9 @@
   }
   .settings_holder .controls main button {
     font-size: 14px;
+  }
+  .settings_holder .controls nav p {
+    font-size: 10px;
   }
 }
 /*# sourceMappingURL=controls.css.map */
