@@ -6,11 +6,14 @@ import hexRgb from 'hex-rgb';
 import worldDataContext from './contex';
 
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
+import EnterColorForm from './EnterColorForm';
+import { useState } from 'react';
 const compare =(a,b)=>{
     return a.id - b.id;
 }
 function ColorsSettings({generationVariables}){
     const {colorValues,setColorValues} = useContext(worldDataContext);
+    const [showForm,setShowForm] = useState(false);
 
     useHandleGenerationChange(false,generationVariables,colorValues);
 
@@ -51,6 +54,11 @@ function ColorsSettings({generationVariables}){
         })
 
     }
+
+    const handleShowForm = () =>{
+        setShowForm(true);
+        document.body.classList='blur';
+    }
     const removeColor = (id) =>{
         setColorValues((prev)=>{
             return prev.filter(color=>{
@@ -66,28 +74,35 @@ function ColorsSettings({generationVariables}){
         return "#" + rgbHex(r,g,b);
     }
     return (
-        <main>
-            <form>
-                <div className='color_values_holder'>
-                    <p>Color settings</p>
-                    {
-                        colorValues.map(colorAndValue=>{
-                            return(
-                                <div className='single_color_holder'>
-                                    <input data-color-id={colorAndValue.id} onChange = {handleColorChange} type="color" value={sRGBtoHex(colorAndValue.color)}></input>
-                                    <input id={colorAndValue.id} type='range' min={0} max = {1} step={0.01} value={colorAndValue.value} onChange={handleColorHeightChange}></input>
-                                    <p>{colorAndValue.value}</p>
-                                    <img onClick = {()=>removeColor(colorAndValue.id)} src='remove.png'></img>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </form>
-            <button>Add Color 
-                <img src='add-icon.png'></img>
-            </button>
-        </main>
+        <React.Fragment>
+
+            <main>
+                <form>
+                    <div className='color_values_holder'>
+                        <p>Color settings</p>
+                        {
+                            colorValues.map(colorAndValue=>{
+                                return(
+                                    <div className='single_color_holder'>
+                                        <input data-color-id={colorAndValue.id} onChange = {handleColorChange} type="color" value={sRGBtoHex(colorAndValue.color)}></input>
+                                        <input id={colorAndValue.id} type='range' min={0} max = {1} step={0.01} value={colorAndValue.value} onChange={handleColorHeightChange}></input>
+                                        <p>{colorAndValue.value}</p>
+                                        <img onClick = {()=>removeColor(colorAndValue.id)} src='remove.png'></img>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </form>
+                <button onClick={handleShowForm}>Add Color 
+                    <img src='add-icon.png'></img>
+                </button>
+
+            </main>
+            {
+                showForm===true && <EnterColorForm setShowForm={setShowForm} />
+            }
+        </React.Fragment>
     )
 }
 

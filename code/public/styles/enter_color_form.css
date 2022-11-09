@@ -1,0 +1,87 @@
+.blur .canvas_older, .blur .controls > *:not(#test) {
+  -webkit-filter: blur(3px);
+          filter: blur(3px);
+}
+
+.enter_color_form {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  top: 30%;
+  background-color: white;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  width: 30vw;
+  height: auto;
+  border-radius: 11px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-radius: 11px;
+}
+
+.enter_color_form header {
+  background: #00b8ad;
+  background: linear-gradient(83deg, #00b8ad 0%, #00bb8f 100%);
+  height: 3em;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+
+.enter_color_form header img {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 2em;
+  height: 2em;
+}
+
+.enter_color_form header img:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.enter_color_form div {
+  width: 70%;
+  margin: auto;
+  margin-top: 1.5em;
+}
+
+.enter_color_form div label {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.enter_color_form div input {
+  padding-left: 1em;
+  width: 100%;
+  height: 2.3em;
+  border: none;
+  background-color: rgba(211, 211, 211, 0.436);
+  display: block;
+}
+
+.enter_color_form div input[type='color'] {
+  width: 2em;
+  background-color: transparent;
+}
+
+.enter_color_form button {
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  font-size: large;
+  display: block;
+  background-color: #ff6346;
+  color: white;
+  width: 70%;
+  height: 2.5em;
+  border-radius: 11px;
+  border: none;
+}
+
+.enter_color_form button:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=enter_color_form.css.map */
