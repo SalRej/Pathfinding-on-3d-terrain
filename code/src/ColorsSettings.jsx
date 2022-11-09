@@ -11,7 +11,9 @@ function ColorsSettings({generationVariables}){
     const {colorValues,setColorValues} = useContext(worldDataContext);
 
     useHandleGenerationChange(false,generationVariables,colorValues);
+
     colorValues.sort(compare);
+
     const handleColorHeightChange = (event) =>{
         setColorValues((prev)=>{
             return prev.map((colorAndValue)=>{
@@ -23,6 +25,13 @@ function ColorsSettings({generationVariables}){
                     }
                 }
                 return colorAndValue;
+            })
+        })
+    }
+    const removeColor = (id) =>{
+        setColorValues((prev)=>{
+            return prev.filter(color=>{
+                return color.id != id;
             })
         })
     }
@@ -44,7 +53,7 @@ function ColorsSettings({generationVariables}){
                                     <input type="color" value={sRGBtoHex(colorAndValue.color)}></input>
                                     <input id={colorAndValue.id} type='range' min={0} max = {1} step={0.01} value={colorAndValue.value} onChange={handleColorHeightChange}></input>
                                     <p>{colorAndValue.value}</p>
-                                    <img src='remove.png'></img>
+                                    <img onClick = {()=>removeColor(colorAndValue.id)} src='remove.png'></img>
                                 </div>
                             )
                         })
