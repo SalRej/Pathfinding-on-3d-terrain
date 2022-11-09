@@ -17,7 +17,9 @@ function ColorsSettings({generationVariables}){
 
     useHandleGenerationChange(false,generationVariables,colorValues);
 
-    colorValues.sort(compare);
+    if(colorValues.length>1){
+        colorValues.sort(compare);
+    }
 
     const handleColorHeightChange = (event) =>{
         setColorValues((prev)=>{
@@ -94,7 +96,7 @@ function ColorsSettings({generationVariables}){
                         }
                     </div>
                 </form>
-                <button onClick={handleShowForm}>Add Color 
+                <button className="add_color_button" onClick={handleShowForm}>Add Color 
                     <img src='add-icon.png'></img>
                 </button>
 

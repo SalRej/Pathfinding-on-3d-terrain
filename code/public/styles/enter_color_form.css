@@ -84,4 +84,10 @@
 .enter_color_form button:hover {
   cursor: pointer;
 }
+
+@media only screen and (max-width: 650px) {
+  .enter_color_form {
+    width: 80vw;
+  }
+}
 /*# sourceMappingURL=enter_color_form.css.map */

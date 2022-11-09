@@ -8,21 +8,34 @@ function EnterColorForm({setShowForm}) {
 
     const colorHeight = useRef(null);
     const colorHex = useRef(null);
-    const {setColorValues} = useContext(worldDataContext);
+    const {colorValues,setColorValues} = useContext(worldDataContext);
     const addColor = (event) =>{
         event.preventDefault();
         if(colorHeight.current===null || colorHex===null){
             return;
         }
+        if(colorHeight.current.value===''){
+            return;
+        }
+        const colorRGB = hexRgb(colorHex.current.value);
+        const color={
+            r:mapping(colorRGB.red,0,255,0,1),
+            g:mapping(colorRGB.green,0,255,0,1),
+            b:mapping(colorRGB.blue,0,255,0,1)
+        };
 
+        if(colorValues.length===0){
+            setColorValues([{
+                    id:1,
+                    value:colorHeight.current.value,
+                    color:color
+                }]
+            )
+            closeForm();
+            return ;
+        }
         setColorValues((prev)=>{
             const newId = prev[prev.length-1].id + 1;
-            const colorRGB = hexRgb(colorHex.current.value);
-            const color={
-                r:mapping(colorRGB.red,0,255,0,1),
-                g:mapping(colorRGB.green,0,255,0,1),
-                b:mapping(colorRGB.blue,0,255,0,1)
-            };
             return [...prev,{
                 id:newId,
                 value:colorHeight.current.value,
