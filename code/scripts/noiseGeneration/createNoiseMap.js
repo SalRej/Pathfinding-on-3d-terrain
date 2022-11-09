@@ -3,7 +3,7 @@ import { DoubleSide } from 'three';
 import createNoiseValues from './createNoiseValues';
 import createGraph from '../graph/createGraph';
 
-const createNoiseMap = (generationVariables,scene) =>{
+const createNoiseMap = (generationVariables,colorValues,scene) =>{
     
     const {
         height,
@@ -17,7 +17,7 @@ const createNoiseMap = (generationVariables,scene) =>{
     const sclaeMuliplayerX = width/mapWidth;
     const sclaeMuliplayerY = height/mapHeight;
 
-    const geometry = createNoiseValues(generationVariables,sclaeMuliplayerX,sclaeMuliplayerY);
+    const geometry = createNoiseValues(generationVariables,colorValues,sclaeMuliplayerX,sclaeMuliplayerY);
 
     const material = new THREE.MeshStandardMaterial({
         side: THREE.DoubleSide,vertexColors: true

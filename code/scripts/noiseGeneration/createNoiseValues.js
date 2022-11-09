@@ -4,7 +4,7 @@ import mapping from '../mapping';
 import * as THREE from 'three';
 import applyColor from '../applyColor';
 
-const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY) =>{
+const createNoiseValues = (generationVariables,colorValues,sclaeMuliplayerX,sclaeMuliplayerY) =>{
 
     const { persistance, lacunarity, seed, offsetX, offsetY ,width ,height} = generationVariables;
 
@@ -84,7 +84,7 @@ const createNoiseValues = (generationVariables,sclaeMuliplayerX,sclaeMuliplayerY
             if(noiseForColoring <= 0.15){
                 noise = mapping(0.15,0,1,-1,1);
             }
-            applyColor(noiseForColoring,color)
+            applyColor(noiseForColoring,color,colorValues)
             noise=mapping(noise,-1,1,0,generationVariables.scaleY);
 
             positions.push(xCordinate,noise,zCordinate);

@@ -22,7 +22,8 @@ function NoiseGeneration() {
         THREEScene,
         pathFindingVariables,
         setPathFindingVariables,
-        terraformingVariables
+        terraformingVariables,
+        colorValues
     } = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
@@ -41,7 +42,7 @@ function NoiseGeneration() {
     useOnLoad(createNoiseMap,generationVariables,canvasHolder,mouseX,mouseY);
 
     useTriggerControls();
-    useHandleGenerationChange(initialRender,createNoiseMap,generationVariables);
+    useHandleGenerationChange(initialRender,createNoiseMap,generationVariables,colorValues);
     useOnPathChange();
     const {startCounter,stopCounter} = useOnButtonHold(mouseX,mouseY,generationVariables.scaleY);
 

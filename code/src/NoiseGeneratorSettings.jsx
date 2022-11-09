@@ -50,7 +50,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
             }
             {
                 chosenTab==="color" &&
-                <ColorsSettings colorValues={colorValues}/>
+                <ColorsSettings generationVariables={generationVariables}/>
             }
             {
                 chosenTab==="path" &&

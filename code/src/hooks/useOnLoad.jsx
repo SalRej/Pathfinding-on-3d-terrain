@@ -3,7 +3,7 @@ import worldDataContext from '../contex';
 
 function useOnLoad(generationFunction,generationVariables,canvasHolder,mouseX,mouseY){
 
-    const {THREEScene,pathFindingVariables,setPathFindingVariables} = useContext(worldDataContext);
+    const {THREEScene,pathFindingVariables,setPathFindingVariables,colorValues} = useContext(worldDataContext);
     useEffect(()=>{
         if(canvasHolder.current!=null){
             canvasHolder.current.appendChild(THREEScene.renderer.domElement);
@@ -11,7 +11,7 @@ function useOnLoad(generationFunction,generationVariables,canvasHolder,mouseX,mo
         
         THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
         THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh')); 
-        const graph = generationFunction(generationVariables,THREEScene.scene);
+        const graph = generationFunction(generationVariables,colorValues,THREEScene.scene);
 
         setPathFindingVariables({
             ...pathFindingVariables,

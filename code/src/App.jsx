@@ -63,7 +63,16 @@ function App(){
   return (
     <div className="App" id="App">
       {(THREEScene!=null && pathFindingVariables!=null)&&
-        <worldDataContext.Provider value={{THREEScene,setTHREEScene, pathFindingVariables,setPathFindingVariables , terraformingVariables , setTerraformingVariables}}>
+        <worldDataContext.Provider value={{
+          THREEScene,
+          setTHREEScene,
+          pathFindingVariables,
+          setPathFindingVariables,
+          terraformingVariables,
+          setTerraformingVariables,
+          colorValues,
+          setColorValues
+        }}>
           <Routes>
             <Route path='*' element={<NotFound />} />
             <Route path="/" element={<Home />}/>
