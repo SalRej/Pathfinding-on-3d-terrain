@@ -3,6 +3,7 @@ import Slider from './Slider';
 import PathSettings from './PathSettings';
 import ExportFile from './ExportFile';
 import Terraform from './Terraform';
+import ColorsSettings from './ColorsSettings';
 function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadImage , changeResolution}) {
 
   const handleChange = (event) =>{
@@ -24,6 +25,7 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
       <p className='heading'>World generation settings</p>
       <nav>
           <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
+          <p className={chosenTab==="color"?"chosen":""} onClick={()=>setChosenTab("color")}>Color</p>
           <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
           <p className={chosenTab==="terraform"?"chosen":""} onClick={()=>setChosenTab("terraform")}>Terraform</p>
           <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
@@ -42,6 +44,10 @@ function HeightMapSettings({heightMapVariables , handleHeightMapSettings , loadI
             <input type='file' accept="image/png, image/jpeg" onChange={handleFileInput}></input>
           </form>
         </main>
+      }
+      {
+        chosenTab==="color" &&
+        <ColorsSettings generationVariables={heightMapVariables}/>
       }
       {
         chosenTab==="path" &&

@@ -23,7 +23,8 @@ function HeightMapGeneration() {
     THREEScene,
     pathFindingVariables,
     setPathFindingVariables,
-    terraformingVariables
+    terraformingVariables,
+    colorValues
   } = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
@@ -36,7 +37,7 @@ function HeightMapGeneration() {
   useOnLoad(createHeightMap,heightMapVariables,canvasHolder,mouseX,mouseY);
 
   useTriggerControls();
-  useHandleGenerationChange(initialRender,createHeightMap,heightMapVariables);
+  useHandleGenerationChange(initialRender,createHeightMap,heightMapVariables,colorValues);
   useOnPathChange();
 
   const {startCounter,stopCounter} = useOnButtonHold(mouseX,mouseY,heightMapVariables.scaleY);

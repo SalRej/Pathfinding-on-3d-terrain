@@ -5,7 +5,7 @@ import mapping from '../mapping';
 import createPoints from './createPoints';
 import createGraph from '../graph/createGraph';
 
-const createHeightMap = (heightMapVariables,scene) =>{
+const createHeightMap = (heightMapVariables,colorValues,scene) =>{
 
     const imgOfHeightMap = heightMapVariables.image;
 
@@ -37,7 +37,7 @@ const createHeightMap = (heightMapVariables,scene) =>{
         points[j] = mapping(normalizedY,0,1,0,scaleY);
 
         const colorToApply = {r:0,g:0,b:0};
-        applyColor(normalizedY,colorToApply);
+        applyColor(normalizedY,colorToApply,colorValues);
         colors.push(colorToApply.r,colorToApply.g,colorToApply.b);
         j+=3;
 
