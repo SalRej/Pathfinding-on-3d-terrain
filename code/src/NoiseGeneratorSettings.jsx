@@ -3,7 +3,9 @@ import Slider from './Slider';
 import ExportFile from './ExportFile';
 import PathSettings from './PathSettings';
 import Terraform from './Terraform';
-function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution}){
+import ColorsSettings from './ColorsSettings';
+
+function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution ,colorValues}){
 
     const [chosenTab , setChosenTab] = useState("settings");
 
@@ -20,6 +22,7 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
             <p className='heading'>World generation settings</p>
             <nav>
                 <p className={chosenTab==="settings"?"chosen":""} onClick={()=>setChosenTab("settings")}>Generation</p>
+                <p className={chosenTab==="color"?"chosen":""} onClick={()=>setChosenTab("color")}>Colors</p>
                 <p className={chosenTab==="path"?"chosen":""} onClick={()=>setChosenTab("path")}>Find path</p>
                 <p className={chosenTab==="terraform"?"chosen":""} onClick={()=>setChosenTab("terraform")}>Terraform</p>
                 <p className={chosenTab==="export"?"chosen":""} onClick={()=>setChosenTab("export")}>Export</p>
@@ -44,6 +47,10 @@ function NoiseGeneratorControls({generationVariables , handleNoiseSettings , cha
                         <input type='text' name="seed" value={generationVariables.seed}></input>
                     </form>
                 </main>
+            }
+            {
+                chosenTab==="color" &&
+                <ColorsSettings colorValues={colorValues}/>
             }
             {
                 chosenTab==="path" &&

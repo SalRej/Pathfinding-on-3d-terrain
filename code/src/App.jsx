@@ -8,6 +8,7 @@ import NotFound from './NotFound';
 
 import initScene from '../scripts/initScene';
 import worldDataContext from './contex';
+import defaultColorValues from '../scripts/defaultColorValues';
 
 function App(){
   
@@ -18,8 +19,7 @@ function App(){
     brushRadius:10,
     brushStrength:0.5
   })
-
-  let location = useLocation();
+  const [colorValues,setColorValues] = useState(defaultColorValues);
 
   useEffect(()=>{
     //this code runs on a route change
@@ -35,6 +35,8 @@ function App(){
         ...terraformingVariables,
         isEnabled:false
       })
+
+      setColorValues(defaultColorValues);
     }
 
   },[location.pathname])

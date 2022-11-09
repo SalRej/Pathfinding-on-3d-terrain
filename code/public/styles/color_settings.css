@@ -1,0 +1,65 @@
+.color_values_holder {
+  width: 70%;
+  margin: auto;
+}
+
+.color_values_holder p {
+  font-size: 20px;
+  margin-bottom: 1em;
+}
+
+.color_values_holder .single_color_holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 1em;
+  height: 2em;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.color_values_holder .single_color_holder p {
+  font-size: 16px;
+  margin: 0;
+  width: 10%;
+}
+
+.color_values_holder .single_color_holder img:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+input[type="color"] {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 2em;
+  width: 2em;
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border-radius: 6px;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  height: 2em;
+  width: 2em;
+  padding: 0;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border-radius: 6px;
+}
+
+input[type="range"] {
+  width: 50%;
+}
+/*# sourceMappingURL=color_settings.css.map */

@@ -7,11 +7,10 @@ import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
 import useCanvasClicked from './hooks/useCanvasClicked';
-
-import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 import useOnButtonHold from './hooks/useOnButtonHold';
 import useOnLoad from './hooks/useOnLoad';
 
+import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -38,7 +37,6 @@ function NoiseGeneration() {
         scaleY:20,
         seed:String(Math.floor(Math.random()*100000))
     })
-
 
     useOnLoad(createNoiseMap,generationVariables,canvasHolder,mouseX,mouseY);
 

@@ -1,0 +1,55 @@
+@mixin colorInput{
+    border-radius: 6px;
+}
+.color_values_holder{
+    width: 70%;
+    margin:auto;
+    p{
+        font-size: 20px;
+        margin-bottom: 1em;
+    }
+    .single_color_holder{
+        display: flex;
+        align-items: center;
+        margin-bottom: 1em;
+        height: 2em;
+        justify-content:space-between;
+        p{
+            font-size: 16px;
+            margin:0;
+            width: 10%;
+        }
+        img{
+            &:hover{
+                opacity: 0.7;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+input[type="color"] {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 2em;
+    width: 2em;
+    padding: 0;
+}
+input[type="color"]::-webkit-color-swatch{
+    @include colorInput();
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    height: 2em;
+    width: 2em;
+    padding: 0;
+}
+input[type="color"]::-moz-color-swatch{
+    @include colorInput();
+}
+input[type="range"]{
+    width: 50%;
+}

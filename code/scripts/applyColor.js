@@ -48,7 +48,7 @@ const applyColor = (y1,color1) => {
         {
             value:1.0,
             color:{r:1,g:1,b:1}//white
-        }
+        },
     ]
 
     for(let i = 0;i<colorsAndValues.length;i++){
