@@ -7,7 +7,7 @@ function Home() {
 
     return (
     <div>
-        <img src=".\public\giphy.gif" id="background"></img>
+        <img src="background_planet.png" id="background"></img>
 
         <CSSTransition in={showGetStarted}
             timeout={1000}
