@@ -3,12 +3,15 @@ import terraform from '../../scripts/terraforming/terraform';
 import getTriangleClicked from '../../scripts/getTriangleClicked';
 import worldDataContext from '../contex';
 import { useContext } from 'react';
+const compare =(a,b)=>{
+  return a.value - b.value;
+}
 function useOnButtonHold(mouseX,mouseY,scaleY){
 
     const {THREEScene,terraformingVariables,pathFindingVariables,colorValues} = useContext(worldDataContext);
-
     const intervalRef = useRef(null);
     const startCounter = (event) => {
+        colorValues.sort(compare);
 
         if (intervalRef.current) return;
         if(terraformingVariables.isEnabled===false) return;

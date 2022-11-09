@@ -31,7 +31,6 @@ const adjustTerrain = (pointIndex,positions,colors,colorValues,startCenterX,star
         const waterLevel = mapping(0.15,0,1,0,scaleY);
         positions.setY(pointIndex,waterLevel);
     }
-
     applyColor(valueForColoring,color,colorValues);
     colors.setXYZ(pointIndex,color.r,color.g,color.b);
 }

@@ -23,7 +23,7 @@ function ColorsSettings({generationVariables}){
                 if(event.target.id===id){
                     return {
                         ...colorAndValue,
-                        value:event.target.value
+                        value:Number(event.target.value)
                     }
                 }
                 return colorAndValue;
@@ -84,6 +84,9 @@ function ColorsSettings({generationVariables}){
                     }
                 </div>
             </form>
+            <button>Add Color 
+                <img src='add-icon.png'></img>
+            </button>
         </main>
     )
 }
