@@ -1,6 +1,6 @@
 import mapping from "../mapping";
 import applyColor from "../applyColor";
-const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,range,strength,scaleY,doRaise) =>{
+const adjustTerrain = (pointIndex,positions,colors,colorValues,startCenterX,startCenterZ,range,strength,scaleY,doRaise) =>{
 
     //find distance of each point to middle of triangle clicked
     const x = positions.getX(pointIndex);
@@ -32,7 +32,7 @@ const adjustTerrain = (pointIndex,positions,colors,startCenterX,startCenterZ,ran
         positions.setY(pointIndex,waterLevel);
     }
 
-    applyColor(valueForColoring,color);
+    applyColor(valueForColoring,color,colorValues);
     colors.setXYZ(pointIndex,color.r,color.g,color.b);
 }
 export default adjustTerrain;

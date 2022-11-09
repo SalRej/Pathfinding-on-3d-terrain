@@ -24,7 +24,7 @@ const isInRange = (currentTriangle,startCenterX,startCenterZ,range)=>{
     return false;
 }
 
-const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise,terraformingVariables) =>{
+const terraform = (triangleId,THREEScene,pathFindingVariables,colorValues,scaleY,doRaise,terraformingVariables) =>{
 
     scaleY=Number(scaleY);
     const {scene} = THREEScene;
@@ -94,7 +94,7 @@ const terraform = (triangleId,THREEScene,pathFindingVariables,scaleY,doRaise,ter
     }
 
     idsOfPointsToTerraform.forEach(pointId=>{
-        adjustTerrain(pointId,positions,colors,startCenterX,startCenterZ,brushRadius,brushStrength,scaleY,doRaise);
+        adjustTerrain(pointId,positions,colors,colorValues,startCenterX,startCenterZ,brushRadius,brushStrength,scaleY,doRaise);
     })
 
 

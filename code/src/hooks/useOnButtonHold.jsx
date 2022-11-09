@@ -5,7 +5,7 @@ import worldDataContext from '../contex';
 import { useContext } from 'react';
 function useOnButtonHold(mouseX,mouseY,scaleY){
 
-    const {THREEScene,terraformingVariables,pathFindingVariables} = useContext(worldDataContext);
+    const {THREEScene,terraformingVariables,pathFindingVariables,colorValues} = useContext(worldDataContext);
 
     const intervalRef = useRef(null);
     const startCounter = (event) => {
@@ -19,13 +19,13 @@ function useOnButtonHold(mouseX,mouseY,scaleY){
 
           const triangleId = getTriangleClicked(mouseX.current,mouseY.current,renderer,camera,scene);
           if(event.button===0){//left button for pc
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
+            terraform(triangleId,THREEScene,pathFindingVariables,colorValues,scaleY,true,terraformingVariables);
           }
           else if(event.button===2){//right button for pc
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,false,terraformingVariables);
+            terraform(triangleId,THREEScene,pathFindingVariables,colorValues,scaleY,false,terraformingVariables);
           }
           else if(event.type='touchstart'){//touch for mobile
-            terraform(triangleId,THREEScene,pathFindingVariables,scaleY,true,terraformingVariables);
+            terraform(triangleId,THREEScene,pathFindingVariables,colorValues,scaleY,true,terraformingVariables);
           }
           
         }, 10);
