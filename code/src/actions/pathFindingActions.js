@@ -9,3 +9,10 @@ export const disable = () =>{
         type:"DISABLE"
     }
 }
+
+export const setGraph = (newGraph) =>{
+    return{
+        type:"SET_GRAPH",
+        payload:newGraph
+    }
+}

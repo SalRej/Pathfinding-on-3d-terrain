@@ -1,10 +1,8 @@
 import React , {useState , useRef , useEffect} from 'react'
 import {CSSTransition} from 'react-transition-group';
 import {Link} from 'react-router-dom';
-
 function Home() {
     const [showGetStarted,setShowGetStarted] = useState(true);
-
     return (
     <div>
         <img src="background_planet.png" id="background"></img>

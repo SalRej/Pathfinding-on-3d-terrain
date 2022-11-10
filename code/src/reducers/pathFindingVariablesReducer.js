@@ -16,6 +16,13 @@ const pathFindingVariablesReducer = (state = {
                 ...state,
                 isEnabled:true
             }
+        case 'SET_GRAPH':{
+            return{
+                ...state,
+                graph:action.payload
+            }
+        }
+        default: return state;
     }
 }
 

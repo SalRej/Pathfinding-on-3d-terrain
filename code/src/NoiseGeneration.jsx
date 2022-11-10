@@ -11,6 +11,8 @@ import useOnButtonHold from './hooks/useOnButtonHold';
 import useOnLoad from './hooks/useOnLoad';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
+import {useSelector} from 'react-redux';
+
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -18,9 +20,13 @@ function NoiseGeneration() {
     const mouseX = useRef(null);
     const mouseY = useRef(null);
 
+    const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+
+    useEffect(()=>{
+        console.log(pathFindingVariables);
+    },[pathFindingVariables])
     const {
         THREEScene,
-        pathFindingVariables,
         setPathFindingVariables,
         terraformingVariables,
         colorValues

@@ -10,7 +10,7 @@ import initScene from '../scripts/initScene';
 import worldDataContext from './contex';
 import defaultColorValues from '../scripts/defaultColorValues';
 
-import {createStore} from 'react-redux';
+import {createStore} from 'redux';
 import allReducers from './reducers';
 import {Provider} from 'react-redux';
 

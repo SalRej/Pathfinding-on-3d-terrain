@@ -1,9 +1,14 @@
 import {useEffect,useContext} from 'react'
 import worldDataContext from '../contex';
 
+import {useSelector , useDispatch} from 'react-redux';
+import { setGraph } from '../actions/pathFindingActions';
+
 function useOnLoad(generationFunction,generationVariables,canvasHolder,mouseX,mouseY){
 
-    const {THREEScene,pathFindingVariables,setPathFindingVariables,colorValues} = useContext(worldDataContext);
+    const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+    const dispatch = useDispatch();
+    const {THREEScene,colorValues} = useContext(worldDataContext);
     useEffect(()=>{
         if(canvasHolder.current!=null){
             canvasHolder.current.appendChild(THREEScene.renderer.domElement);
@@ -13,11 +18,8 @@ function useOnLoad(generationFunction,generationVariables,canvasHolder,mouseX,mo
         THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh')); 
         const graph = generationFunction(generationVariables,colorValues,THREEScene.scene);
 
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            graph:graph
-        })
-
+        dispatch(setGraph(graph));
+        
         window.addEventListener('mousemove',(event)=>{
             mouseX.current = event.clientX;
             mouseY.current = event.clientY;
