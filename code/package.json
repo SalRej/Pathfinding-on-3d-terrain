@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.0",
     "alea": "^1.0.1",
     "animate.css": "^4.1.1",
     "hex-rgb": "^5.0.0",
