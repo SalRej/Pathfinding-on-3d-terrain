@@ -10,8 +10,14 @@ import initScene from '../scripts/initScene';
 import worldDataContext from './contex';
 import defaultColorValues from '../scripts/defaultColorValues';
 
+import {createStore} from 'react-redux';
+import allReducers from './reducers';
+import {Provider} from 'react-redux';
+
+
 function App(){
   
+  const store = createStore(allReducers);
   const [THREEScene,setTHREEScene] = useState(null);
   const [pathFindingVariables,setPathFindingVariables] = useState(null);
   const [terraformingVariables,setTerraformingVariables] = useState({
@@ -63,23 +69,25 @@ function App(){
   return (
     <div className="App" id="App">
       {(THREEScene!=null && pathFindingVariables!=null)&&
-        <worldDataContext.Provider value={{
-          THREEScene,
-          setTHREEScene,
-          pathFindingVariables,
-          setPathFindingVariables,
-          terraformingVariables,
-          setTerraformingVariables,
-          colorValues,
-          setColorValues
-        }}>
-          <Routes>
-            <Route path='*' element={<NotFound />} />
-            <Route path="/" element={<Home />}/>
-            <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
-            <Route path='/heightMapGeneration' element={<HeightMapGeneration/>}/>
-          </Routes>
-        </worldDataContext.Provider>
+        <Provider store={store}>
+          <worldDataContext.Provider value={{
+            THREEScene,
+            setTHREEScene,
+            pathFindingVariables,
+            setPathFindingVariables,
+            terraformingVariables,
+            setTerraformingVariables,
+            colorValues,
+            setColorValues
+          }}>
+            <Routes>
+              <Route path='*' element={<NotFound />} />
+              <Route path="/" element={<Home />}/>
+              <Route path='/noiseGeneration' element={<NoiseGeneration/>}/>
+              <Route path='/heightMapGeneration' element={<HeightMapGeneration/>}/>
+            </Routes>
+          </worldDataContext.Provider>
+        </Provider>
       }
     </div>
   )

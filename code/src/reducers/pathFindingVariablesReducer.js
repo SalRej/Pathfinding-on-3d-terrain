@@ -3,8 +3,9 @@ const pathFindingVariablesReducer = (state = {
     endId:-1,
     isEnagled:false,
     graph:[]
+
 },action) =>{
-    switch(action){
+    switch(action.type){
         case 'DISABLE':
             return {
                 ...state,
@@ -17,3 +18,5 @@ const pathFindingVariablesReducer = (state = {
             }
     }
 }
+
+export default pathFindingVariablesReducer;
