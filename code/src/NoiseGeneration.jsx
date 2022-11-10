@@ -22,9 +22,6 @@ function NoiseGeneration() {
 
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
 
-    useEffect(()=>{
-        console.log(pathFindingVariables);
-    },[pathFindingVariables])
     const {
         THREEScene,
         setPathFindingVariables,

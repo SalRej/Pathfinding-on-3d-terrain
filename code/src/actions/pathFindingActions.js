@@ -16,3 +16,17 @@ export const setGraph = (newGraph) =>{
         payload:newGraph
     }
 }
+
+export const setStart = (startId) =>{
+    return{
+        type:'SET_START',
+        payload:startId
+    }
+}
+
+export const setEnd = (endId) =>{
+    return{
+        type:'SET_START',
+        payload:endId
+    }
+}

@@ -22,6 +22,18 @@ const pathFindingVariablesReducer = (state = {
                 graph:action.payload
             }
         }
+        case 'SET_START':{
+            return{
+                ...state,
+                startId:action.payload
+            }
+        }
+        case 'SET_END':{
+            return{
+                ...state,
+                endId:action.payload
+            }
+        }
         default: return state;
     }
 }
