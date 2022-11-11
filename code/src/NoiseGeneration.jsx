@@ -6,13 +6,13 @@ import BackButton from './BackButton';
 import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
-import useCanvasClicked from './hooks/useCanvasClicked';
+import leftOrRightClickOnCanvas from '../scripts/leftOrRightClickOnCanvas';
 import useOnButtonHold from './hooks/useOnButtonHold';
 import useOnLoad from './hooks/useOnLoad';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
-import {useSelector} from 'react-redux';
-
+import {useSelector , useDispatch} from 'react-redux';
+import { setStart,setEnd } from './actions/pathFindingActions';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);
@@ -22,9 +22,14 @@ function NoiseGeneration() {
 
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
 
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        console.log(pathFindingVariables)
+    },[pathFindingVariables])
+    
     const {
         THREEScene,
-        setPathFindingVariables,
         terraformingVariables,
         colorValues
     } = useContext(worldDataContext);
@@ -64,7 +69,17 @@ function NoiseGeneration() {
     }
 
     const canvasClicked = (event)=>{
-        useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables);
+        const clickAndFace = leftOrRightClickOnCanvas(event,THREEScene,terraformingVariables,pathFindingVariables);
+        if(clickAndFace === null){
+            return;
+        }
+        const {click,face} = clickAndFace;
+        if(click==='left'){
+            dispatch(setStart(face));
+        }
+        if(click ==='right'){
+            dispatch(setEnd(face));
+        }
     }
 
     return (

@@ -26,7 +26,7 @@ export const setStart = (startId) =>{
 
 export const setEnd = (endId) =>{
     return{
-        type:'SET_START',
+        type:'SET_END',
         payload:endId
     }
 }

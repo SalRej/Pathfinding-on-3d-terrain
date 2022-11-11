@@ -2,11 +2,16 @@ import { useContext } from 'react';
 import {useEffect} from 'react'
 import findPath from '../../scripts/graph/findPath';
 import worldDataContext from '../contex';
+
+import {useSelector} from 'react-redux';
+
 function useOnPathChange() {
 
-    const {pathFindingVariables,THREEScene} = useContext(worldDataContext);
+    const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+    
+    const {THREEScene} = useContext(worldDataContext);
     useEffect(()=>{
-        if(pathFindingVariables.isEnagled===true
+        if(pathFindingVariables.isEnabled===true
             &&pathFindingVariables.startId!=-1
             &&pathFindingVariables.endId!=-1){
 

@@ -5,7 +5,7 @@ import PathSettings from './PathSettings';
 import Terraform from './Terraform';
 import ColorsSettings from './ColorsSettings';
 
-function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution ,colorValues}){
+function NoiseGeneratorControls({generationVariables , handleNoiseSettings , changeResolution }){
 
     const [chosenTab , setChosenTab] = useState("settings");
 

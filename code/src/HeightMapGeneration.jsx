@@ -9,7 +9,6 @@ import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
 import useOnButtonHold from './hooks/useOnButtonHold';
-import useCanvasClicked from './hooks/useCanvasClicked';
 import useOnLoad from './hooks/useOnLoad';
 
 function HeightMapGeneration() {
@@ -79,7 +78,6 @@ function HeightMapGeneration() {
   }
 
   const canvasClicked = (event)=>{
-    useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables,mouseX,mouseY);
   }
 
   return (

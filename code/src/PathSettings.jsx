@@ -1,13 +1,21 @@
 import React , {useContext} from 'react'
 import worldDataContext from './contex';
+import {useSelector, useDispatch} from 'react-redux';
+import {enable , disable} from '../src/actions/pathFindingActions';
 function PathSettings(){
 
-    const {setPathFindingVariables , pathFindingVariables,terraformingVariables, setTerraformingVariables} = useContext(worldDataContext);
+    const dispatch = useDispatch();
+    const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+
+    const {terraformingVariables, setTerraformingVariables} = useContext(worldDataContext);
     const handleClick =()=>{
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            isEnagled:!pathFindingVariables.isEnagled
-        });
+
+        if(pathFindingVariables.isEnabled===true){
+            dispatch(disable())
+        }else if(pathFindingVariables.isEnabled===false){
+            dispatch(enable());
+        }
+
         setTerraformingVariables({
             ...terraformingVariables,
             isEnabled:false
@@ -32,8 +40,8 @@ function PathSettings(){
             </div>
 
             <button onClick={handleClick}
-                className={pathFindingVariables.isEnagled===true?"enabled":"disabled"}>
-                {pathFindingVariables.isEnagled===false?"Enable Pathfinding":"Disable Pathfinding"}
+                className={pathFindingVariables.isEnabled===true?"enabled":"disabled"}>
+                {pathFindingVariables.isEnabled===false?"Enable Pathfinding":"Disable Pathfinding"}
             </button>
         </main>
     )

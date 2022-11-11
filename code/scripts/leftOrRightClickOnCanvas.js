@@ -1,41 +1,36 @@
-import React from 'react'
-import getTriangleClicked from '../../scripts/getTriangleClicked';
+import getTriangleClicked from './getTriangleClicked';
 
-function useCanvasClicked(event,THREEScene,terraformingVariables,pathFindingVariables,setPathFindingVariables){
+function leftOrRightClickOnCanvas(event,THREEScene,terraformingVariables,pathFindingVariables){
     event.preventDefault();
     event.stopPropagation();
+
+
     if(terraformingVariables.isEnabled === true){
-        return;
+        return null;
     }
 
     const {camera,renderer,scene} = THREEScene;
     const clickedFace = getTriangleClicked(event.clientX,event.clientY,renderer,camera,scene);
 
     if(clickedFace===null)
-        return;
+        return null;
         
-    if(pathFindingVariables.isEnagled===false)
-        return;
+    if(pathFindingVariables.isEnabled===false)
+        return null;
 
     if(pathFindingVariables.graph[clickedFace].isObstical===true){
         alert("cant travel on water");
-        return;
+        return null;
     }
 
     //click means left button is clicked
     if(event.type === "click"){
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            startId:clickedFace
-        })
+        return {click:'left',face:clickedFace};
     }else if (event.type === "contextmenu"){//contexmenu means right button is clicked
         event.preventDefault();
         event.stopPropagation();
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            endId:clickedFace
-        })
+        return {click:'right',face:clickedFace};
     }
 }
 
-export default useCanvasClicked
+export default leftOrRightClickOnCanvas;

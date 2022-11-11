@@ -2,18 +2,22 @@ import { useContext } from 'react';
 import {useEffect} from 'react'
 import worldDataContext from '../contex';
 
+
+import { useDispatch } from 'react-redux';
+import { setGraph } from '../actions/pathFindingActions';
+
 const compare =(a,b)=>{
     return a.value - b.value;
 }
 function useHandleGenerationChange(initialRender,generationFunction,generationVariables,colorValues){
     
-    const {THREEScene,setPathFindingVariables} = useContext(worldDataContext);
+    const dispatch = useDispatch();
+    const {THREEScene} = useContext(worldDataContext);
     if(initialRender === undefined){
         return;
     }
 
     useEffect(()=>{
-        // console.log(colorValues.length)
         if(initialRender.current==true){
             initialRender.current=false;
         }
@@ -24,12 +28,7 @@ function useHandleGenerationChange(initialRender,generationFunction,generationVa
             
             const graph = generationFunction(generationVariables,colorValues,THREEScene.scene);
 
-            setPathFindingVariables({
-                startId:-1,
-                endId:-1,
-                isEnagled:false,
-                graph:graph
-            })
+            dispatch(setGraph(graph));
         }
     },[generationVariables,colorValues]);
 }
