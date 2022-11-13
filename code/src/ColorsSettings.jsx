@@ -1,18 +1,20 @@
-import React , {useContext} from 'react'
+import React from 'react'
 import mapping from '../scripts/mapping';
 import rgbHex from 'rgb-hex';
-import hexRgb from 'hex-rgb';
-
-import worldDataContext from './contex';
 
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import EnterColorForm from './EnterColorForm';
 import { useState } from 'react';
+import { useSelector ,useDispatch } from 'react-redux';
+import { changeColor } from './actions/colorsActions';
+
 const compare =(a,b)=>{
     return a.id - b.id;
 }
 function ColorsSettings({generationVariables}){
-    const {colorValues,setColorValues} = useContext(worldDataContext);
+    const colorValues = useSelector(state => state.colorValues);
+    const dispatch = useDispatch();
+
     const [showForm,setShowForm] = useState(false);
 
     useHandleGenerationChange(false,generationVariables,colorValues);
@@ -36,24 +38,16 @@ function ColorsSettings({generationVariables}){
         })
     }
     const handleColorChange = (event) =>{
-        const id = Number(event.target.dataset.colorId);
-        const colorRGB = hexRgb(event.target.value);
-        const r = mapping(colorRGB.red,0,255,0,1);
-        const g = mapping(colorRGB.green,0,255,0,1);
-        const b = mapping(colorRGB.blue,0,255,0,1);
-
-        const color = {r:r,g:g,b:b};
-        setColorValues((prev)=>{
-            return prev.map((colorAndValue)=>{
-                if(id===colorAndValue.id){
-                    return {
-                        ...colorAndValue,
-                        color:color
-                    }
-                }
-                return colorAndValue;
-            })
-        })
+        const {type,value} = event.target;
+        switch(type){
+            case "range":
+                break;
+            case "color":{
+                const id = Number(event.target.dataset.colorId);
+                dispatch(changeColor(id,value));
+                break;
+            }
+        }
 
     }
 
@@ -86,8 +80,23 @@ function ColorsSettings({generationVariables}){
                             colorValues.map(colorAndValue=>{
                                 return(
                                     <div className='single_color_holder'>
-                                        <input data-color-id={colorAndValue.id} onChange = {handleColorChange} type="color" value={sRGBtoHex(colorAndValue.color)}></input>
-                                        <input id={colorAndValue.id} type='range' min={0} max = {1} step={0.01} value={colorAndValue.value} onChange={handleColorHeightChange}></input>
+                                        <input 
+                                            data-color-id={colorAndValue.id}
+                                            onChange = {handleColorChange}
+                                            type="color" 
+                                            value={sRGBtoHex(colorAndValue.color)}
+                                        >
+                                        </input>
+                                        <input 
+                                            onChange={handleColorChange}
+                                            id={colorAndValue.id} 
+                                            type='range' 
+                                            min={0} 
+                                            max = {1} 
+                                            step={0.01} 
+                                            value={colorAndValue.value} 
+                                        >
+                                        </input>
                                         <p>{colorAndValue.value}</p>
                                         <img onClick = {()=>removeColor(colorAndValue.id)} src='remove.png'></img>
                                     </div>

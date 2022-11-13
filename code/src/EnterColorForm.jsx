@@ -1,14 +1,14 @@
 import React from 'react'
-import { useContext } from 'react';
 import { useRef } from 'react';
-import worldDataContext from './contex';
 import mapping from '../scripts/mapping';
 import hexRgb from 'hex-rgb';
+import { useSelector , useDispatch } from 'react-redux';
 function EnterColorForm({setShowForm}) {
 
     const colorHeight = useRef(null);
     const colorHex = useRef(null);
-    const {colorValues,setColorValues} = useContext(worldDataContext);
+    const colorValues = useSelector(state => state.colorValues);
+
     const addColor = (event) =>{
         event.preventDefault();
         if(colorHeight.current===null || colorHex===null){

@@ -1,5 +1,4 @@
-import {useEffect,useContext} from 'react'
-import worldDataContext from '../contex';
+import {useEffect} from 'react'
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setGraph } from '../actions/pathFindingActions';
@@ -8,8 +7,8 @@ function useOnLoad(generationFunction,generationVariables,canvasHolder,mouseX,mo
 
     const dispatch = useDispatch();
     const THREEScene = useSelector(state => state.THREEScene);
-    
-    const {colorValues} = useContext(worldDataContext);
+    const colorValues = useSelector(state => state.colorValues);
+
     useEffect(()=>{
         if(canvasHolder.current!=null){
             canvasHolder.current.appendChild(THREEScene.renderer.domElement);

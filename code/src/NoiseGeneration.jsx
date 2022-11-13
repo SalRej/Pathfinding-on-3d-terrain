@@ -1,6 +1,5 @@
-import React , {useState , useEffect , useRef ,useContext } from 'react'
+import React , {useState , useRef } from 'react'
 import NoiseGeneratorSettings from './NoiseGeneratorSettings';
-import worldDataContext from './contex';
 import BackButton from './BackButton';
 
 import useTriggerControls from './hooks/useTriggerControls';
@@ -23,12 +22,9 @@ function NoiseGeneration() {
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
     const terraformingVariables = useSelector(state => state.terraformingVariables);
     const THREEScene = useSelector(state => state.THREEScene);
+    const colorValues = useSelector(state => state.colorValues);
 
     const dispatch = useDispatch();
-    
-    const {
-        colorValues
-    } = useContext(worldDataContext);
 
      const [generationVariables,setGenerationVariables] = useState({
         width:100,

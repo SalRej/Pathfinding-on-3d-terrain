@@ -1,8 +1,7 @@
-import React , {useState , useEffect , useRef , useContext} from 'react';
+import React , {useState , useRef} from 'react';
 
 import HeightMapSettings from './HeightMapSettings';
 import createHeightMap from '../scripts/heightMapGeneration/createHightMap';
-import worldDataContext from './contex';
 import BackButton from './BackButton';
 
 import useTriggerControls from './hooks/useTriggerControls';
@@ -25,12 +24,9 @@ function HeightMapGeneration() {
   const pathFindingVariables = useSelector(state => state.pathFindingVariables);
   const terraformingVariables = useSelector(state => state.terraformingVariables);
   const THREEScene = useSelector(state => state.THREEScene);
+  const colorValues = useSelector(state => state.colorValues);
 
   const dispatch = useDispatch();
-
-  const {
-    colorValues
-  } = useContext(worldDataContext);
 
   const [heightMapVariables,setHeightMapVariables] = useState({
     numPointsX:100,

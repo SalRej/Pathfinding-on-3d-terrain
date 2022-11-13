@@ -1,8 +1,6 @@
 import {useRef} from 'react'
 import terraform from '../../scripts/terraforming/terraform';
 import getTriangleClicked from '../../scripts/getTriangleClicked';
-import worldDataContext from '../contex';
-import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 
 const compare =(a,b)=>{
@@ -13,8 +11,7 @@ function useOnButtonHold(mouseX,mouseY,scaleY){
     const pathFindingVariables = useSelector(state =>state.pathFindingVariables);
     const terraformingVariables = useSelector(state =>state.terraformingVariables);
     const THREEScene = useSelector(state => state.THREEScene);
-    
-    const {colorValues} = useContext(worldDataContext);
+    const colorValues = useSelector(state => state.colorValues);
     
     const intervalRef = useRef(null);
     const startCounter = (event) => {

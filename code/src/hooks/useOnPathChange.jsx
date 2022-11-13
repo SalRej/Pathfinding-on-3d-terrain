@@ -1,7 +1,5 @@
-import { useContext } from 'react';
 import {useEffect} from 'react'
 import findPath from '../../scripts/graph/findPath';
-import worldDataContext from '../contex';
 
 import {useSelector} from 'react-redux';
 
