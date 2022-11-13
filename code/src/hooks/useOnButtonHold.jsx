@@ -11,8 +11,9 @@ const compare =(a,b)=>{
 function useOnButtonHold(mouseX,mouseY,scaleY){
 
     const pathFindingVariables = useSelector(state =>state.pathFindingVariables);
-
-    const {THREEScene,terraformingVariables,colorValues} = useContext(worldDataContext);
+    const terraformingVariables = useSelector(state =>state.terraformingVariables);
+    const {THREEScene,colorValues} = useContext(worldDataContext);
+    
     const intervalRef = useRef(null);
     const startCounter = (event) => {
         colorValues.sort(compare);

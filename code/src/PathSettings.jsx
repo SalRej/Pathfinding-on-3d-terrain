@@ -1,25 +1,16 @@
-import React , {useContext} from 'react'
-import worldDataContext from './contex';
+import React from 'react'
 import {useSelector, useDispatch} from 'react-redux';
-import {enable , disable} from '../src/actions/pathFindingActions';
+import {tooglePathFinding} from '../src/actions/pathFindingActions';
+import {toogleTerraforming} from './actions/terraformingActions';
 function PathSettings(){
 
     const dispatch = useDispatch();
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
 
-    const {terraformingVariables, setTerraformingVariables} = useContext(worldDataContext);
     const handleClick =()=>{
 
-        if(pathFindingVariables.isEnabled===true){
-            dispatch(disable())
-        }else if(pathFindingVariables.isEnabled===false){
-            dispatch(enable());
-        }
-
-        setTerraformingVariables({
-            ...terraformingVariables,
-            isEnabled:false
-        })
+        dispatch(tooglePathFinding(!pathFindingVariables.isEnabled));
+        dispatch(toogleTerraforming(false));
     }
     return (
         <main>

@@ -1,12 +1,7 @@
-export const enable = () =>{
+export const tooglePathFinding = (isEnabled) =>{
     return {
-        type:'ENABLE'
-    }
-}
-
-export const disable = () =>{
-    return {
-        type:"DISABLE"
+        type:"TOOGLE_PATHFINDING",
+        payload:isEnabled
     }
 }
 
@@ -34,5 +29,11 @@ export const setEnd = (endId) =>{
 export const resetPathfinding = () =>{
     return {
         type:'RESET'
+    }
+}
+
+export const resetWithoutGraph = () =>{
+    return {
+        type:"RESET_WITHOUT_GRAPH"
     }
 }

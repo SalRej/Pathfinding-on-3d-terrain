@@ -21,16 +21,12 @@ function NoiseGeneration() {
     const mouseY = useRef(null);
 
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+    const terraformingVariables = useSelector(state => state.terraformingVariables);
 
     const dispatch = useDispatch();
-
-    useEffect(()=>{
-        console.log(pathFindingVariables)
-    },[pathFindingVariables])
     
     const {
         THREEScene,
-        terraformingVariables,
         colorValues
     } = useContext(worldDataContext);
 

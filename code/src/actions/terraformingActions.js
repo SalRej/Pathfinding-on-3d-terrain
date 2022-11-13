@@ -1,11 +1,7 @@
-export const enagbe = ()=>{
+export const toogleTerraforming =(isEnabled)=>{
     return {
-        type:"ENABLE"
-    }
-}
-export const disable =()=>{
-    return {
-        type:"DISABLE"
+        type:"TOOGLE_TERRAFORMING",
+        payload:isEnabled
     }
 }
 
@@ -20,5 +16,11 @@ export const setBrushStrength = (brushStrength)=>{
     return {
         type:"SET_BRUSH_STRENGTH",
         payload:brushStrength
+    }
+}
+
+export const resetTerraforming = ()=>{
+    return {
+        type:"RESET"
     }
 }

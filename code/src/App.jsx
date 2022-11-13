@@ -12,15 +12,12 @@ import defaultColorValues from '../scripts/defaultColorValues';
 
 import {useDispatch} from 'react-redux';
 import { resetPathfinding } from './actions/pathFindingActions';
+import { resetTerraforming } from './actions/terraformingActions';
 function App(){
   
   const [THREEScene,setTHREEScene] = useState(null);
-  const [terraformingVariables,setTerraformingVariables] = useState({
-    isEnabled:false,
-    brushRadius:10,
-    brushStrength:0.5
-  })
   const [colorValues,setColorValues] = useState(defaultColorValues);
+
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(()=>{
@@ -28,11 +25,7 @@ function App(){
     if(location.pathname==='/'){
       
       dispatch(resetPathfinding());
-
-      setTerraformingVariables({
-        ...terraformingVariables,
-        isEnabled:false
-      })
+      dispatch(resetTerraforming());
 
       setColorValues(defaultColorValues);
     }
@@ -56,8 +49,6 @@ function App(){
           <worldDataContext.Provider value={{
             THREEScene,
             setTHREEScene,
-            terraformingVariables,
-            setTerraformingVariables,
             colorValues,
             setColorValues
           }}>

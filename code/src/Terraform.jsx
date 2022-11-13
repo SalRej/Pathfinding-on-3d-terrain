@@ -1,31 +1,36 @@
 import React , {useContext}from 'react'
 import worldDataContext from './contex';
 import Slider from './Slider';
-
+import { useSelector, useDispatch } from 'react-redux';
+import {toogleTerraforming,setBrushSize,setBrushStrength} from './actions/terraformingActions';
+import {resetWithoutGraph} from './actions/pathFindingActions';
 function Terraform() {
+    const terraformingVariables = useSelector(state => state.terraformingVariables);
 
-    const {terraformingVariables,setTerraformingVariables ,pathFindingVariables, setPathFindingVariables , THREEScene} = useContext(worldDataContext);
+    const dispatch = useDispatch();
+
+    const {THREEScene} = useContext(worldDataContext);
     const handleTerraformChange = () =>{
-        setTerraformingVariables({
-            ...terraformingVariables,
-            isEnabled:!terraformingVariables.isEnabled
-        })
-        setPathFindingVariables({
-            ...pathFindingVariables,
-            startId:-1,
-            endId:-1,
-            isEnagled:false
-        })
+
+        dispatch(toogleTerraforming(!terraformingVariables.isEnabled));
+        
+        dispatch(resetWithoutGraph());
 
         const {scene} = THREEScene;
         scene.remove(scene.getObjectByName('pathMesh'));
     }
 
     const handleTerraformingVariablesChange = (event) =>{
-        setTerraformingVariables({
-            ...terraformingVariables,
-            [event.target.name]:event.target.value
-        })
+        let {name,value} = event.target;
+        value = Number(value);
+        switch(name){
+            case "brushRadius":
+                dispatch(setBrushSize(value));
+                break;
+            case "brushStrength":
+                dispatch(setBrushStrength(value));
+                break;
+        }
     }
     return (
         <main>

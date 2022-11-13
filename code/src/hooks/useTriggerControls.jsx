@@ -1,9 +1,12 @@
 import { useContext } from 'react';
 import {useEffect} from 'react'
+import { useSelector } from 'react-redux';
 import worldDataContext from '../contex';
 function useTriggerControls(){
 
-    const {THREEScene,setTHREEScene,terraformingVariables} = useContext(worldDataContext);
+    const terraformingVariables = useSelector(state => state.terraformingVariables);
+    
+    const {THREEScene,setTHREEScene} = useContext(worldDataContext);
     useEffect(()=>{
         if(terraformingVariables.isEnabled===true){
             const {controls} = THREEScene;
