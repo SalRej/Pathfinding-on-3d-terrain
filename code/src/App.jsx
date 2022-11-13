@@ -6,20 +6,20 @@ import NoiseGeneration from './NoiseGeneration';
 import HeightMapGeneration from './HeightMapGeneration';
 import NotFound from './NotFound';
 
-import initScene from '../scripts/initScene';
 import worldDataContext from './contex';
 import defaultColorValues from '../scripts/defaultColorValues';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { resetPathfinding } from './actions/pathFindingActions';
 import { resetTerraforming } from './actions/terraformingActions';
+import { initThreeScene } from './actions/threeSceneActions';
 function App(){
   
-  const [THREEScene,setTHREEScene] = useState(null);
   const [colorValues,setColorValues] = useState(defaultColorValues);
-
+  const THREEScene = useSelector(state => state.THREEScene);
   const location = useLocation();
   const dispatch = useDispatch();
+
   useEffect(()=>{
     //this code runs on a route change
     if(location.pathname==='/'){
@@ -33,22 +33,13 @@ function App(){
   },[location.pathname])
 
   useEffect(()=>{
-    const initObjects = initScene();
-    setTHREEScene({
-      camera:initObjects.camera,
-      scene:initObjects.scene,
-      renderer:initObjects.renderer,
-      controls:initObjects.controls
-    })
-
+    dispatch(initThreeScene());
   },[])
-  
+
   return (
     <div className="App" id="App">
-      {(THREEScene!=null)&&
+      {(THREEScene!=null) &&
           <worldDataContext.Provider value={{
-            THREEScene,
-            setTHREEScene,
             colorValues,
             setColorValues
           }}>

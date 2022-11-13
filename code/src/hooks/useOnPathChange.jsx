@@ -8,8 +8,7 @@ import {useSelector} from 'react-redux';
 function useOnPathChange() {
 
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
-    
-    const {THREEScene} = useContext(worldDataContext);
+    const THREEScene = useSelector(state => state.THREEScene);
     useEffect(()=>{
         if(pathFindingVariables.isEnabled===true
             &&pathFindingVariables.startId!=-1

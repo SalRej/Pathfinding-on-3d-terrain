@@ -3,7 +3,7 @@ import {useEffect} from 'react'
 import worldDataContext from '../contex';
 
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setGraph } from '../actions/pathFindingActions';
 
 const compare =(a,b)=>{
@@ -12,7 +12,7 @@ const compare =(a,b)=>{
 function useHandleGenerationChange(initialRender,generationFunction,generationVariables,colorValues){
     
     const dispatch = useDispatch();
-    const {THREEScene} = useContext(worldDataContext);
+    const THREEScene = useSelector(state => state.THREEScene);
     if(initialRender === undefined){
         return;
     }

@@ -12,7 +12,9 @@ function useOnButtonHold(mouseX,mouseY,scaleY){
 
     const pathFindingVariables = useSelector(state =>state.pathFindingVariables);
     const terraformingVariables = useSelector(state =>state.terraformingVariables);
-    const {THREEScene,colorValues} = useContext(worldDataContext);
+    const THREEScene = useSelector(state => state.THREEScene);
+    
+    const {colorValues} = useContext(worldDataContext);
     
     const intervalRef = useRef(null);
     const startCounter = (event) => {

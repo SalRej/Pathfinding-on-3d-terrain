@@ -6,10 +6,9 @@ import {toogleTerraforming,setBrushSize,setBrushStrength} from './actions/terraf
 import {resetWithoutGraph} from './actions/pathFindingActions';
 function Terraform() {
     const terraformingVariables = useSelector(state => state.terraformingVariables);
-
+    const THREEScene = useSelector(state => state.THREEScene);
     const dispatch = useDispatch();
 
-    const {THREEScene} = useContext(worldDataContext);
     const handleTerraformChange = () =>{
 
         dispatch(toogleTerraforming(!terraformingVariables.isEnabled));

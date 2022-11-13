@@ -22,11 +22,11 @@ function NoiseGeneration() {
 
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
     const terraformingVariables = useSelector(state => state.terraformingVariables);
+    const THREEScene = useSelector(state => state.THREEScene);
 
     const dispatch = useDispatch();
     
     const {
-        THREEScene,
         colorValues
     } = useContext(worldDataContext);
 

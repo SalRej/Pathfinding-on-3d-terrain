@@ -23,12 +23,12 @@ function HeightMapGeneration() {
   const mouseY = useRef(null);
 
   const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+  const terraformingVariables = useSelector(state => state.terraformingVariables);
+  const THREEScene = useSelector(state => state.THREEScene);
 
   const dispatch = useDispatch();
 
   const {
-    THREEScene,
-    terraformingVariables,
     colorValues
   } = useContext(worldDataContext);
 

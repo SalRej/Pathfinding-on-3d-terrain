@@ -8,10 +8,10 @@ function PathSettings(){
     const pathFindingVariables = useSelector(state => state.pathFindingVariables);
 
     const handleClick =()=>{
-
         dispatch(tooglePathFinding(!pathFindingVariables.isEnabled));
         dispatch(toogleTerraforming(false));
     }
+    
     return (
         <main>
             <div className='start-end'>
