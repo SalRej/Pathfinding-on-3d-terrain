@@ -6,7 +6,7 @@ import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import EnterColorForm from './EnterColorForm';
 import { useState } from 'react';
 import { useSelector ,useDispatch } from 'react-redux';
-import { changeColor } from './actions/colorsActions';
+import { changeColor , changeColorHeight} from './actions/colorsActions';
 
 const compare =(a,b)=>{
     return a.id - b.id;
@@ -23,25 +23,14 @@ function ColorsSettings({generationVariables}){
         colorValues.sort(compare);
     }
 
-    const handleColorHeightChange = (event) =>{
-        setColorValues((prev)=>{
-            return prev.map((colorAndValue)=>{
-                const id = colorAndValue.id.toString();
-                if(event.target.id===id){
-                    return {
-                        ...colorAndValue,
-                        value:Number(event.target.value)
-                    }
-                }
-                return colorAndValue;
-            })
-        })
-    }
     const handleColorChange = (event) =>{
         const {type,value} = event.target;
         switch(type){
-            case "range":
+            case "range":{
+                const id = Number(event.target.dataset.heightId);
+                dispatch(changeColorHeight(id,value));
                 break;
+            }
             case "color":{
                 const id = Number(event.target.dataset.colorId);
                 dispatch(changeColor(id,value));
@@ -89,7 +78,7 @@ function ColorsSettings({generationVariables}){
                                         </input>
                                         <input 
                                             onChange={handleColorChange}
-                                            id={colorAndValue.id} 
+                                            data-height-id={colorAndValue.id} 
                                             type='range' 
                                             min={0} 
                                             max = {1} 

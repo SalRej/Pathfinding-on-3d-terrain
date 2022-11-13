@@ -10,9 +10,13 @@ export const removeColor = ()=>{
     }
 }
 
-export const changeColorHeight = () =>{
+export const changeColorHeight = (id,value) =>{
     return {
-        type:'CHANGE_COLOR_HEIGHT'
+        type:'CHANGE_COLOR_HEIGHT',
+        payload:{
+            id:id,
+            value:value
+        }
     }
 }
 

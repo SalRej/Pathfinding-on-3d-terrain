@@ -21,10 +21,28 @@ const changeColor = (state,id,value) =>{
     return state;
 }
 
+const changeColorHeight = (state,id,value) =>{
+    state = state.map((colorAndValue)=>{
+        const currentId = colorAndValue.id;
+        if(id===currentId){
+            return {
+                ...colorAndValue,
+                value:Number(value)
+            }
+        }
+        return colorAndValue;
+    })
+
+    return state;
+}
 const colorsReducer = (state = defaultColors,action) =>{
     switch(action.type){
         case "ADD_COLOR":{
             return;
+        }
+        case "CHANGE_COLOR_HEIGHT":{
+            const {id,value} = action.payload;
+            return changeColorHeight(state,id,value);
         }
         case "CHANGE_COLOR":{
             const {id,value} = action.payload;
