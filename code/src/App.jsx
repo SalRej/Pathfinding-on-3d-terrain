@@ -11,7 +11,7 @@ import worldDataContext from './contex';
 import defaultColorValues from '../scripts/defaultColorValues';
 
 import {useDispatch} from 'react-redux';
-import { reset } from './actions/pathFindingActions';
+import { resetPathfinding } from './actions/pathFindingActions';
 function App(){
   
   const [THREEScene,setTHREEScene] = useState(null);
@@ -24,12 +24,10 @@ function App(){
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(()=>{
-
-    console.log(location)
     //this code runs on a route change
     if(location.pathname==='/'){
       
-      dispatch(reset());
+      dispatch(resetPathfinding());
 
       setTerraformingVariables({
         ...terraformingVariables,

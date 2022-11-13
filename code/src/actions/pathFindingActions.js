@@ -31,7 +31,7 @@ export const setEnd = (endId) =>{
     }
 }
 
-export const reset = () =>{
+export const resetPathfinding = () =>{
     return {
         type:'RESET'
     }
