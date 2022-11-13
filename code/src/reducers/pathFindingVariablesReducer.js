@@ -16,8 +16,14 @@ const pathFindingVariablesReducer = (state = initialState,action) =>{
         case 'SET_START':
             return {...state,startId:action.payload}
         case 'SET_END':
-            console.log('s')
             return {...state,endId:action.payload}
+        case 'RESET':
+            return {
+                startId:-1,
+                endId:-1,
+                isEnabled:false,
+                graph:[]
+            };
         default:
             return {...state};
     }

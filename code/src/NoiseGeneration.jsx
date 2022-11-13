@@ -6,11 +6,11 @@ import BackButton from './BackButton';
 import useTriggerControls from './hooks/useTriggerControls';
 import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import useOnPathChange from './hooks/useOnPathChange';
-import leftOrRightClickOnCanvas from '../scripts/leftOrRightClickOnCanvas';
 import useOnButtonHold from './hooks/useOnButtonHold';
 import useOnLoad from './hooks/useOnLoad';
 
 import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
+import leftOrRightClickOnCanvas from '../scripts/leftOrRightClickOnCanvas';
 import {useSelector , useDispatch} from 'react-redux';
 import { setStart,setEnd } from './actions/pathFindingActions';
 function NoiseGeneration() {

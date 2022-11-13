@@ -11,6 +11,10 @@ import useOnPathChange from './hooks/useOnPathChange';
 import useOnButtonHold from './hooks/useOnButtonHold';
 import useOnLoad from './hooks/useOnLoad';
 
+import leftOrRightClickOnCanvas from '../scripts/leftOrRightClickOnCanvas';
+import {useSelector , useDispatch} from 'react-redux';
+import { setStart,setEnd } from './actions/pathFindingActions';
+
 function HeightMapGeneration() {
   
   const canvasHolder = useRef(null);
@@ -18,10 +22,12 @@ function HeightMapGeneration() {
   const mouseX = useRef(null);
   const mouseY = useRef(null);
 
+  const pathFindingVariables = useSelector(state => state.pathFindingVariables);
+
+  const dispatch = useDispatch();
+
   const {
     THREEScene,
-    pathFindingVariables,
-    setPathFindingVariables,
     terraformingVariables,
     colorValues
   } = useContext(worldDataContext);
@@ -78,6 +84,17 @@ function HeightMapGeneration() {
   }
 
   const canvasClicked = (event)=>{
+    const clickAndFace = leftOrRightClickOnCanvas(event,THREEScene,terraformingVariables,pathFindingVariables);
+        if(clickAndFace === null){
+            return;
+        }
+        const {click,face} = clickAndFace;
+        if(click==='left'){
+            dispatch(setStart(face));
+        }
+        if(click ==='right'){
+            dispatch(setEnd(face));
+        }
   }
 
   return (

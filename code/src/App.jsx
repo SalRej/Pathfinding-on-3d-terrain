@@ -10,27 +10,26 @@ import initScene from '../scripts/initScene';
 import worldDataContext from './contex';
 import defaultColorValues from '../scripts/defaultColorValues';
 
-
+import {useDispatch} from 'react-redux';
+import { reset } from './actions/pathFindingActions';
 function App(){
   
   const [THREEScene,setTHREEScene] = useState(null);
-  // const [pathFindingVariables,setPathFindingVariables] = useState(null);
   const [terraformingVariables,setTerraformingVariables] = useState({
     isEnabled:false,
     brushRadius:10,
     brushStrength:0.5
   })
   const [colorValues,setColorValues] = useState(defaultColorValues);
-
+  const location = useLocation();
+  const dispatch = useDispatch();
   useEffect(()=>{
+
+    console.log(location)
     //this code runs on a route change
     if(location.pathname==='/'){
-      // setPathFindingVariables({
-      //   ...pathFindingVariables,
-      //   startId:-1,
-      //   endId:-1,
-      //   isEnagled:false,
-      // })
+      
+      dispatch(reset());
 
       setTerraformingVariables({
         ...terraformingVariables,

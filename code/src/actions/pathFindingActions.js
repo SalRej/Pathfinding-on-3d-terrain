@@ -30,3 +30,9 @@ export const setEnd = (endId) =>{
         payload:endId
     }
 }
+
+export const reset = () =>{
+    return {
+        type:'RESET'
+    }
+}
