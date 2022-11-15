@@ -1,14 +1,8 @@
-import { useContext } from 'react';
 import {useEffect} from 'react'
-import worldDataContext from '../contex';
-
-
 import { useDispatch, useSelector } from 'react-redux';
 import { setGraph } from '../actions/pathFindingActions';
+import { sortByValue } from '../actions/colorsActions';
 
-const compare =(a,b)=>{
-    return a.value - b.value;
-}
 function useHandleGenerationChange(initialRender,generationFunction,generationVariables,colorValues){
     
     const dispatch = useDispatch();
@@ -22,10 +16,10 @@ function useHandleGenerationChange(initialRender,generationFunction,generationVa
             initialRender.current=false;
         }
         else if(initialRender.current==false){
-            colorValues.sort(compare);
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('worldMesh'));
             THREEScene.scene.remove(THREEScene.scene.getObjectByName('pathMesh'));
             
+            dispatch(sortByValue());
             const graph = generationFunction(generationVariables,colorValues,THREEScene.scene);
 
             dispatch(setGraph(graph));

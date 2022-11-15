@@ -40,3 +40,7 @@ export const resetColors = () =>{
         type:'RESET_COLORS'
     }
 }
+
+export const sortByValue = ()=>{
+    return { type:"SORT_BY_VALUE"}
+}

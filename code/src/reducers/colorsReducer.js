@@ -62,6 +62,10 @@ const removeColor =(state,id)=>{
 
     return state;
 }
+
+const compareByValue = (a,b) =>{
+    return a.value - b.value;
+}
 const colorsReducer = (state = defaultColors.slice() ,action) =>{
     switch(action.type){
         case "ADD_COLOR":{
@@ -79,6 +83,9 @@ const colorsReducer = (state = defaultColors.slice() ,action) =>{
         case "CHANGE_COLOR":{
             const {id,value} = action.payload;
             return changeColor(state,id,value);
+        }
+        case "SORT_BY_VALUE":{
+            return state.sort(compareByValue);
         }
         case "RESET_COLORS":
             return defaultColors.slice();

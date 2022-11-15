@@ -14,7 +14,6 @@ import { initThreeScene } from './actions/threeSceneActions';
 function App(){
   
   const THREEScene = useSelector(state => state.THREEScene);
-  const colorValues = useSelector(state => state.colorValues);
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -25,7 +24,6 @@ function App(){
       dispatch(resetPathfinding());
       dispatch(resetTerraforming());
       dispatch(resetColors());
-      // setColorValues(defaultColorValues);
     }
 
   },[location.pathname])

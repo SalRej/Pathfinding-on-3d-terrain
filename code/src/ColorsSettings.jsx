@@ -8,9 +8,6 @@ import { useState } from 'react';
 import { useSelector ,useDispatch } from 'react-redux';
 import { changeColor , changeColorHeight , removeColor} from './actions/colorsActions';
 
-const compare =(a,b)=>{
-    return a.id - b.id;
-}
 function ColorsSettings({generationVariables}){
     const colorValues = useSelector(state => state.colorValues);
     const dispatch = useDispatch();
@@ -19,10 +16,7 @@ function ColorsSettings({generationVariables}){
 
     useHandleGenerationChange(false,generationVariables,colorValues);
 
-    if(colorValues.length>1){
-        colorValues.sort(compare);
-    }
-
+    
     const handleColorChange = (event) =>{
         const {type,value} = event.target;
         switch(type){
@@ -37,13 +31,13 @@ function ColorsSettings({generationVariables}){
                 break;
             }
         }
-
     }
-
+    
     const handleShowForm = () =>{
         setShowForm(true);
         document.body.classList='blur';
     }
+    
     const handleRemoveColor = (id) =>{
         dispatch(removeColor(id));
     }
@@ -56,13 +50,12 @@ function ColorsSettings({generationVariables}){
     }
     return (
         <React.Fragment>
-
             <main>
                 <form>
                     <div className='color_values_holder'>
                         <p>Color settings</p>
                         {
-                            colorValues.map(colorAndValue=>{
+                            colorValues.sort((a,b)=>a.id-b.id).map(colorAndValue=>{
                                 return(
                                     <div className='single_color_holder'>
                                         <input 
