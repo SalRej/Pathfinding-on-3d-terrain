@@ -1,6 +1,10 @@
-export const addColor = ()=>{
+export const addColor = (colorRGB,height)=>{
     return {
-        type:'ADD_COLOR'
+        type:'ADD_COLOR',
+        payload:{
+            colorRGB:colorRGB,
+            height:height
+        }
     }
 }
 

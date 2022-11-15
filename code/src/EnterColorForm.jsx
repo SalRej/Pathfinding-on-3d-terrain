@@ -3,13 +3,15 @@ import { useRef } from 'react';
 import mapping from '../scripts/mapping';
 import hexRgb from 'hex-rgb';
 import { useSelector , useDispatch } from 'react-redux';
+import {addColor} from './actions/colorsActions';
 function EnterColorForm({setShowForm}) {
 
     const colorHeight = useRef(null);
     const colorHex = useRef(null);
     const colorValues = useSelector(state => state.colorValues);
+    const dispatch = useDispatch();
 
-    const addColor = (event) =>{
+    const handleAddColor = (event) =>{
         event.preventDefault();
         if(colorHeight.current===null || colorHex===null){
             return;
@@ -17,6 +19,7 @@ function EnterColorForm({setShowForm}) {
         if(colorHeight.current.value===''){
             return;
         }
+
         const colorRGB = hexRgb(colorHex.current.value);
         const color={
             r:mapping(colorRGB.red,0,255,0,1),
@@ -24,24 +27,8 @@ function EnterColorForm({setShowForm}) {
             b:mapping(colorRGB.blue,0,255,0,1)
         };
 
-        if(colorValues.length===0){
-            setColorValues([{
-                    id:1,
-                    value:colorHeight.current.value,
-                    color:color
-                }]
-            )
-            closeForm();
-            return ;
-        }
-        setColorValues((prev)=>{
-            const newId = prev[prev.length-1].id + 1;
-            return [...prev,{
-                id:newId,
-                value:colorHeight.current.value,
-                color:color
-            }]
-        })
+        dispatch(addColor(color,colorHeight.current.value));
+
         closeForm();
     }
 
@@ -50,7 +37,7 @@ function EnterColorForm({setShowForm}) {
         setShowForm(false);
     }
   return (
-    <form onSubmit={addColor} className='enter_color_form' id="test">
+    <form onSubmit={handleAddColor} className='enter_color_form' id="test">
         <header>
             <img onClick={closeForm} src='remove.png'></img>
         </header>
