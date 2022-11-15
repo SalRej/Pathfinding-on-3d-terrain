@@ -4,9 +4,10 @@ export const addColor = ()=>{
     }
 }
 
-export const removeColor = ()=>{
+export const removeColor = (id)=>{
     return {
-        type:'REMOVE_COLOR'
+        type:'REMOVE_COLOR',
+        payload:id
     }
 }
 

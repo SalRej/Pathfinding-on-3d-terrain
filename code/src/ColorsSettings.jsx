@@ -6,7 +6,7 @@ import useHandleGenerationChange from './hooks/useHandleGenerationChange';
 import EnterColorForm from './EnterColorForm';
 import { useState } from 'react';
 import { useSelector ,useDispatch } from 'react-redux';
-import { changeColor , changeColorHeight} from './actions/colorsActions';
+import { changeColor , changeColorHeight , removeColor} from './actions/colorsActions';
 
 const compare =(a,b)=>{
     return a.id - b.id;
@@ -44,12 +44,8 @@ function ColorsSettings({generationVariables}){
         setShowForm(true);
         document.body.classList='blur';
     }
-    const removeColor = (id) =>{
-        setColorValues((prev)=>{
-            return prev.filter(color=>{
-                return color.id != id;
-            })
-        })
+    const handleRemoveColor = (id) =>{
+        dispatch(removeColor(id));
     }
 
     const sRGBtoHex = (color) =>{
@@ -87,7 +83,7 @@ function ColorsSettings({generationVariables}){
                                         >
                                         </input>
                                         <p>{colorAndValue.value}</p>
-                                        <img onClick = {()=>removeColor(colorAndValue.id)} src='remove.png'></img>
+                                        <img onClick = {()=>handleRemoveColor(colorAndValue.id)} src='remove.png'></img>
                                     </div>
                                 )
                             })

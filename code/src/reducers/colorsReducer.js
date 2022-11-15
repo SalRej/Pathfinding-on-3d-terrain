@@ -35,10 +35,22 @@ const changeColorHeight = (state,id,value) =>{
 
     return state;
 }
+
+const removeColor =(state,id)=>{
+    state = state.filter(color=>{
+        return color.id != id;
+    })
+
+    return state;
+}
 const colorsReducer = (state = defaultColors,action) =>{
     switch(action.type){
         case "ADD_COLOR":{
             return;
+        }
+        case "REMOVE_COLOR":{
+            const id = action.payload;
+            return removeColor(state,id);
         }
         case "CHANGE_COLOR_HEIGHT":{
             const {id,value} = action.payload;
