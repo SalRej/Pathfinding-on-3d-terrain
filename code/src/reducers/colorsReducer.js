@@ -62,7 +62,7 @@ const removeColor =(state,id)=>{
 
     return state;
 }
-const colorsReducer = (state = defaultColors,action) =>{
+const colorsReducer = (state = defaultColors.slice() ,action) =>{
     switch(action.type){
         case "ADD_COLOR":{
             const {colorRGB,height} = action.payload;
@@ -81,7 +81,7 @@ const colorsReducer = (state = defaultColors,action) =>{
             return changeColor(state,id,value);
         }
         case "RESET_COLORS":
-            return {state:defaultColors};
+            return defaultColors.slice();
         default : return state;
     }
 }

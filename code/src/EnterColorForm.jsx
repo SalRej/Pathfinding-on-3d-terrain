@@ -2,13 +2,12 @@ import React from 'react'
 import { useRef } from 'react';
 import mapping from '../scripts/mapping';
 import hexRgb from 'hex-rgb';
-import { useSelector , useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {addColor} from './actions/colorsActions';
 function EnterColorForm({setShowForm}) {
 
     const colorHeight = useRef(null);
     const colorHex = useRef(null);
-    const colorValues = useSelector(state => state.colorValues);
     const dispatch = useDispatch();
 
     const handleAddColor = (event) =>{

@@ -9,6 +9,7 @@ import NotFound from './NotFound';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPathfinding } from './actions/pathFindingActions';
 import { resetTerraforming } from './actions/terraformingActions';
+import { resetColors } from './actions/colorsActions';
 import { initThreeScene } from './actions/threeSceneActions';
 function App(){
   
@@ -23,7 +24,7 @@ function App(){
       
       dispatch(resetPathfinding());
       dispatch(resetTerraforming());
-
+      dispatch(resetColors());
       // setColorValues(defaultColorValues);
     }
 
