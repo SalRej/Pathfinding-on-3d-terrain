@@ -1,10 +1,10 @@
 import React , { useEffect }from 'react';
 import { Routes , Route , useLocation } from "react-router-dom";
 
-import Home from './Home';
-import NoiseGeneration from './NoiseGeneration';
-import HeightMapGeneration from './HeightMapGeneration';
-import NotFound from './NotFound';
+import Home from './pages/Home';
+import NoiseGeneration from './pages/NoiseGeneration';
+import HeightMapGeneration from './pages/HeightMapGeneration';
+import NotFound from './pages/NotFound';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPathfinding } from './actions/pathFindingActions';

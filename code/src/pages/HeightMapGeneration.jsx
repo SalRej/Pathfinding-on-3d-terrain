@@ -1,18 +1,18 @@
 import React , {useState , useRef} from 'react';
 
-import HeightMapSettings from './HeightMapSettings';
-import createHeightMap from '../scripts/heightMapGeneration/createHightMap';
-import BackButton from './BackButton';
+import HeightMapSettings from '../components/HeightMapSettings';
+import createHeightMap from '../../scripts/heightMapGeneration/createHightMap';
+import BackButton from '../components/BackButton';
 
-import useTriggerControls from './hooks/useTriggerControls';
-import useHandleGenerationChange from './hooks/useHandleGenerationChange';
-import useOnPathChange from './hooks/useOnPathChange';
-import useOnButtonHold from './hooks/useOnButtonHold';
-import useOnLoad from './hooks/useOnLoad';
+import useTriggerControls from '../hooks/useTriggerControls';
+import useHandleGenerationChange from '../hooks/useHandleGenerationChange';
+import useOnPathChange from '../hooks/useOnPathChange';
+import useOnButtonHold from '../hooks/useOnButtonHold';
+import useOnLoad from '../hooks/useOnLoad';
 
-import leftOrRightClickOnCanvas from '../scripts/leftOrRightClickOnCanvas';
+import leftOrRightClickOnCanvas from '../../scripts/leftOrRightClickOnCanvas';
 import {useSelector , useDispatch} from 'react-redux';
-import { setStart,setEnd } from './actions/pathFindingActions';
+import { setStart,setEnd } from '../actions/pathFindingActions';
 
 function HeightMapGeneration() {
   

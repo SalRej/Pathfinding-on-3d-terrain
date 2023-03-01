@@ -1,9 +1,8 @@
 import React , {useContext}from 'react'
-import worldDataContext from './contex';
 import Slider from './Slider';
 import { useSelector, useDispatch } from 'react-redux';
-import {toogleTerraforming,setBrushSize,setBrushStrength} from './actions/terraformingActions';
-import {resetWithoutGraph} from './actions/pathFindingActions';
+import {toogleTerraforming,setBrushSize,setBrushStrength} from '../actions/terraformingActions';
+import {resetWithoutGraph} from '../actions/pathFindingActions';
 function Terraform() {
     const terraformingVariables = useSelector(state => state.terraformingVariables);
     const THREEScene = useSelector(state => state.THREEScene);

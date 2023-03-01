@@ -1,7 +1,7 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux';
-import {tooglePathFinding} from '../src/actions/pathFindingActions';
-import {toogleTerraforming} from './actions/terraformingActions';
+import {tooglePathFinding} from '../actions/pathFindingActions';
+import {toogleTerraforming} from '../actions/terraformingActions';
 function PathSettings(){
 
     const dispatch = useDispatch();

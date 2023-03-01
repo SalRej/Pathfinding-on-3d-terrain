@@ -1,17 +1,17 @@
 import React , {useState , useRef } from 'react'
-import NoiseGeneratorSettings from './NoiseGeneratorSettings';
-import BackButton from './BackButton';
+import NoiseGeneratorSettings from '../components/NoiseGeneratorSettings';
+import BackButton from '../components/BackButton';
 
-import useTriggerControls from './hooks/useTriggerControls';
-import useHandleGenerationChange from './hooks/useHandleGenerationChange';
-import useOnPathChange from './hooks/useOnPathChange';
-import useOnButtonHold from './hooks/useOnButtonHold';
-import useOnLoad from './hooks/useOnLoad';
+import useTriggerControls from '../hooks/useTriggerControls';
+import useHandleGenerationChange from '../hooks/useHandleGenerationChange';
+import useOnPathChange from '../hooks/useOnPathChange';
+import useOnButtonHold from '../hooks/useOnButtonHold';
+import useOnLoad from '../hooks/useOnLoad';
 
-import createNoiseMap from '../scripts/noiseGeneration/createNoiseMap';
-import leftOrRightClickOnCanvas from '../scripts/leftOrRightClickOnCanvas';
+import createNoiseMap from '../../scripts/noiseGeneration/createNoiseMap';
+import leftOrRightClickOnCanvas from '../../scripts/leftOrRightClickOnCanvas';
 import {useSelector , useDispatch} from 'react-redux';
-import { setStart,setEnd } from './actions/pathFindingActions';
+import { setStart,setEnd } from '../actions/pathFindingActions';
 function NoiseGeneration() {
 
     const canvasHolder = useRef(null);

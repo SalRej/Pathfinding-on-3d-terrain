@@ -1,10 +1,9 @@
-import React , {useContext , useRef , useEffect} from 'react'
-import worldDataContext from './contex';
+import React , {useRef } from 'react'
 import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
-
+import {useSelector} from 'react-redux';
 function ExportFile() {
 
-    const {THREEScene} = useContext(worldDataContext);
+    const THREEScene = useSelector(state=>state.THREEScene);
     const downloadLink = useRef(null);
     function save( blob, filename ) {
 

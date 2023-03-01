@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRef } from 'react';
-import mapping from '../scripts/mapping';
+import mapping from '../../scripts/mapping';
 import hexRgb from 'hex-rgb';
 import { useDispatch } from 'react-redux';
-import {addColor} from './actions/colorsActions';
+import {addColor} from '../actions/colorsActions';
 function EnterColorForm({setShowForm}) {
 
     const colorHeight = useRef(null);

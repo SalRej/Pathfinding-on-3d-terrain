@@ -1,12 +1,12 @@
 import React from 'react'
-import mapping from '../scripts/mapping';
+import mapping from '../../scripts/mapping';
 import rgbHex from 'rgb-hex';
 
-import useHandleGenerationChange from './hooks/useHandleGenerationChange';
+import useHandleGenerationChange from '../hooks/useHandleGenerationChange';
 import EnterColorForm from './EnterColorForm';
 import { useState } from 'react';
 import { useSelector ,useDispatch } from 'react-redux';
-import { changeColor , changeColorHeight , removeColor} from './actions/colorsActions';
+import { changeColor , changeColorHeight , removeColor} from '../actions/colorsActions';
 
 function ColorsSettings({generationVariables}){
     const colorValues = useSelector(state => state.colorValues);
